@@ -1,0 +1,77 @@
+version: '3.8'
+
+services:
+  # Serviço do Backend (NestJS)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: sgh-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - JWT_SECRET=your-super-secret-jwt-key-here
+      - PORT=3000
+    networks:
+      - sgh-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Serviço do Frontend (React + Nginx)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: sgh-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - sgh-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Banco de dados PostgreSQL (opcional - caso queira usar)
+  # postgres:
+  #   image: postgres:15-alpine
+  #   container_name: sgh-postgres
+  #   environment:
+  #     POSTGRES_DB: sgh_database
+  #     POSTGRES_USER: sgh_user
+  #     POSTGRES_PASSWORD: sgh_password
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - postgres_data:/var/lib/postgresql/data
+  #   networks:
+  #     - sgh-network
+  #   restart: unless-stopped
+
+  # Redis para cache (opcional)
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: sgh-redis
+  #   ports:
+  #     - "6379:6379"
+  #   networks:
+  #     - sgh-network
+  #   restart: unless-stopped
+
+networks:
+  sgh-network:
+    driver: bridge
+
+# volumes:
+#   postgres_data:

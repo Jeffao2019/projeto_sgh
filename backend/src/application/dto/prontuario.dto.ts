@@ -1,0 +1,67 @@
+import {
+  IsDateString,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  IsUUID,
+} from 'class-validator';
+
+export class CreateProntuarioDto {
+  @IsUUID(4, { message: 'ID do paciente deve ser um UUID válido' })
+  @IsNotEmpty({ message: 'ID do paciente é obrigatório' })
+  pacienteId: string;
+
+  @IsUUID(4, { message: 'ID do médico deve ser um UUID válido' })
+  @IsNotEmpty({ message: 'ID do médico é obrigatório' })
+  medicoId: string;
+
+  @IsUUID(4, { message: 'ID do agendamento deve ser um UUID válido' })
+  @IsNotEmpty({ message: 'ID do agendamento é obrigatório' })
+  agendamentoId: string;
+
+  @IsDateString({}, { message: 'Data da consulta deve ser uma data válida' })
+  @IsNotEmpty({ message: 'Data da consulta é obrigatória' })
+  dataConsulta: string;
+
+  @IsString({ message: 'Anamnese deve ser uma string' })
+  @IsNotEmpty({ message: 'Anamnese é obrigatória' })
+  anamnese: string;
+
+  @IsString({ message: 'Exame físico deve ser uma string' })
+  @IsNotEmpty({ message: 'Exame físico é obrigatório' })
+  exameFisico: string;
+
+  @IsString({ message: 'Diagnóstico deve ser uma string' })
+  @IsNotEmpty({ message: 'Diagnóstico é obrigatório' })
+  diagnostico: string;
+
+  @IsString({ message: 'Prescrição deve ser uma string' })
+  @IsNotEmpty({ message: 'Prescrição é obrigatória' })
+  prescricao: string;
+
+  @IsString({ message: 'Observações devem ser uma string' })
+  @IsOptional()
+  observacoes?: string;
+}
+
+export class UpdateProntuarioDto {
+  @IsString({ message: 'Anamnese deve ser uma string' })
+  @IsOptional()
+  anamnese?: string;
+
+  @IsString({ message: 'Exame físico deve ser uma string' })
+  @IsOptional()
+  exameFisico?: string;
+
+  @IsString({ message: 'Diagnóstico deve ser uma string' })
+  @IsOptional()
+  diagnostico?: string;
+
+  @IsString({ message: 'Prescrição deve ser uma string' })
+  @IsOptional()
+  prescricao?: string;
+
+  @IsString({ message: 'Observações devem ser uma string' })
+  @IsOptional()
+  observacoes?: string;
+}
