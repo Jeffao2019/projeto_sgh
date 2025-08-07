@@ -190,7 +190,79 @@ class ApiService {
       localStorage.removeItem("auth_user");
     }
   }
+
+  // Métodos para Pacientes
+  async getPacientes() {
+    return this.get<Paciente[]>(API_CONFIG.ENDPOINTS.PACIENTES.LIST);
+  }
+
+  async getPacienteById(id: string) {
+    return this.get<Paciente>(API_CONFIG.ENDPOINTS.PACIENTES.BY_ID(id));
+  }
+
+  async createPaciente(data: CreatePacienteDTO) {
+    return this.post(API_CONFIG.ENDPOINTS.PACIENTES.CREATE, data);
+  }
+
+  async updatePaciente(id: string, data: Partial<CreatePacienteDTO>) {
+    return this.put<Paciente>(API_CONFIG.ENDPOINTS.PACIENTES.UPDATE(id), data);
+  }
+
+  async deletePaciente(id: string) {
+    return this.delete<void>(API_CONFIG.ENDPOINTS.PACIENTES.DELETE(id));
+  }
+
+  async getPacientesStats() {
+    return this.get<PacienteStats>(API_CONFIG.ENDPOINTS.PACIENTES.STATS);
+  }
 }
 
 // Instância única do serviço
 export const apiService = new ApiService();
+
+// Interfaces necessárias
+interface Paciente {
+  id: string;
+  nome: string;
+  email: string;
+  telefone: string;
+  dataNascimento: string;
+  endereco: {
+    cep: string;
+    logradouro: string;
+    numero: string;
+    complemento?: string;
+    bairro: string;
+    cidade: string;
+    estado: string;
+  };
+  convenio?: string;
+  numeroConvenio?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface CreatePacienteDTO {
+  nome: string;
+  cpf: string;
+  email: string;
+  telefone: string;
+  dataNascimento: string;
+  endereco: {
+    cep: string;
+    logradouro: string;
+    numero: string;
+    complemento?: string;
+    bairro: string;
+    cidade: string;
+    estado: string;
+  };
+  convenio?: string;
+  numeroConvenio?: string;
+}
+
+interface PacienteStats {
+  total: number;
+  ativos: number;
+  novos: number;
+}

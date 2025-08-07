@@ -14,6 +14,7 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Pacientes from "./pages/Pacientes";
 import Prontuarios from "./pages/Prontuarios";
+import CadastroPaciente from "./pages/cadastros/CadastroPaciente";
 
 const queryClient = new QueryClient();
 
@@ -56,6 +57,14 @@ const App = () => (
                 <Configuracoes />
               </ProtectedRoute>
             } />
+            <Route 
+              path="/pacientes/novo" 
+              element={
+                <ProtectedRoute>
+                  <CadastroPaciente />
+                </ProtectedRoute>
+              } 
+            />
             
             {/* Rota de fallback */}
             <Route path="*" element={<NotFound />} />

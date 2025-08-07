@@ -9,9 +9,11 @@ export const API_CONFIG = {
       PROFILE: "/auth/profile",
     },
     PACIENTES: {
-      BASE: "/pacientes",
-      SEARCH: "/pacientes/search",
+      CREATE: "/pacientes",
+      LIST: "/pacientes",
       BY_ID: (id: string) => `/pacientes/${id}`,
+      UPDATE: (id: string) => `/pacientes/${id}`,
+      DELETE: (id: string) => `/pacientes/${id}`
     },
     AGENDAMENTOS: {
       BASE: "/agendamentos",
