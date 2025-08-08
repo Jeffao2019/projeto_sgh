@@ -24,7 +24,7 @@ interface FormData {
   cpf: string;
   email: string;
   telefone: string;
-  datanascimento: string;
+  dataNascimento: string;
   endereco: {
     cep: string;
     logradouro: string;
@@ -44,7 +44,7 @@ export interface Paciente {
   cpf: string;
   email: string;
   telefone: string;
-  datanascimento: string;
+  dataNascimento: string;
   endereco: {
     cep: string;
     logradouro: string;
@@ -68,7 +68,7 @@ export default function CadastroPaciente() {
     cpf: "",
     email: "",
     telefone: "",
-    datanascimento: "",
+    dataNascimento: "",
     endereco: {
       cep: "",
       logradouro: "",
@@ -96,7 +96,7 @@ export default function CadastroPaciente() {
         cpf,
         email,
         telefone,
-        datanascimento,
+        dataNascimento,
         endereco,
         convenio,
         numeroConvenio,
@@ -107,7 +107,7 @@ export default function CadastroPaciente() {
         cpf,
         email,
         telefone,
-        datanascimento,
+        dataNascimento,
         endereco: {
           cep: endereco.cep || "",
           logradouro: endereco.logradouro || "",
@@ -138,7 +138,7 @@ export default function CadastroPaciente() {
         cpf: formData.cpf,
         email: formData.email,
         telefone: formData.telefone,
-        datanascimento: formatDateToISO(formData.datanascimento),
+        dataNascimento: formatDateToISO(formData.dataNascimento),
         endereco: formData.endereco,
         convenio: formData.convenio || undefined,
         numeroConvenio: formData.numeroConvenio || undefined,
@@ -239,12 +239,12 @@ export default function CadastroPaciente() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="datanascimento">Data de Nascimento*</Label>
+              <Label htmlFor="dataNascimento">Data de Nascimento*</Label>
               <Input
-                id="datanascimento"
-                name="datanascimento"
+                id="dataNascimento"
+                name="dataNascimento"
                 type="date"
-                value={formData.datanascimento}
+                value={formData.dataNascimento}
                 onChange={handleInputChange}
                 required
                 max={new Date().toISOString().split('T')[0]} // Prevents future dates

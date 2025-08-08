@@ -1,15 +1,17 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AlertCircle } from "lucide-react";
 import { apiService } from "@/lib/api-service";
-import { CreatePacienteDTO } from "@/types/paciente";
 import { toast } from "sonner";
+import { CreatePacienteDTO } from "@/types/pacientes";
+import { format } from 'date-fns';
 
 export function PacienteForm() {
   const navigate = useNavigate();
+  const { pacienteId } = useParams();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState<CreatePacienteDTO>({
     nome: "",
@@ -26,6 +28,54 @@ export function PacienteForm() {
       estado: ""
     }
   });
+
+  useEffect(() => {
+    if (pacienteId) {
+      loadPaciente(pacienteId);
+    }
+  }, [pacienteId]);
+
+  const loadPaciente = async (pacienteId: string) => {
+    setIsLoading(true);
+    try {
+      const data = await apiService.getPacienteById(pacienteId);
+      const {
+        nome,
+        cpf,
+        email,
+        telefone,
+        dataNascimento,
+        endereco,
+        convenio,
+        numeroConvenio,
+      } = data;
+
+      // Format the dataNascimento field to yyyy-MM-dd
+      const formattedDataNascimento = dataNascimento ? format(new Date(dataNascimento), 'yyyy-MM-dd') : '';
+
+      setFormData({
+        nome,
+        cpf,
+        email,
+        telefone,
+        dataNascimento: formattedDataNascimento,
+        endereco: {
+          cep: endereco.cep || "",
+          logradouro: endereco.logradouro || "",
+          numero: endereco.numero || "",
+          bairro: endereco.bairro || "",
+          cidade: endereco.cidade || "",
+          estado: endereco.estado || "",
+        },
+        convenio: convenio || "",
+        numeroConvenio: numeroConvenio || "",
+      });
+    } catch (error) {
+      toast.error("Erro ao carregar dados do paciente");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -91,6 +141,7 @@ export function PacienteForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      dados: {formData && JSON.stringify(formData)} 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
           <Label htmlFor="nome">Nome completo*</Label>

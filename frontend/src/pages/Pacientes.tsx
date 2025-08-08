@@ -38,7 +38,7 @@ export default function Pacientes() {
         cpf: item.cpf,
         email: item.email,
         telefone: item.telefone,
-        datanascimento: item.datanascimento,
+        dataNascimento: item.dataNascimento,
         endereco: item.endereco,
         convenio: item.convenio,
         numeroConvenio: item.numeroConvenio,
