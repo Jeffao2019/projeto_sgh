@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Mail, Phone, Plus, Search, Users } from "lucide-react";
 import { apiService } from "@/lib/api-service";
 import { toast } from "sonner";
-import { Paciente } from "@/types/paciente";
+import { Paciente } from "@/types/pacientes";
 import { formatPhoneNumber } from "@/utils/format";
 import { FilterPatientsDialog } from "@/components/dialogs/FilterPatientsDialog";
 
@@ -31,7 +31,21 @@ export default function Pacientes() {
     setIsLoading(true);
     try {
       const data = await apiService.getPacientes();
-      setPacientes(data);
+      // Ensure all required Paciente properties are present
+      const pacientesData: Paciente[] = data.map((item: any) => ({
+        id: item.id,
+        nome: item.nome,
+        cpf: item.cpf,
+        email: item.email,
+        telefone: item.telefone,
+        datanascimento: item.datanascimento,
+        endereco: item.endereco,
+        convenio: item.convenio,
+        numeroConvenio: item.numeroConvenio,
+        createdAt: item.createdAt,
+        updatedAt: item.updatedAt,
+      }));
+      setPacientes(pacientesData);
     } catch (error: any) {
       toast.error("Erro ao carregar pacientes");
     } finally {
@@ -39,22 +53,35 @@ export default function Pacientes() {
     }
   };
 
-  const filteredPacientes = pacientes.filter((paciente) => {
-    const matchesSearch = paciente.nome
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
+  const filteredPacientes = pacientes
+    .map(
+      ({ id, nome, cpf, email, telefone, endereco, convenio, numeroConvenio }) => ({
+        id,
+        nome,
+        cpf,
+        email,
+        telefone,
+        endereco,
+        convenio,
+        numeroConvenio,
+      })
+    )
+    .filter((paciente) => {
+      const matchesSearch = paciente.nome
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
 
-    const matchesNome =
-      !filters.nome ||
-      paciente.nome.toLowerCase().includes(filters.nome.toLowerCase());
+      const matchesNome =
+        !filters.nome ||
+        paciente.nome.toLowerCase().includes(filters.nome.toLowerCase());
 
-    const matchesCpf = !filters.cpf || paciente.cpf.includes(filters.cpf);
+      const matchesCpf = !filters.cpf || paciente.cpf.includes(filters.cpf);
 
-    const matchesConvenio =
-      !filters.convenio || paciente.convenio === filters.convenio;
+      const matchesConvenio =
+        !filters.convenio || paciente.convenio === filters.convenio;
 
-    return matchesSearch && matchesNome && matchesCpf && matchesConvenio;
-  });
+      return matchesSearch && matchesNome && matchesCpf && matchesConvenio;
+    });
 
   const handleFilterChange = (newFilters: typeof filters) => {
     setFilters(newFilters);
@@ -169,7 +196,11 @@ export default function Pacientes() {
                     <Button variant="outline" size="sm">
                       Ver Prontuário
                     </Button>
-                    <Button variant="secondary" size="sm">
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onClick={() => navigate(`/pacientes/${paciente.id}/editar`)}
+                    >
                       Editar
                     </Button>
                   </div>

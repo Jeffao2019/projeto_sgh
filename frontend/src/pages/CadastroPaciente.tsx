@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -9,12 +9,22 @@ import { toast } from "sonner";
 import { apiService } from "@/lib/api-service";
 import { formatPhoneNumber } from "@/utils/format";
 
+const formatDateToISO = (date: string) => {
+  if (!date) return '';
+  return new Date(date).toISOString().split('T')[0];
+};
+
+const formatDateFromISO = (isoDate: string) => {
+  if (!isoDate) return '';
+  return isoDate.split('T')[0];
+};
+
 interface FormData {
   nome: string;
   cpf: string;
   email: string;
   telefone: string;
-  dataNascimento: string;
+  datanascimento: string;
   endereco: {
     cep: string;
     logradouro: string;
@@ -28,15 +38,37 @@ interface FormData {
   numeroConvenio?: string;
 }
 
+export interface Paciente {
+  id: string;
+  nome: string;
+  cpf: string;
+  email: string;
+  telefone: string;
+  datanascimento: string;
+  endereco: {
+    cep: string;
+    logradouro: string;
+    numero: string;
+    complemento: string;
+    bairro: string;
+    cidade: string;
+    estado: string;
+  };
+  convenio: string;
+  numeroConvenio: string;
+}
+
 export default function CadastroPaciente() {
+  const { id } = useParams();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  
   const [formData, setFormData] = useState<FormData>({
     nome: "",
     cpf: "",
     email: "",
     telefone: "",
-    dataNascimento: "",
+    datanascimento: "",
     endereco: {
       cep: "",
       logradouro: "",
@@ -44,20 +76,84 @@ export default function CadastroPaciente() {
       bairro: "",
       cidade: "",
       estado: "",
-    }
+    },
+    convenio: "",
+    numeroConvenio: "",
   });
+
+  useEffect(() => {
+    if (id) {
+      loadPaciente(id);
+    }
+  }, [id]);
+
+  const loadPaciente = async (pacienteId: string) => {
+    setIsLoading(true);
+    try {
+      const data = await apiService.getPacienteById(pacienteId);
+      const {
+        nome,
+        cpf,
+        email,
+        telefone,
+        datanascimento,
+        endereco,
+        convenio,
+        numeroConvenio,
+      } = data;
+
+      setFormData({
+        nome,
+        cpf,
+        email,
+        telefone,
+        datanascimento,
+        endereco: {
+          cep: endereco.cep || "",
+          logradouro: endereco.logradouro || "",
+          numero: endereco.numero || "",
+          complemento: endereco.complemento || "",
+          bairro: endereco.bairro || "",
+          cidade: endereco.cidade || "",
+          estado: endereco.estado || "",
+        },
+        convenio: convenio || "",
+        numeroConvenio: numeroConvenio || "",
+      });
+    } catch (error) {
+      toast.error("Erro ao carregar dados do paciente");
+      navigate("/pacientes");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      await apiService.createPaciente(formData);
-      toast.success("Paciente cadastrado com sucesso!");
+      const submissionData = {
+        nome: formData.nome,
+        cpf: formData.cpf,
+        email: formData.email,
+        telefone: formData.telefone,
+        datanascimento: formatDateToISO(formData.datanascimento),
+        endereco: formData.endereco,
+        convenio: formData.convenio || undefined,
+        numeroConvenio: formData.numeroConvenio || undefined,
+      };
+
+      if (id) {
+        await apiService.updatePaciente(id, submissionData);
+        toast.success("Paciente atualizado com sucesso!");
+      } else {
+        await apiService.createPaciente(submissionData);
+        toast.success("Paciente cadastrado com sucesso!");
+      }
       navigate("/pacientes");
     } catch (error: any) {
-      const message = error.response?.data?.message || "Erro ao cadastrar paciente";
-      toast.error(message);
+      toast.error(error.message || "Erro ao salvar paciente");
     } finally {
       setIsLoading(false);
     }
@@ -90,8 +186,8 @@ export default function CadastroPaciente() {
 
   return (
     <DashboardLayout
-      title="Novo Paciente"
-      subtitle="Cadastre um novo paciente no sistema"
+      title={id ? "Editar Paciente" : "Novo Paciente"}
+      subtitle={id ? "Altere as informações do paciente" : "Cadastre um novo paciente no sistema"}
     >
       <Card className="p-6">
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -143,14 +239,15 @@ export default function CadastroPaciente() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="dataNascimento">Data de Nascimento*</Label>
+              <Label htmlFor="datanascimento">Data de Nascimento*</Label>
               <Input
-                id="dataNascimento"
-                name="dataNascimento"
+                id="datanascimento"
+                name="datanascimento"
                 type="date"
-                value={formData.dataNascimento}
+                value={formData.datanascimento}
                 onChange={handleInputChange}
                 required
+                max={new Date().toISOString().split('T')[0]} // Prevents future dates
               />
             </div>
 

@@ -14,7 +14,7 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Pacientes from "./pages/Pacientes";
 import Prontuarios from "./pages/Prontuarios";
-import CadastroPaciente from "./pages/cadastros/CadastroPaciente";
+import CadastroPaciente from "./pages/CadastroPaciente";
 
 const queryClient = new QueryClient();
 
@@ -59,6 +59,14 @@ const App = () => (
             } />
             <Route 
               path="/pacientes/novo" 
+              element={
+                <ProtectedRoute>
+                  <CadastroPaciente />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/pacientes/:id/editar" 
               element={
                 <ProtectedRoute>
                   <CadastroPaciente />

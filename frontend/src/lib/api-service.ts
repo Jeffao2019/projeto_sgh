@@ -1,4 +1,5 @@
 import { API_CONFIG } from "./api-config";
+import { Paciente, CreatePacienteDTO } from "@/types/pacientes";
 
 // Tipos para as requisições
 export interface LoginRequest {
@@ -201,7 +202,7 @@ class ApiService {
   }
 
   async createPaciente(data: CreatePacienteDTO) {
-    return this.post(API_CONFIG.ENDPOINTS.PACIENTES.CREATE, data);
+    return this.post<Paciente>(API_CONFIG.ENDPOINTS.PACIENTES.CREATE, data);
   }
 
   async updatePaciente(id: string, data: Partial<CreatePacienteDTO>) {
@@ -220,49 +221,3 @@ class ApiService {
 // Instância única do serviço
 export const apiService = new ApiService();
 
-// Interfaces necessárias
-interface Paciente {
-  id: string;
-  nome: string;
-  email: string;
-  telefone: string;
-  dataNascimento: string;
-  endereco: {
-    cep: string;
-    logradouro: string;
-    numero: string;
-    complemento?: string;
-    bairro: string;
-    cidade: string;
-    estado: string;
-  };
-  convenio?: string;
-  numeroConvenio?: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
-interface CreatePacienteDTO {
-  nome: string;
-  cpf: string;
-  email: string;
-  telefone: string;
-  dataNascimento: string;
-  endereco: {
-    cep: string;
-    logradouro: string;
-    numero: string;
-    complemento?: string;
-    bairro: string;
-    cidade: string;
-    estado: string;
-  };
-  convenio?: string;
-  numeroConvenio?: string;
-}
-
-interface PacienteStats {
-  total: number;
-  ativos: number;
-  novos: number;
-}
