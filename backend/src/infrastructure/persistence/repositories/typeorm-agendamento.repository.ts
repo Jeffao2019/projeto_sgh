@@ -12,8 +12,16 @@ export class TypeOrmAgendamentoRepository implements AgendamentoRepository {
     private readonly repository: Repository<AgendamentoEntity>,
   ) {}
 
-  async create(agendamento: Omit<Agendamento, 'id' | 'createdAt' | 'updatedAt' | 'isActive'>): Promise<Agendamento> {
-    const entity = this.repository.create(agendamento);
+  async create(agendamento: Agendamento): Promise<Agendamento> {
+    const entity = this.repository.create({
+      pacienteId: agendamento.pacienteId,
+      medicoId: agendamento.medicoId,
+      dataHora: agendamento.dataHora,
+      tipo: agendamento.tipo,
+      status: agendamento.status,
+      observacoes: agendamento.observacoes,
+      isActive: true,
+    });
     const savedEntity = await this.repository.save(entity);
     return this.toDomain(savedEntity);
   }
@@ -66,7 +74,15 @@ export class TypeOrmAgendamentoRepository implements AgendamentoRepository {
   }
 
   async update(agendamento: Agendamento): Promise<Agendamento> {
-    await this.repository.update(agendamento.id, agendamento);
+    await this.repository.update(agendamento.id, {
+      pacienteId: agendamento.pacienteId,
+      medicoId: agendamento.medicoId,
+      dataHora: agendamento.dataHora,
+      tipo: agendamento.tipo,
+      status: agendamento.status,
+      observacoes: agendamento.observacoes,
+      updatedAt: new Date(),
+    });
     const entity = await this.repository.findOne({ 
       where: { id: agendamento.id },
       relations: ['paciente', 'medico']

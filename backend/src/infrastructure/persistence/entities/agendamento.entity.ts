@@ -24,13 +24,21 @@ export class AgendamentoEntity {
   @Column({ type: 'timestamp' })
   dataHora: Date;
 
-  @Column({ type: 'enum', enum: ['CONSULTA', 'EXAME', 'RETORNO'], default: 'CONSULTA' })
+  @Column({ 
+    type: 'enum', 
+    enum: ['CONSULTA_GERAL', 'CONSULTA_ESPECIALISTA', 'EXAME', 'TELEMEDICINA', 'RETORNO'], 
+    default: 'CONSULTA_GERAL' 
+  })
   tipo: string;
 
   @Column({ type: 'varchar', length: 500, nullable: true })
   observacoes?: string;
 
-  @Column({ type: 'enum', enum: ['AGENDADO', 'CONFIRMADO', 'CANCELADO', 'REALIZADO'], default: 'AGENDADO' })
+  @Column({ 
+    type: 'enum', 
+    enum: ['AGENDADO', 'CONFIRMADO', 'CANCELADO', 'FINALIZADO', 'REAGENDADO', 'FALTOU'], 
+    default: 'AGENDADO' 
+  })
   status: string;
 
   @Column({ type: 'boolean', default: true })

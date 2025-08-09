@@ -10,8 +10,8 @@ export default registerAs('database', () => ({
   ssl: process.env.DB_SSL === 'true' ? { rejectUnauthorized: false } : false,
   synchronize: process.env.DB_SYNCHRONIZE === 'true',
   logging: process.env.DB_LOGGING === 'true',
-  entities: [__dirname + '/../../../**/*.entity{.ts,.js}'],
-  migrations: [__dirname + '/migrations/*{.ts,.js}'],
+  entities: [__dirname + '/entities/*.js'],
+  migrations: [__dirname + '/migrations/*.js'],
   migrationsRun: false,
   autoLoadEntities: true,
 }));

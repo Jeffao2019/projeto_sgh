@@ -1,15 +1,37 @@
+import { randomUUID } from 'crypto';
+
 export class User {
+  public readonly id: string;
+  public readonly email: string;
+  public readonly password: string;
+  public readonly nome: string;
+  public readonly role: UserRole;
+  public readonly telefone: string | null;
+  public readonly createdAt: Date;
+  public readonly updatedAt: Date;
+  public readonly isActive: boolean;
+
   constructor(
-    public readonly id: string,
-    public readonly email: string,
-    public readonly password: string,
-    public readonly nome: string,
-    public readonly role: UserRole,
-    public readonly telefone: string | null,
-    public readonly createdAt: Date,
-    public readonly updatedAt: Date,
-    public readonly isActive: boolean = true,
-  ) {}
+    id: string,
+    email: string,
+    password: string,
+    nome: string,
+    role: UserRole,
+    telefone: string | null,
+    createdAt: Date,
+    updatedAt: Date,
+    isActive: boolean = true,
+  ) {
+    this.id = id;
+    this.email = email;
+    this.password = password;
+    this.nome = nome;
+    this.role = role;
+    this.telefone = telefone;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+    this.isActive = isActive;
+  }
 
   public static create(
     email: string,
@@ -19,7 +41,7 @@ export class User {
     telefone?: string,
   ): User {
     return new User(
-      crypto.randomUUID(),
+      randomUUID(),
       email,
       password,
       nome,
@@ -60,9 +82,11 @@ export class User {
   }
 }
 
-export enum UserRole {
-  MEDICO = 'MEDICO',
-  ENFERMEIRO = 'ENFERMEIRO',
-  RECEPCIONISTA = 'RECEPCIONISTA',
-  ADMIN = 'ADMIN',
-}
+export const UserRole = {
+  MEDICO: 'MEDICO',
+  ENFERMEIRO: 'ENFERMEIRO', 
+  RECEPCIONISTA: 'RECEPCIONISTA',
+  ADMIN: 'ADMIN',
+} as const;
+
+export type UserRole = typeof UserRole[keyof typeof UserRole];

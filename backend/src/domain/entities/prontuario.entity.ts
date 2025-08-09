@@ -1,18 +1,46 @@
+import { randomUUID } from 'crypto';
+
 export class Prontuario {
+  public readonly id: string;
+  public readonly pacienteId: string;
+  public readonly medicoId: string;
+  public readonly agendamentoId: string;
+  public readonly dataConsulta: Date;
+  public readonly anamnese: string;
+  public readonly exameFisico: string;
+  public readonly diagnostico: string;
+  public readonly prescricao: string;
+  public readonly observacoes?: string;
+  public readonly createdAt: Date;
+  public readonly updatedAt: Date;
+
   constructor(
-    public readonly id: string,
-    public readonly pacienteId: string,
-    public readonly medicoId: string,
-    public readonly agendamentoId: string,
-    public readonly dataConsulta: Date,
-    public readonly anamnese: string,
-    public readonly exameFisico: string,
-    public readonly diagnostico: string,
-    public readonly prescricao: string,
-    public readonly observacoes?: string,
-    public readonly createdAt: Date = new Date(),
-    public readonly updatedAt: Date = new Date(),
-  ) {}
+    id: string,
+    pacienteId: string,
+    medicoId: string,
+    agendamentoId: string,
+    dataConsulta: Date,
+    anamnese: string,
+    exameFisico: string,
+    diagnostico: string,
+    prescricao: string,
+    observacoes?: string,
+    createdAt: Date = new Date(),
+    updatedAt: Date = new Date(),
+  ) {
+    this.id = id;
+    this.pacienteId = pacienteId;
+    this.medicoId = medicoId;
+    this.agendamentoId = agendamentoId;
+    this.dataConsulta = dataConsulta;
+    this.anamnese = anamnese;
+    this.exameFisico = exameFisico;
+    this.diagnostico = diagnostico;
+    this.prescricao = prescricao;
+    this.observacoes = observacoes;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
 
   public static create(
     pacienteId: string,
@@ -26,7 +54,7 @@ export class Prontuario {
     observacoes?: string,
   ): Prontuario {
     return new Prontuario(
-      crypto.randomUUID(),
+      randomUUID(),
       pacienteId,
       medicoId,
       agendamentoId,

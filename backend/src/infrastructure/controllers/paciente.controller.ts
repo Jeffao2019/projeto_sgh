@@ -33,7 +33,15 @@ export class PacienteController {
   async create(
     @Body(ValidationPipe) createPacienteDto: CreatePacienteDto,
   ): Promise<Paciente> {
-    return await this.pacienteUseCase.create(createPacienteDto);
+    try {
+      console.log('Dados recebidos:', createPacienteDto);
+      const result = await this.pacienteUseCase.create(createPacienteDto);
+      console.log('Paciente criado com sucesso:', result.id);
+      return result;
+    } catch (error) {
+      console.error('Erro ao criar paciente:', error);
+      throw error;
+    }
   }
 
   @Get()

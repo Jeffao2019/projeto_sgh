@@ -1,15 +1,37 @@
+import { randomUUID } from 'crypto';
+
 export class Agendamento {
+  public readonly id: string;
+  public readonly pacienteId: string;
+  public readonly medicoId: string;
+  public readonly dataHora: Date;
+  public readonly tipo: TipoConsulta;
+  public readonly status: StatusAgendamento;
+  public readonly observacoes?: string;
+  public readonly createdAt: Date;
+  public readonly updatedAt: Date;
+
   constructor(
-    public readonly id: string,
-    public readonly pacienteId: string,
-    public readonly medicoId: string,
-    public readonly dataHora: Date,
-    public readonly tipo: TipoConsulta,
-    public readonly status: StatusAgendamento,
-    public readonly observacoes?: string,
-    public readonly createdAt: Date = new Date(),
-    public readonly updatedAt: Date = new Date(),
-  ) {}
+    id: string,
+    pacienteId: string,
+    medicoId: string,
+    dataHora: Date,
+    tipo: TipoConsulta,
+    status: StatusAgendamento,
+    observacoes?: string,
+    createdAt: Date = new Date(),
+    updatedAt: Date = new Date(),
+  ) {
+    this.id = id;
+    this.pacienteId = pacienteId;
+    this.medicoId = medicoId;
+    this.dataHora = dataHora;
+    this.tipo = tipo;
+    this.status = status;
+    this.observacoes = observacoes;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
+  }
 
   public static create(
     pacienteId: string,
@@ -19,7 +41,7 @@ export class Agendamento {
     observacoes?: string,
   ): Agendamento {
     return new Agendamento(
-      crypto.randomUUID(),
+      randomUUID(),
       pacienteId,
       medicoId,
       dataHora,
@@ -86,19 +108,23 @@ export class Agendamento {
   }
 }
 
-export enum TipoConsulta {
-  CONSULTA_GERAL = 'CONSULTA_GERAL',
-  CONSULTA_ESPECIALISTA = 'CONSULTA_ESPECIALISTA',
-  EXAME = 'EXAME',
-  TELEMEDICINA = 'TELEMEDICINA',
-  RETORNO = 'RETORNO',
-}
+export const TipoConsulta = {
+  CONSULTA_GERAL: 'CONSULTA_GERAL',
+  CONSULTA_ESPECIALISTA: 'CONSULTA_ESPECIALISTA',
+  EXAME: 'EXAME',
+  TELEMEDICINA: 'TELEMEDICINA',
+  RETORNO: 'RETORNO',
+} as const;
 
-export enum StatusAgendamento {
-  AGENDADO = 'AGENDADO',
-  CONFIRMADO = 'CONFIRMADO',
-  CANCELADO = 'CANCELADO',
-  FINALIZADO = 'FINALIZADO',
-  REAGENDADO = 'REAGENDADO',
-  FALTOU = 'FALTOU',
-}
+export type TipoConsulta = typeof TipoConsulta[keyof typeof TipoConsulta];
+
+export const StatusAgendamento = {
+  AGENDADO: 'AGENDADO',
+  CONFIRMADO: 'CONFIRMADO',
+  CANCELADO: 'CANCELADO',
+  FINALIZADO: 'FINALIZADO',
+  REAGENDADO: 'REAGENDADO',
+  FALTOU: 'FALTOU',
+} as const;
+
+export type StatusAgendamento = typeof StatusAgendamento[keyof typeof StatusAgendamento];

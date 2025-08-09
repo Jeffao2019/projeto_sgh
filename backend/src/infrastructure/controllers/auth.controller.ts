@@ -53,7 +53,15 @@ export class AuthController {
   async registerWeb(
     @Body(ValidationPipe) registerUserDto: RegisterUserDto,
   ): Promise<LoginResponseDto> {
-    return await this.authUseCase.registerWithValidation(registerUserDto);
+    try {
+      console.log('Dados de registro recebidos:', registerUserDto);
+      const result = await this.authUseCase.registerWithValidation(registerUserDto);
+      console.log('Usuário registrado com sucesso:', result.user.id);
+      return result;
+    } catch (error) {
+      console.error('Erro no registro:', error);
+      throw error;
+    }
   }
 
   @Post('login')

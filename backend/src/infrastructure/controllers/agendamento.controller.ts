@@ -71,6 +71,11 @@ export class AgendamentoController {
     );
   }
 
+  @Get('para-prontuario')
+  async findAgendamentosParaProntuario(): Promise<Agendamento[]> {
+    return await this.agendamentoUseCase.findAgendamentosParaProntuario();
+  }
+
   @Get(':id')
   async findById(@Param('id') id: string): Promise<Agendamento> {
     return await this.agendamentoUseCase.findById(id);

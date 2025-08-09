@@ -16,13 +16,11 @@ export interface Prontuario {
     id: string;
     nome: string;
     cpf: string;
-    email: string;
   };
   medico?: {
     id: string;
     nome: string;
-    especialidade: string;
-    crm: string;
+    email: string;
   };
   agendamento?: {
     id: string;

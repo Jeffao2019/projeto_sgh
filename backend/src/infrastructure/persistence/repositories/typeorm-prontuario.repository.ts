@@ -13,7 +13,18 @@ export class TypeOrmProntuarioRepository implements ProntuarioRepository {
   ) {}
 
   async create(prontuario: Prontuario): Promise<Prontuario> {
-    const entity = this.repository.create(prontuario);
+    const entity = this.repository.create({
+      pacienteId: prontuario.pacienteId,
+      medicoId: prontuario.medicoId,
+      agendamentoId: prontuario.agendamentoId || null,
+      dataConsulta: prontuario.dataConsulta,
+      queixaPrincipal: prontuario.anamnese,
+      historiaDoencaAtual: '', // Campo não usado no domínio atual
+      exameFisico: prontuario.exameFisico,
+      diagnostico: prontuario.diagnostico,
+      prescricao: prontuario.prescricao,
+      observacoes: prontuario.observacoes,
+    });
     const savedEntity = await this.repository.save(entity);
     return this.toDomain(savedEntity);
   }
@@ -62,7 +73,18 @@ export class TypeOrmProntuarioRepository implements ProntuarioRepository {
   }
 
   async update(prontuario: Prontuario): Promise<Prontuario> {
-    await this.repository.update(prontuario.id, prontuario);
+    await this.repository.update(prontuario.id, {
+      pacienteId: prontuario.pacienteId,
+      medicoId: prontuario.medicoId,
+      agendamentoId: prontuario.agendamentoId || null,
+      dataConsulta: prontuario.dataConsulta,
+      queixaPrincipal: prontuario.anamnese,
+      historiaDoencaAtual: '', // Campo não usado no domínio atual
+      exameFisico: prontuario.exameFisico,
+      diagnostico: prontuario.diagnostico,
+      prescricao: prontuario.prescricao,
+      observacoes: prontuario.observacoes,
+    });
     const entity = await this.repository.findOne({ 
       where: { id: prontuario.id },
       relations: ['paciente', 'medico']
@@ -75,6 +97,38 @@ export class TypeOrmProntuarioRepository implements ProntuarioRepository {
     await this.repository.update(id, { isActive: false });
   }
 
+  async findAllWithRelations(): Promise<any[]> {
+    const entities = await this.repository.find({ 
+      where: { isActive: true },
+      relations: ['paciente', 'medico'],
+      order: { dataConsulta: 'DESC' }
+    });
+    return entities.map(entity => ({
+      id: entity.id,
+      pacienteId: entity.pacienteId,
+      medicoId: entity.medicoId,
+      agendamentoId: entity.agendamentoId || '',
+      dataConsulta: entity.dataConsulta,
+      anamnese: entity.queixaPrincipal || '',
+      exameFisico: entity.exameFisico || '',
+      diagnostico: entity.diagnostico || '',
+      prescricao: entity.prescricao || '',
+      observacoes: entity.observacoes || '',
+      createdAt: entity.createdAt,
+      updatedAt: entity.updatedAt,
+      paciente: entity.paciente ? {
+        id: entity.paciente.id,
+        nome: entity.paciente.nome,
+        cpf: entity.paciente.cpf
+      } : null,
+      medico: entity.medico ? {
+        id: entity.medico.id,
+        nome: entity.medico.nome,
+        email: entity.medico.email
+      } : null
+    }));
+  }
+
   private toDomain(entity: ProntuarioEntity): Prontuario {
     return new Prontuario(
       entity.id,
@@ -82,7 +136,7 @@ export class TypeOrmProntuarioRepository implements ProntuarioRepository {
       entity.medicoId,
       entity.agendamentoId || '',
       entity.dataConsulta,
-      entity.queixaPrincipal + ' - ' + entity.historiaDoencaAtual, // anamnese
+      entity.queixaPrincipal || '', // anamnese
       entity.exameFisico || '',
       entity.diagnostico || '',
       entity.prescricao || '',

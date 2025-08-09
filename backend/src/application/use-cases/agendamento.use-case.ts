@@ -164,4 +164,12 @@ export class AgendamentoUseCase {
     await this.findById(id); // Verificar se existe
     await this.agendamentoRepository.delete(id);
   }
+
+  async findAgendamentosParaProntuario(): Promise<Agendamento[]> {
+    // Buscar agendamentos confirmados que ainda não têm prontuário
+    const agendamentos = await this.agendamentoRepository.findAll();
+    return agendamentos.filter(agendamento => 
+      agendamento.status === 'CONFIRMADO' || agendamento.status === 'FINALIZADO'
+    );
+  }
 }

@@ -25,14 +25,18 @@ export const API_CONFIG = {
         `/agendamentos/paciente/${pacienteId}`,
       BY_MEDICO: (medicoId: string) => `/agendamentos/medico/${medicoId}`,
       BY_ID: (id: string) => `/agendamentos/${id}`,
+      PARA_PRONTUARIO: "/agendamentos/para-prontuario",
       CONFIRMAR: (id: string) => `/agendamentos/${id}/confirmar`,
       CANCELAR: (id: string) => `/agendamentos/${id}/cancelar`,
       FINALIZAR: (id: string) => `/agendamentos/${id}/finalizar`,
     },
     PRONTUARIOS: {
       BASE: "/prontuarios",
+      WITH_RELATIONS: "/prontuarios/with-relations",
       BY_PACIENTE: (pacienteId: string) =>
         `/prontuarios/paciente/${pacienteId}`,
+      BY_PACIENTE_WITH_RELATIONS: (pacienteId: string) =>
+        `/prontuarios/paciente/${pacienteId}/with-relations`,
       BY_MEDICO: (medicoId: string) => `/prontuarios/medico/${medicoId}`,
       BY_AGENDAMENTO: (agendamentoId: string) =>
         `/prontuarios/agendamento/${agendamentoId}`,

@@ -13,7 +13,16 @@ export class TypeOrmUserRepository implements UserRepository {
   ) {}
 
   async create(user: User): Promise<User> {
-    const entity = this.repository.create(user);
+    const entity = this.repository.create({
+      id: user.id,
+      nome: user.nome,
+      email: user.email,
+      senha: user.password, // Mapeamento correto: password -> senha
+      papel: user.role,
+      isActive: user.isActive,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    });
     const savedEntity = await this.repository.save(entity);
     return this.toDomain(savedEntity);
   }
@@ -41,7 +50,14 @@ export class TypeOrmUserRepository implements UserRepository {
   }
 
   async update(user: User): Promise<User> {
-    await this.repository.update(user.id, user);
+    await this.repository.update(user.id, {
+      nome: user.nome,
+      email: user.email,
+      senha: user.password, // Mapeamento correto: password -> senha
+      papel: user.role,
+      isActive: user.isActive,
+      updatedAt: user.updatedAt,
+    });
     const entity = await this.repository.findOne({ where: { id: user.id } });
     if (!entity) throw new Error('User not found');
     return this.toDomain(entity);

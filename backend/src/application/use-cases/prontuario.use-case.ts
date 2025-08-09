@@ -134,6 +134,22 @@ export class ProntuarioUseCase {
     return await this.prontuarioRepository.findAll(page, limit);
   }
 
+  async findAllWithRelations(): Promise<any[]> {
+    return await (this.prontuarioRepository as any).findAllWithRelations();
+  }
+
+  async findByPacienteIdWithRelations(pacienteId: string): Promise<any[]> {
+    // Verificar se paciente existe
+    const paciente = await this.pacienteRepository.findById(pacienteId);
+    if (!paciente) {
+      throw new NotFoundException('Paciente não encontrado');
+    }
+
+    // Buscar todos os prontuários com relações e filtrar pelo paciente
+    const allProntuarios = await (this.prontuarioRepository as any).findAllWithRelations();
+    return allProntuarios.filter((prontuario: any) => prontuario.pacienteId === pacienteId);
+  }
+
   async update(
     id: string,
     updateProntuarioDto: UpdateProntuarioDto,

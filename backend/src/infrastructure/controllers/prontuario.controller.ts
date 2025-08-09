@@ -46,6 +46,18 @@ export class ProntuarioController {
     return await this.prontuarioUseCase.findAll(pageNumber, limitNumber);
   }
 
+  @Get('with-relations')
+  async findAllWithRelations(): Promise<any[]> {
+    return await this.prontuarioUseCase.findAllWithRelations();
+  }
+
+  @Get('paciente/:pacienteId/with-relations')
+  async findByPacienteIdWithRelations(
+    @Param('pacienteId') pacienteId: string,
+  ): Promise<any[]> {
+    return await this.prontuarioUseCase.findByPacienteIdWithRelations(pacienteId);
+  }
+
   @Get('paciente/:pacienteId')
   async findByPacienteId(
     @Param('pacienteId') pacienteId: string,

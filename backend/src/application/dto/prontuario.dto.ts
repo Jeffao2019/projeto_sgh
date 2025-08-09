@@ -65,3 +65,30 @@ export class UpdateProntuarioDto {
   @IsOptional()
   observacoes?: string;
 }
+
+export class ProntuarioResponseDto {
+  id: string;
+  pacienteId: string;
+  medicoId: string;
+  agendamentoId: string;
+  dataConsulta: Date;
+  anamnese: string;
+  exameFisico: string;
+  diagnostico: string;
+  prescricao: string;
+  observacoes?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  
+  // Dados relacionados
+  paciente?: {
+    id: string;
+    nome: string;
+    cpf: string;
+  };
+  medico?: {
+    id: string;
+    nome: string;
+    email: string;
+  };
+}

@@ -17,7 +17,7 @@ export default new DataSource({
   ssl: configService.get('DB_SSL') === 'true' ? { rejectUnauthorized: false } : false,
   synchronize: false, // Never use synchronize in production
   logging: configService.get('DB_LOGGING') === 'true',
-  entities: ['src/**/*.entity{.ts,.js}'],
-  migrations: ['src/infrastructure/persistence/migrations/*{.ts,.js}'],
+  entities: [__dirname + '/entities/*.js'],
+  migrations: [__dirname + '/migrations/*.js'],
   migrationsTableName: 'migrations',
 });

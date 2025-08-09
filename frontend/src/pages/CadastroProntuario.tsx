@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { DashboardLayout } from "@/components/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -18,6 +18,7 @@ import { apiService } from "@/lib/api-service";
 import { CreateProntuarioDTO, Prontuario } from "@/types/prontuarios";
 import { Paciente } from "@/types/pacientes";
 import { Medico } from "@/types/medicos";
+import { Agendamento } from "@/types/agendamentos";
 
 interface FormData {
   pacienteId: string;
@@ -34,9 +35,16 @@ interface FormData {
 export default function CadastroProntuario() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
   const [pacientes, setPacientes] = useState<Paciente[]>([]);
   const [medicos, setMedicos] = useState<Medico[]>([]);
+  const [agendamentos, setAgendamentos] = useState<Agendamento[]>([]);
+  
+  // Determinar se está em modo de visualização ou edição
+  const isViewMode = id && id !== 'novo' && !location.pathname.includes('/editar');
+  const isEditMode = id && id !== 'novo' && location.pathname.includes('/editar');
+  const isCreateMode = !id || id === 'novo';
   
   const [formData, setFormData] = useState<FormData>({
     pacienteId: "",
@@ -53,6 +61,7 @@ export default function CadastroProntuario() {
   useEffect(() => {
     loadPacientes();
     loadMedicos();
+    loadAgendamentos();
     if (id) {
       loadProntuario(id);
     }
@@ -73,6 +82,15 @@ export default function CadastroProntuario() {
       setMedicos(data);
     } catch (error) {
       toast.error("Erro ao carregar médicos");
+    }
+  };
+
+  const loadAgendamentos = async () => {
+    try {
+      const data = await apiService.getAgendamentosParaProntuario();
+      setAgendamentos(data);
+    } catch (error) {
+      toast.error("Erro ao carregar agendamentos");
     }
   };
 
@@ -154,11 +172,23 @@ export default function CadastroProntuario() {
 
   return (
     <DashboardLayout
-      title={id ? "Editar Prontuário" : "Novo Prontuário"}
-      subtitle={id ? "Altere as informações do prontuário" : "Cadastre um novo prontuário no sistema"}
+      title={
+        isViewMode 
+          ? "Visualizar Prontuário" 
+          : isEditMode 
+            ? "Editar Prontuário" 
+            : "Novo Prontuário"
+      }
+      subtitle={
+        isViewMode 
+          ? "Visualize as informações do prontuário" 
+          : isEditMode 
+            ? "Altere as informações do prontuário" 
+            : "Cadastre um novo prontuário no sistema"
+      }
     >
       <Card className="p-6">
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={isViewMode ? (e) => e.preventDefault() : handleSubmit} className="space-y-6">
           {/* Informações básicas */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
@@ -166,7 +196,7 @@ export default function CadastroProntuario() {
               <Select
                 value={formData.pacienteId}
                 onValueChange={handleSelectChange("pacienteId")}
-                disabled={!!id} // Não permite alterar paciente em edição
+                disabled={isViewMode || isEditMode} // Não permite alterar paciente em edição/visualização
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Selecione o paciente" />
@@ -190,7 +220,7 @@ export default function CadastroProntuario() {
                 value={formData.dataConsulta}
                 onChange={handleInputChange}
                 required
-                disabled={!!id} // Não permite alterar data em edição
+                disabled={isViewMode || isEditMode} // Não permite alterar data em edição/visualização
               />
             </div>
 
@@ -199,7 +229,7 @@ export default function CadastroProntuario() {
               <Select
                 value={formData.medicoId}
                 onValueChange={handleSelectChange("medicoId")}
-                disabled={!!id} // Não permite alterar médico em edição
+                disabled={isViewMode || isEditMode} // Não permite alterar médico em edição/visualização
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Selecione o médico" />
@@ -214,18 +244,25 @@ export default function CadastroProntuario() {
               </Select>
             </div>
 
-            {/* Campo temporário para agendamento */}
+            {/* Campo de agendamento */}
             <div className="space-y-2">
-              <Label htmlFor="agendamentoId">ID do Agendamento* (temporário)</Label>
-              <Input
-                id="agendamentoId"
-                name="agendamentoId"
+              <Label htmlFor="agendamentoId">Agendamento*</Label>
+              <Select
                 value={formData.agendamentoId}
-                onChange={handleInputChange}
-                required
-                disabled={!!id}
-                placeholder="UUID do agendamento"
-              />
+                onValueChange={(value) => setFormData(prev => ({ ...prev, agendamentoId: value }))}
+                disabled={isViewMode || isEditMode}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Selecione um agendamento" />
+                </SelectTrigger>
+                <SelectContent>
+                  {agendamentos.map((agendamento) => (
+                    <SelectItem key={agendamento.id} value={agendamento.id}>
+                      {new Date(agendamento.dataHora).toLocaleString('pt-BR')} - {agendamento.tipo} - Status: {agendamento.status}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
@@ -239,6 +276,7 @@ export default function CadastroProntuario() {
                 value={formData.anamnese}
                 onChange={handleInputChange}
                 required
+                disabled={isViewMode}
                 rows={4}
                 placeholder="Histórico da doença atual, antecedentes pessoais e familiares..."
               />
@@ -252,6 +290,7 @@ export default function CadastroProntuario() {
                 value={formData.exameFisico}
                 onChange={handleInputChange}
                 required
+                disabled={isViewMode}
                 rows={4}
                 placeholder="Sinais vitais, exame físico geral e específico..."
               />
@@ -265,6 +304,7 @@ export default function CadastroProntuario() {
                 value={formData.diagnostico}
                 onChange={handleInputChange}
                 required
+                disabled={isViewMode}
                 rows={3}
                 placeholder="Diagnóstico principal e diagnósticos secundários..."
               />
@@ -278,6 +318,7 @@ export default function CadastroProntuario() {
                 value={formData.prescricao}
                 onChange={handleInputChange}
                 required
+                disabled={isViewMode}
                 rows={4}
                 placeholder="Medicamentos, dosagens, instruções de uso..."
               />
@@ -290,6 +331,7 @@ export default function CadastroProntuario() {
                 name="observacoes"
                 value={formData.observacoes}
                 onChange={handleInputChange}
+                disabled={isViewMode}
                 rows={3}
                 placeholder="Observações adicionais, recomendações..."
               />
@@ -297,16 +339,30 @@ export default function CadastroProntuario() {
           </div>
 
           <div className="flex justify-end space-x-4">
-            <Button 
-              type="button" 
-              variant="outline" 
-              onClick={() => navigate("/prontuarios")}
-            >
-              Cancelar
-            </Button>
-            <Button type="submit" disabled={isLoading}>
-              {isLoading ? "Salvando..." : "Salvar"}
-            </Button>
+            {isViewMode ? (
+              // Modo visualização: apenas botão Voltar
+              <Button 
+                type="button" 
+                variant="outline" 
+                onClick={() => navigate("/prontuarios")}
+              >
+                Voltar
+              </Button>
+            ) : (
+              // Modo criação/edição: botões Cancelar e Salvar
+              <>
+                <Button 
+                  type="button" 
+                  variant="outline" 
+                  onClick={() => navigate("/prontuarios")}
+                >
+                  Cancelar
+                </Button>
+                <Button type="submit" disabled={isLoading}>
+                  {isLoading ? "Salvando..." : "Salvar"}
+                </Button>
+              </>
+            )}
           </div>
         </form>
       </Card>

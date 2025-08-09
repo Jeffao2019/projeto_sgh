@@ -13,7 +13,28 @@ export class TypeOrmPacienteRepository implements PacienteRepository {
   ) {}
 
   async create(paciente: Paciente): Promise<Paciente> {
-    const entity = this.repository.create(paciente);
+    const entity = this.repository.create({
+      id: paciente.id,
+      nome: paciente.nome,
+      cpf: paciente.cpf,
+      email: paciente.email,
+      telefone: paciente.telefone,
+      dataNascimento: paciente.dataNascimento,
+      endereco: {
+        cep: paciente.endereco.cep,
+        logradouro: paciente.endereco.logradouro,
+        numero: paciente.endereco.numero,
+        complemento: paciente.endereco.complemento,
+        bairro: paciente.endereco.bairro,
+        cidade: paciente.endereco.cidade,
+        estado: paciente.endereco.estado,
+      },
+      convenio: paciente.convenio,
+      numeroConvenio: paciente.numeroConvenio,
+      isActive: paciente.isActive,
+      createdAt: paciente.createdAt,
+      updatedAt: paciente.updatedAt,
+    });
     const savedEntity = await this.repository.save(entity);
     return this.toDomain(savedEntity);
   }
@@ -48,7 +69,23 @@ export class TypeOrmPacienteRepository implements PacienteRepository {
   }
 
   async update(paciente: Paciente): Promise<Paciente> {
-    await this.repository.update(paciente.id, paciente);
+    await this.repository.update(paciente.id, {
+      nome: paciente.nome,
+      email: paciente.email,
+      telefone: paciente.telefone,
+      endereco: {
+        cep: paciente.endereco.cep,
+        logradouro: paciente.endereco.logradouro,
+        numero: paciente.endereco.numero,
+        complemento: paciente.endereco.complemento,
+        bairro: paciente.endereco.bairro,
+        cidade: paciente.endereco.cidade,
+        estado: paciente.endereco.estado,
+      },
+      convenio: paciente.convenio,
+      numeroConvenio: paciente.numeroConvenio,
+      updatedAt: new Date(),
+    });
     const entity = await this.repository.findOne({ where: { id: paciente.id } });
     if (!entity) throw new Error('Paciente not found');
     return this.toDomain(entity);

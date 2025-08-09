@@ -228,7 +228,7 @@ class ApiService {
 
   // Métodos para Prontuários
   async getProntuarios() {
-    return this.get<Prontuario[]>(API_CONFIG.ENDPOINTS.PRONTUARIOS.BASE);
+    return this.get<Prontuario[]>(API_CONFIG.ENDPOINTS.PRONTUARIOS.WITH_RELATIONS);
   }
 
   async getProntuarioById(id: string) {
@@ -236,7 +236,7 @@ class ApiService {
   }
 
   async getProntuariosByPaciente(pacienteId: string) {
-    return this.get<Prontuario[]>(API_CONFIG.ENDPOINTS.PRONTUARIOS.BY_PACIENTE(pacienteId));
+    return this.get<Prontuario[]>(API_CONFIG.ENDPOINTS.PRONTUARIOS.BY_PACIENTE_WITH_RELATIONS(pacienteId));
   }
 
   async getProntuariosByMedico(medicoId: string) {
@@ -274,6 +274,10 @@ class ApiService {
 
   async getAgendamentosByMedico(medicoId: string) {
     return this.get<Agendamento[]>(API_CONFIG.ENDPOINTS.AGENDAMENTOS.BY_MEDICO(medicoId));
+  }
+
+  async getAgendamentosParaProntuario() {
+    return this.get<Agendamento[]>(API_CONFIG.ENDPOINTS.AGENDAMENTOS.PARA_PRONTUARIO);
   }
 
   async createAgendamento(data: CreateAgendamentoDto) {

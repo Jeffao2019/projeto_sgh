@@ -15,6 +15,7 @@ import { Calendar, Download, Eye, FileText, Plus, Search, User, UserCheck } from
 import { apiService } from "@/lib/api-service";
 import { toast } from "sonner";
 import { Prontuario } from "@/types/prontuarios";
+import ProntuarioPDFGenerator from "@/utils/pdf-generator";
 
 export default function Prontuarios() {
   const navigate = useNavigate();
@@ -24,13 +25,32 @@ export default function Prontuarios() {
   const [prontuarios, setProntuarios] = useState<Prontuario[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
+  const [pacienteInfo, setPacienteInfo] = useState<{ nome: string; cpf: string } | null>(null);
   
   // Pegar o ID do paciente da query string se existir
   const pacienteId = searchParams.get('paciente');
 
   useEffect(() => {
     loadProntuarios();
+    if (pacienteId) {
+      loadPacienteInfo(pacienteId);
+    } else {
+      setPacienteInfo(null);
+    }
   }, [pacienteId]); // Recarregar quando o pacienteId mudar
+
+  const loadPacienteInfo = async (id: string) => {
+    try {
+      const paciente = await apiService.getPacienteById(id);
+      setPacienteInfo({
+        nome: paciente.nome,
+        cpf: paciente.cpf
+      });
+    } catch (error) {
+      console.error("Erro ao carregar informações do paciente:", error);
+      setPacienteInfo(null);
+    }
+  };
 
   const loadProntuarios = async () => {
     setIsLoading(true);
@@ -48,6 +68,26 @@ export default function Prontuarios() {
       toast.error("Erro ao carregar prontuários");
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleGeneratePDF = async (prontuario: Prontuario) => {
+    try {
+      toast.info("Gerando PDF...");
+      
+      // Buscar dados completos do prontuário se necessário
+      let prontuarioCompleto = prontuario;
+      if (!prontuario.paciente || !prontuario.medico) {
+        prontuarioCompleto = await apiService.getProntuarioById(prontuario.id);
+      }
+      
+      const pdfGenerator = new ProntuarioPDFGenerator();
+      pdfGenerator.generate(prontuarioCompleto);
+      
+      toast.success("PDF gerado com sucesso!");
+    } catch (error: any) {
+      console.error("Erro ao gerar PDF:", error);
+      toast.error("Erro ao gerar PDF: " + (error.message || "Erro desconhecido"));
     }
   };
 
@@ -121,22 +161,47 @@ export default function Prontuarios() {
       title={pacienteId ? "Prontuários do Paciente" : "Prontuários"}
       subtitle={pacienteId ? "Histórico médico específico do paciente" : "Histórico médico e documentos dos pacientes"}
     >
+      {/* Banner informativo quando filtrado por paciente */}
+      {pacienteId && (
+        <Card className="mb-6 p-4 border-l-4 border-l-blue-500 bg-blue-50">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <User className="w-5 h-5 text-blue-600" />
+              <div>
+                <h3 className="font-semibold text-blue-900">
+                  {pacienteInfo ? pacienteInfo.nome : "Carregando..."}
+                </h3>
+                <p className="text-sm text-blue-700">
+                  {pacienteInfo ? `CPF: ${pacienteInfo.cpf}` : "Prontuários específicos do paciente"}
+                </p>
+              </div>
+            </div>
+            <div className="flex space-x-2">
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={() => navigate("/prontuarios")}
+              >
+                Todos os Prontuários
+              </Button>
+              <Button 
+                variant="default" 
+                size="sm"
+                onClick={() => navigate("/pacientes")}
+              >
+                ← Voltar para Pacientes
+              </Button>
+            </div>
+          </div>
+        </Card>
+      )}
+
       {/* Botão de ação */}
-      <div className="flex justify-between items-center mb-8">
-        {pacienteId && (
-          <Button 
-            variant="outline" 
-            onClick={() => navigate("/prontuarios")}
-          >
-            ← Voltar para todos os prontuários
-          </Button>
-        )}
-        <div className={pacienteId ? "" : "ml-auto"}>
-          <Button variant="medical" onClick={() => navigate("/prontuarios/novo")}>
-            <Plus className="w-4 h-4 mr-2" />
-            Novo Prontuário
-          </Button>
-        </div>
+      <div className="flex justify-end mb-8">
+        <Button variant="medical" onClick={() => navigate("/prontuarios/novo")}>
+          <Plus className="w-4 h-4 mr-2" />
+          Novo Prontuário
+        </Button>
       </div>
 
       {/* Estatísticas */}
@@ -314,7 +379,11 @@ export default function Prontuarios() {
                     >
                       Editar
                     </Button>
-                    <Button variant="outline" size="sm">
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => handleGeneratePDF(prontuario)}
+                    >
                       <Download className="w-3 h-3 mr-1" />
                       PDF
                     </Button>
