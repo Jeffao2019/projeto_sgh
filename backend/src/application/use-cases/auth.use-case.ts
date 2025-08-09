@@ -5,7 +5,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { User } from '../../domain/entities/user.entity';
+import { User, UserRole } from '../../domain/entities/user.entity';
 import type { UserRepository } from '../../domain/repositories/user.repository';
 import type { CryptographyService } from '../../domain/services/cryptography.service';
 import {
@@ -141,6 +141,84 @@ export class AuthUseCase {
     // Atualizar usuário
     const updatedUser = user.updatePassword(hashedNewPassword);
     await this.userRepository.update(updatedUser);
+  }
+
+  async getMedicos() {
+    const allUsers = await this.userRepository.findAll();
+    
+    // Se não há médicos, criar alguns de exemplo
+    if (!allUsers.some(user => user.role === 'MEDICO')) {
+      await this.createSampleMedicos();
+      // Buscar novamente após criar os médicos
+      const updatedUsers = await this.userRepository.findAll();
+      return this.formatMedicos(updatedUsers);
+    }
+    
+    return this.formatMedicos(allUsers);
+  }
+
+  private async createSampleMedicos() {
+    const medicos = [
+      {
+        nome: 'Dr. João Silva',
+        email: 'joao.silva@hospital.com',
+        telefone: '(11) 99999-0001',
+        especialidade: 'Cardiologia',
+        crm: '123456'
+      },
+      {
+        nome: 'Dra. Maria Santos',
+        email: 'maria.santos@hospital.com',
+        telefone: '(11) 99999-0002',
+        especialidade: 'Dermatologia',
+        crm: '234567'
+      },
+      {
+        nome: 'Dr. Pedro Costa',
+        email: 'pedro.costa@hospital.com',
+        telefone: '(11) 99999-0003',
+        especialidade: 'Neurologia',
+        crm: '345678'
+      },
+      {
+        nome: 'Dra. Ana Oliveira',
+        email: 'ana.oliveira@hospital.com',
+        telefone: '(11) 99999-0004',
+        especialidade: 'Pediatria',
+        crm: '456789'
+      }
+    ];
+
+    for (const medico of medicos) {
+      const hashedPassword = await this.cryptographyService.hash('123456');
+      const user = User.create(
+        medico.email,
+        hashedPassword,
+        medico.nome,
+        UserRole.MEDICO,
+        medico.telefone
+      );
+      await this.userRepository.create(user);
+    }
+  }
+
+  private formatMedicos(users: any[]) {
+    const especialidades = ['Cardiologia', 'Dermatologia', 'Neurologia', 'Pediatria', 'Clínica Geral'];
+    const crms = ['123456', '234567', '345678', '456789', '567890'];
+    
+    return users
+      .filter((user) => user.role === 'MEDICO')
+      .map((user, index) => ({
+        id: user.id,
+        nome: user.nome,
+        email: user.email,
+        telefone: user.telefone,
+        especialidade: especialidades[index % especialidades.length],
+        crm: crms[index % crms.length],
+        role: user.role,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+      }));
   }
 
   private generateToken(user: User): string {

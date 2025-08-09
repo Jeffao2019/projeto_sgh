@@ -118,6 +118,23 @@ export class AuthController {
     return req.user;
   }
 
+  @Get('medicos')
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Listar todos os médicos' })
+  @ApiResponse({
+    status: 200,
+    description: 'Lista de médicos',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Token inválido ou expirado',
+  })
+  async getMedicos() {
+    return await this.authUseCase.getMedicos();
+  }
+
   @Get('debug')
   @ApiOperation({ summary: 'Debug endpoint - remover em produção' })
   debug() {

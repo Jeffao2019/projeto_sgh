@@ -1,5 +1,7 @@
 import { Paciente } from '../entities/paciente.entity';
 
+export const PACIENTE_REPOSITORY = Symbol('PacienteRepository');
+
 export interface PacienteRepository {
   findById(id: string): Promise<Paciente | null>;
   findByCpf(cpf: string): Promise<Paciente | null>;

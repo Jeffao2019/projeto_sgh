@@ -107,7 +107,7 @@ export default function CadastroPaciente() {
         cpf,
         email,
         telefone,
-        dataNascimento,
+        dataNascimento: formatDateFromISO(dataNascimento),
         endereco: {
           cep: endereco.cep || "",
           logradouro: endereco.logradouro || "",
@@ -133,22 +133,31 @@ export default function CadastroPaciente() {
     setIsLoading(true);
 
     try {
-      const submissionData = {
-        nome: formData.nome,
-        cpf: formData.cpf,
-        email: formData.email,
-        telefone: formData.telefone,
-        dataNascimento: formatDateToISO(formData.dataNascimento),
-        endereco: formData.endereco,
-        convenio: formData.convenio || undefined,
-        numeroConvenio: formData.numeroConvenio || undefined,
-      };
-
       if (id) {
-        await apiService.updatePaciente(id, submissionData);
+        // Para atualização, remove cpf e dataNascimento
+        const updateData = {
+          nome: formData.nome,
+          email: formData.email,
+          telefone: formData.telefone,
+          endereco: formData.endereco,
+          convenio: formData.convenio || undefined,
+          numeroConvenio: formData.numeroConvenio || undefined,
+        };
+        await apiService.updatePaciente(id, updateData);
         toast.success("Paciente atualizado com sucesso!");
       } else {
-        await apiService.createPaciente(submissionData);
+        // Para criação, inclui todos os campos
+        const createData = {
+          nome: formData.nome,
+          cpf: formData.cpf,
+          email: formData.email,
+          telefone: formData.telefone,
+          dataNascimento: formatDateToISO(formData.dataNascimento),
+          endereco: formData.endereco,
+          convenio: formData.convenio || undefined,
+          numeroConvenio: formData.numeroConvenio || undefined,
+        };
+        await apiService.createPaciente(createData);
         toast.success("Paciente cadastrado com sucesso!");
       }
       navigate("/pacientes");
@@ -211,6 +220,7 @@ export default function CadastroPaciente() {
                 value={formData.cpf}
                 onChange={handleInputChange}
                 required
+                disabled={!!id} // Desabilita durante edição
               />
             </div>
 
@@ -247,6 +257,7 @@ export default function CadastroPaciente() {
                 value={formData.dataNascimento}
                 onChange={handleInputChange}
                 required
+                disabled={!!id} // Desabilita durante edição
                 max={new Date().toISOString().split('T')[0]} // Prevents future dates
               />
             </div>

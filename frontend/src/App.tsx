@@ -15,6 +15,8 @@ import NotFound from "./pages/NotFound";
 import Pacientes from "./pages/Pacientes";
 import Prontuarios from "./pages/Prontuarios";
 import CadastroPaciente from "./pages/CadastroPaciente";
+import CadastroProntuario from "./pages/CadastroProntuario";
+import CadastroAgendamento from "./pages/CadastroAgendamento";
 
 const queryClient = new QueryClient();
 
@@ -57,6 +59,8 @@ const App = () => (
                 <Configuracoes />
               </ProtectedRoute>
             } />
+            
+            {/* Rotas de Pacientes */}
             <Route 
               path="/pacientes/novo" 
               element={
@@ -70,6 +74,58 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <CadastroPaciente />
+                </ProtectedRoute>
+              } 
+            />
+            
+            {/* Rotas de Prontuários */}
+            <Route 
+              path="/prontuarios/novo" 
+              element={
+                <ProtectedRoute>
+                  <CadastroProntuario />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/prontuarios/:id/editar" 
+              element={
+                <ProtectedRoute>
+                  <CadastroProntuario />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/prontuarios/:id" 
+              element={
+                <ProtectedRoute>
+                  <CadastroProntuario />
+                </ProtectedRoute>
+              } 
+            />
+            
+            {/* Rotas de Agendamentos */}
+            <Route 
+              path="/agendamentos/novo" 
+              element={
+                <ProtectedRoute>
+                  <CadastroAgendamento />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/agendamentos/:id/editar" 
+              element={
+                <ProtectedRoute>
+                  <CadastroAgendamento />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/agendamentos/:id" 
+              element={
+                <ProtectedRoute>
+                  <CadastroAgendamento />
                 </ProtectedRoute>
               } 
             />

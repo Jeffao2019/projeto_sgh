@@ -52,8 +52,9 @@ export function FilterPatientsDialog({
   };
 
   const handleClear = () => {
+    const clearedFilters = { nome: "", cpf: "", convenio: "" };
     onClearFilters();
-    setLocalFilters({ nome: "", cpf: "", convenio: "" });
+    setLocalFilters(clearedFilters);
     setOpen(false);
   };
 
@@ -94,17 +95,19 @@ export function FilterPatientsDialog({
             <Select
               value={localFilters.convenio}
               onValueChange={(value) =>
-                setLocalFilters({ ...localFilters, convenio: value })
+                setLocalFilters({ ...localFilters, convenio: value === "TODOS" ? "" : value })
               }
             >
               <SelectTrigger>
                 <SelectValue placeholder="Selecione um convênio" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Todos</SelectItem>
+                <SelectItem value="TODOS">Todos</SelectItem>
                 <SelectItem value="PARTICULAR">Particular</SelectItem>
                 <SelectItem value="UNIMED">Unimed</SelectItem>
                 <SelectItem value="AMIL">Amil</SelectItem>
+                <SelectItem value="BRADESCO">Bradesco</SelectItem>
+                <SelectItem value="SULAMERICA">SulAmérica</SelectItem>
               </SelectContent>
             </Select>
           </div>

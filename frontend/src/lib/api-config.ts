@@ -15,6 +15,10 @@ export const API_CONFIG = {
       UPDATE: (id: string) => `/pacientes/${id}`,
       DELETE: (id: string) => `/pacientes/${id}`
     },
+    MEDICOS: {
+      LIST: "/auth/medicos",
+      BY_ID: (id: string) => `/auth/medicos/${id}`,
+    },
     AGENDAMENTOS: {
       BASE: "/agendamentos",
       BY_PACIENTE: (pacienteId: string) =>

@@ -1,5 +1,8 @@
 import { API_CONFIG } from "./api-config";
 import { Paciente, CreatePacienteDTO } from "@/types/pacientes";
+import { Prontuario, CreateProntuarioDTO, UpdateProntuarioDTO, ProntuarioStats } from "@/types/prontuarios";
+import { Medico } from "@/types/medicos";
+import { Agendamento, CreateAgendamentoDto, UpdateAgendamentoDto } from "@/types/agendamentos";
 
 // Tipos para as requisições
 export interface LoginRequest {
@@ -213,8 +216,88 @@ class ApiService {
     return this.delete<void>(API_CONFIG.ENDPOINTS.PACIENTES.DELETE(id));
   }
 
-  async getPacientesStats() {
-    return this.get<PacienteStats>(API_CONFIG.ENDPOINTS.PACIENTES.STATS);
+  // Métodos para Médicos
+  async getMedicos() {
+    return this.get<Medico[]>(API_CONFIG.ENDPOINTS.MEDICOS.LIST);
+  }
+
+  // Método temporariamente comentado até implementar endpoint específico
+  // async getMedicoById(id: string) {
+  //   return this.get<Medico>(API_CONFIG.ENDPOINTS.MEDICOS.BY_ID(id));
+  // }
+
+  // Métodos para Prontuários
+  async getProntuarios() {
+    return this.get<Prontuario[]>(API_CONFIG.ENDPOINTS.PRONTUARIOS.BASE);
+  }
+
+  async getProntuarioById(id: string) {
+    return this.get<Prontuario>(API_CONFIG.ENDPOINTS.PRONTUARIOS.BY_ID(id));
+  }
+
+  async getProntuariosByPaciente(pacienteId: string) {
+    return this.get<Prontuario[]>(API_CONFIG.ENDPOINTS.PRONTUARIOS.BY_PACIENTE(pacienteId));
+  }
+
+  async getProntuariosByMedico(medicoId: string) {
+    return this.get<Prontuario[]>(API_CONFIG.ENDPOINTS.PRONTUARIOS.BY_MEDICO(medicoId));
+  }
+
+  async getProntuarioByAgendamento(agendamentoId: string) {
+    return this.get<Prontuario>(API_CONFIG.ENDPOINTS.PRONTUARIOS.BY_AGENDAMENTO(agendamentoId));
+  }
+
+  async createProntuario(data: CreateProntuarioDTO) {
+    return this.post<Prontuario>(API_CONFIG.ENDPOINTS.PRONTUARIOS.BASE, data);
+  }
+
+  async updateProntuario(id: string, data: UpdateProntuarioDTO) {
+    return this.put<Prontuario>(API_CONFIG.ENDPOINTS.PRONTUARIOS.BY_ID(id), data);
+  }
+
+  async deleteProntuario(id: string) {
+    return this.delete<void>(API_CONFIG.ENDPOINTS.PRONTUARIOS.BY_ID(id));
+  }
+
+  // Métodos para Agendamentos
+  async getAgendamentos() {
+    return this.get<Agendamento[]>(API_CONFIG.ENDPOINTS.AGENDAMENTOS.BASE);
+  }
+
+  async getAgendamentoById(id: string) {
+    return this.get<Agendamento>(API_CONFIG.ENDPOINTS.AGENDAMENTOS.BY_ID(id));
+  }
+
+  async getAgendamentosByPaciente(pacienteId: string) {
+    return this.get<Agendamento[]>(API_CONFIG.ENDPOINTS.AGENDAMENTOS.BY_PACIENTE(pacienteId));
+  }
+
+  async getAgendamentosByMedico(medicoId: string) {
+    return this.get<Agendamento[]>(API_CONFIG.ENDPOINTS.AGENDAMENTOS.BY_MEDICO(medicoId));
+  }
+
+  async createAgendamento(data: CreateAgendamentoDto) {
+    return this.post<Agendamento>(API_CONFIG.ENDPOINTS.AGENDAMENTOS.BASE, data);
+  }
+
+  async updateAgendamento(id: string, data: UpdateAgendamentoDto) {
+    return this.put<Agendamento>(API_CONFIG.ENDPOINTS.AGENDAMENTOS.BY_ID(id), data);
+  }
+
+  async confirmarAgendamento(id: string) {
+    return this.put<Agendamento>(API_CONFIG.ENDPOINTS.AGENDAMENTOS.CONFIRMAR(id));
+  }
+
+  async cancelarAgendamento(id: string) {
+    return this.put<Agendamento>(API_CONFIG.ENDPOINTS.AGENDAMENTOS.CANCELAR(id));
+  }
+
+  async finalizarAgendamento(id: string) {
+    return this.put<Agendamento>(API_CONFIG.ENDPOINTS.AGENDAMENTOS.FINALIZAR(id));
+  }
+
+  async deleteAgendamento(id: string) {
+    return this.delete<void>(API_CONFIG.ENDPOINTS.AGENDAMENTOS.BY_ID(id));
   }
 }
 

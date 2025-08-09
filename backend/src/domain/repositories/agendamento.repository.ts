@@ -1,5 +1,7 @@
 import { Agendamento } from '../entities/agendamento.entity';
 
+export const AGENDAMENTO_REPOSITORY = Symbol('AgendamentoRepository');
+
 export interface AgendamentoRepository {
   findById(id: string): Promise<Agendamento | null>;
   findByPacienteId(pacienteId: string): Promise<Agendamento[]>;

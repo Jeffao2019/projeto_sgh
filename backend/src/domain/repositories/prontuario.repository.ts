@@ -1,5 +1,7 @@
 import { Prontuario } from '../entities/prontuario.entity';
 
+export const PRONTUARIO_REPOSITORY = Symbol('ProntuarioRepository');
+
 export interface ProntuarioRepository {
   findById(id: string): Promise<Prontuario | null>;
   findByPacienteId(pacienteId: string): Promise<Prontuario[]>;

@@ -4,12 +4,18 @@ import { DashboardLayout } from "@/components/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { 
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Mail, Phone, Plus, Search, Users } from "lucide-react";
 import { apiService } from "@/lib/api-service";
 import { toast } from "sonner";
 import { Paciente } from "@/types/pacientes";
 import { formatPhoneNumber } from "@/utils/format";
-import { FilterPatientsDialog } from "@/components/dialogs/FilterPatientsDialog";
 
 export default function Pacientes() {
   const navigate = useNavigate();
@@ -17,11 +23,7 @@ export default function Pacientes() {
   const [isLoading, setIsLoading] = useState(false);
   const [pacientes, setPacientes] = useState<Paciente[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filters, setFilters] = useState({
-    nome: "",
-    cpf: "",
-    convenio: "",
-  });
+  const [convenioFilter, setConvenioFilter] = useState("");
 
   useEffect(() => {
     loadPacientes();
@@ -67,42 +69,21 @@ export default function Pacientes() {
       })
     )
     .filter((paciente) => {
-      const matchesSearch = paciente.nome
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase());
+      // Filtro de busca geral (searchTerm) - busca em nome, CPF e email
+      const matchesSearch = !searchTerm || 
+        paciente.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        paciente.cpf.includes(searchTerm) ||
+        paciente.email.toLowerCase().includes(searchTerm.toLowerCase());
 
-      const matchesNome =
-        !filters.nome ||
-        paciente.nome.toLowerCase().includes(filters.nome.toLowerCase());
+      // Filtro de convênio
+      const matchesConvenio = !convenioFilter || 
+        (paciente.convenio && 
+         paciente.convenio.toUpperCase() === convenioFilter.toUpperCase());
 
-      const matchesCpf = !filters.cpf || paciente.cpf.includes(filters.cpf);
-
-      const matchesConvenio =
-        !filters.convenio || paciente.convenio === filters.convenio;
-
-      return matchesSearch && matchesNome && matchesCpf && matchesConvenio;
+      return matchesSearch && matchesConvenio;
     });
 
-  const handleFilterChange = (newFilters: typeof filters) => {
-    setFilters(newFilters);
-  };
 
-  const handleClearFilters = () => {
-    setFilters({
-      nome: "",
-      cpf: "",
-      convenio: "",
-    });
-  };
-
-  const handleOpenFilters = () => {
-    if (pacientes.length === 0) {
-      toast.error("Por favor, digite algo na busca primeiro");
-      searchInputRef.current?.focus();
-      return false;
-    }
-    return true;
-  };
 
   return (
     <DashboardLayout
@@ -143,18 +124,41 @@ export default function Pacientes() {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
             <Input
               ref={searchInputRef}
-              placeholder="Buscar pacientes..."
+              placeholder="Buscar por nome, CPF ou email..."
               className="pl-10"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <FilterPatientsDialog
-            filters={filters}
-            onFilterChange={handleFilterChange}
-            onClearFilters={handleClearFilters}
-            onOpenChange={handleOpenFilters}
-          />
+          <div className="w-full sm:w-48">
+            <Select
+              value={convenioFilter}
+              onValueChange={(value) => setConvenioFilter(value === "TODOS" ? "" : value)}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Filtrar por convênio" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="TODOS">Todos os convênios</SelectItem>
+                <SelectItem value="PARTICULAR">Particular</SelectItem>
+                <SelectItem value="UNIMED">Unimed</SelectItem>
+                <SelectItem value="AMIL">Amil</SelectItem>
+                <SelectItem value="BRADESCO">Bradesco</SelectItem>
+                <SelectItem value="SULAMERICA">SulAmérica</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          {(searchTerm || convenioFilter) && (
+            <Button 
+              variant="outline" 
+              onClick={() => {
+                setSearchTerm("");
+                setConvenioFilter("");
+              }}
+            >
+              Limpar
+            </Button>
+          )}
         </div>
       </Card>
 
@@ -168,7 +172,27 @@ export default function Pacientes() {
             {isLoading ? (
               <p>Carregando...</p>
             ) : filteredPacientes.length === 0 ? (
-              <p>Nenhum paciente encontrado</p>
+              <div className="text-center py-8">
+                {searchTerm || convenioFilter ? (
+                  <div>
+                    <p className="text-muted-foreground mb-2">
+                      Nenhum paciente encontrado com os filtros aplicados
+                    </p>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => {
+                        setSearchTerm("");
+                        setConvenioFilter("");
+                      }}
+                    >
+                      Limpar filtros
+                    </Button>
+                  </div>
+                ) : (
+                  <p className="text-muted-foreground">Nenhum paciente cadastrado</p>
+                )}
+              </div>
             ) : (
               filteredPacientes.map((paciente) => (
                 <div
@@ -181,7 +205,7 @@ export default function Pacientes() {
                         {paciente.nome}
                       </h3>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 text-sm text-muted-foreground">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 text-sm text-muted-foreground">
                       <div className="flex items-center space-x-1">
                         <Mail className="w-3 h-3" />
                         <span>{paciente.email}</span>
@@ -190,10 +214,19 @@ export default function Pacientes() {
                         <Phone className="w-3 h-3" />
                         <span>{formatPhoneNumber(paciente.telefone)}</span>
                       </div>
+                      <div className="flex items-center space-x-1">
+                        <span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">
+                          {paciente.convenio || "Particular"}
+                        </span>
+                      </div>
                     </div>
                   </div>
                   <div className="flex space-x-2 mt-3 lg:mt-0">
-                    <Button variant="outline" size="sm">
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => navigate(`/prontuarios?paciente=${paciente.id}`)}
+                    >
                       Ver Prontuário
                     </Button>
                     <Button

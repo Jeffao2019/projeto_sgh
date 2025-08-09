@@ -6,7 +6,7 @@ import { AuthUseCase } from '../../application/use-cases/auth.use-case';
 import { CryptographyService } from '../../domain/services/cryptography.service';
 import { JwtStrategy } from '../auth/jwt.strategy';
 import { AuthController } from '../controllers/auth.controller';
-import { InMemoryUserRepository } from '../persistence/in-memory-user.repository';
+import { PersistenceModule } from '../persistence/persistence.module';
 import {
   CRYPTOGRAPHY_SERVICE,
   USER_REPOSITORY,
@@ -15,6 +15,7 @@ import {
 @Module({
   imports: [
     PassportModule,
+    PersistenceModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
@@ -30,10 +31,6 @@ import {
   providers: [
     AuthUseCase,
     JwtStrategy,
-    {
-      provide: USER_REPOSITORY,
-      useClass: InMemoryUserRepository,
-    },
     {
       provide: CRYPTOGRAPHY_SERVICE,
       useClass: CryptographyService,

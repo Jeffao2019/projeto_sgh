@@ -141,7 +141,6 @@ export function PacienteForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      dados: {formData && JSON.stringify(formData)} 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-2">
           <Label htmlFor="nome">Nome completo*</Label>
