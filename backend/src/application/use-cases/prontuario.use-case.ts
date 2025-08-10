@@ -91,6 +91,8 @@ export class ProntuarioUseCase {
       createProntuarioDto.anamnese,
       createProntuarioDto.exameFisico,
       createProntuarioDto.diagnostico,
+      createProntuarioDto.prescricaoUsoInterno,
+      createProntuarioDto.prescricaoUsoExterno,
       createProntuarioDto.prescricao,
       createProntuarioDto.observacoes,
     );
@@ -182,7 +184,15 @@ export class ProntuarioUseCase {
       updateProntuarioDto.anamnese || prontuario.anamnese,
       updateProntuarioDto.exameFisico || prontuario.exameFisico,
       updateProntuarioDto.diagnostico || prontuario.diagnostico,
-      updateProntuarioDto.prescricao || prontuario.prescricao,
+      updateProntuarioDto.prescricaoUsoInterno !== undefined
+        ? updateProntuarioDto.prescricaoUsoInterno
+        : prontuario.prescricaoUsoInterno,
+      updateProntuarioDto.prescricaoUsoExterno !== undefined
+        ? updateProntuarioDto.prescricaoUsoExterno
+        : prontuario.prescricaoUsoExterno,
+      updateProntuarioDto.prescricao !== undefined
+        ? updateProntuarioDto.prescricao
+        : prontuario.prescricao,
       updateProntuarioDto.observacoes !== undefined
         ? updateProntuarioDto.observacoes
         : prontuario.observacoes,

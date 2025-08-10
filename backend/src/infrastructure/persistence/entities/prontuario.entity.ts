@@ -45,13 +45,13 @@ export class ProntuarioEntity {
   diagnostico?: string;
 
   @Column({ type: 'text', nullable: true })
-  prescricao?: string; // Opcional - apenas para uso interno do hospital
+  prescricao?: string; // Opcional - para uso interno do hospital
 
-  @Column({ type: 'text' })
-  prescricaoUsoInterno: string; // Obrigatório - para ambiente domiciliar
+  @Column({ type: 'text', nullable: true })
+  prescricaoUsoInterno?: string; // Opcional - para ambiente domiciliar
 
-  @Column({ type: 'text' })
-  prescricaoUsoExterno: string; // Obrigatório - para ambiente externo
+  @Column({ type: 'text', nullable: true })
+  prescricaoUsoExterno?: string; // Opcional - para ambiente externo
 
   @Column({ type: 'text', nullable: true })
   observacoes?: string;

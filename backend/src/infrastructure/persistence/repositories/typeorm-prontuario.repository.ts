@@ -23,6 +23,8 @@ export class TypeOrmProntuarioRepository implements ProntuarioRepository {
       exameFisico: prontuario.exameFisico,
       diagnostico: prontuario.diagnostico,
       prescricao: prontuario.prescricao,
+      prescricaoUsoInterno: prontuario.prescricaoUsoInterno,
+      prescricaoUsoExterno: prontuario.prescricaoUsoExterno,
       observacoes: prontuario.observacoes,
     });
     const savedEntity = await this.repository.save(entity);
@@ -83,6 +85,8 @@ export class TypeOrmProntuarioRepository implements ProntuarioRepository {
       exameFisico: prontuario.exameFisico,
       diagnostico: prontuario.diagnostico,
       prescricao: prontuario.prescricao,
+      prescricaoUsoInterno: prontuario.prescricaoUsoInterno,
+      prescricaoUsoExterno: prontuario.prescricaoUsoExterno,
       observacoes: prontuario.observacoes,
     });
     const entity = await this.repository.findOne({ 
@@ -113,6 +117,8 @@ export class TypeOrmProntuarioRepository implements ProntuarioRepository {
       exameFisico: entity.exameFisico || '',
       diagnostico: entity.diagnostico || '',
       prescricao: entity.prescricao || '',
+      prescricaoUsoInterno: entity.prescricaoUsoInterno || '',
+      prescricaoUsoExterno: entity.prescricaoUsoExterno || '',
       observacoes: entity.observacoes || '',
       createdAt: entity.createdAt,
       updatedAt: entity.updatedAt,
@@ -153,10 +159,10 @@ export class TypeOrmProntuarioRepository implements ProntuarioRepository {
       entity.queixaPrincipal || '', // anamnese
       entity.exameFisico || '',
       entity.diagnostico || '',
-      entity.prescricao || '',
-      entity.observacoes || '',
       entity.prescricaoUsoInterno || '',
       entity.prescricaoUsoExterno || '',
+      entity.prescricao || '',
+      entity.observacoes || '',
       entity.createdAt,
       entity.updatedAt,
     );

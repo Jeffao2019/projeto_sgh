@@ -40,12 +40,12 @@ export class CreateProntuarioDto {
   prescricao?: string; // Opcional - apenas para uso interno do hospital
 
   @IsString({ message: 'Prescrição de uso interno deve ser uma string' })
-  @IsNotEmpty({ message: 'Prescrição de uso interno é obrigatória' })
-  prescricaoUsoInterno: string; // Obrigatório - para ambiente domiciliar
+  @IsOptional()
+  prescricaoUsoInterno?: string; // Opcional - para ambiente domiciliar
 
   @IsString({ message: 'Prescrição de uso externo deve ser uma string' })
-  @IsNotEmpty({ message: 'Prescrição de uso externo é obrigatória' })
-  prescricaoUsoExterno: string; // Obrigatório - para ambiente externo
+  @IsOptional()
+  prescricaoUsoExterno?: string; // Opcional - para ambiente externo
 
   @IsString({ message: 'Observações devem ser uma string' })
   @IsOptional()
@@ -91,9 +91,9 @@ export class ProntuarioResponseDto {
   anamnese: string;
   exameFisico: string;
   diagnostico: string;
-  prescricao?: string; // Opcional - apenas para uso interno do hospital
-  prescricaoUsoInterno: string; // Obrigatório - para ambiente domiciliar
-  prescricaoUsoExterno: string; // Obrigatório - para ambiente externo
+  prescricao?: string; // Opcional - para uso interno do hospital
+  prescricaoUsoInterno?: string; // Opcional - para ambiente domiciliar
+  prescricaoUsoExterno?: string; // Opcional - para ambiente externo
   observacoes?: string;
   createdAt: Date;
   updatedAt: Date;

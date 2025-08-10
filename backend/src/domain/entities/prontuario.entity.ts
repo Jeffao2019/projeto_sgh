@@ -9,9 +9,9 @@ export class Prontuario {
   public readonly anamnese: string;
   public readonly exameFisico: string;
   public readonly diagnostico: string;
-  public readonly prescricao?: string; // Opcional - apenas para uso interno do hospital
-  public readonly prescricaoUsoInterno: string; // Obrigatório - para ambiente domiciliar
-  public readonly prescricaoUsoExterno: string; // Obrigatório - para ambiente externo
+  public readonly prescricao?: string; // Opcional - para uso interno do hospital
+  public readonly prescricaoUsoInterno?: string; // Opcional - para ambiente domiciliar
+  public readonly prescricaoUsoExterno?: string; // Opcional - para ambiente externo
   public readonly observacoes?: string;
   public readonly createdAt: Date;
   public readonly updatedAt: Date;
@@ -25,8 +25,8 @@ export class Prontuario {
     anamnese: string,
     exameFisico: string,
     diagnostico: string,
-    prescricaoUsoInterno: string,
-    prescricaoUsoExterno: string,
+    prescricaoUsoInterno?: string,
+    prescricaoUsoExterno?: string,
     prescricao?: string,
     observacoes?: string,
     createdAt: Date = new Date(),
@@ -56,8 +56,8 @@ export class Prontuario {
     anamnese: string,
     exameFisico: string,
     diagnostico: string,
-    prescricaoUsoInterno: string,
-    prescricaoUsoExterno: string,
+    prescricaoUsoInterno?: string,
+    prescricaoUsoExterno?: string,
     prescricao?: string,
     observacoes?: string,
   ): Prontuario {
@@ -81,8 +81,8 @@ export class Prontuario {
     anamnese: string,
     exameFisico: string,
     diagnostico: string,
-    prescricaoUsoInterno: string,
-    prescricaoUsoExterno: string,
+    prescricaoUsoInterno?: string,
+    prescricaoUsoExterno?: string,
     prescricao?: string,
     observacoes?: string,
   ): Prontuario {

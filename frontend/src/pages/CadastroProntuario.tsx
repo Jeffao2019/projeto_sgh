@@ -28,9 +28,9 @@ interface FormData {
   anamnese: string;
   exameFisico: string;
   diagnostico: string;
-  prescricao?: string; // Opcional - apenas para uso interno do hospital
-  prescricaoUsoInterno: string; // Obrigatório - para ambiente domiciliar
-  prescricaoUsoExterno: string; // Obrigatório - para ambiente externo
+  prescricao?: string; // Opcional - para uso interno do hospital
+  prescricaoUsoInterno: string; // Opcional - para ambiente domiciliar
+  prescricaoUsoExterno: string; // Opcional - para ambiente externo
   observacoes: string;
 }
 
@@ -158,8 +158,8 @@ export default function CadastroProntuario() {
         exameFisico: formData.exameFisico,
         diagnostico: formData.diagnostico,
         prescricao: formData.prescricao || undefined, // Opcional
-        prescricaoUsoInterno: formData.prescricaoUsoInterno, // Obrigatório
-        prescricaoUsoExterno: formData.prescricaoUsoExterno, // Obrigatório
+        prescricaoUsoInterno: formData.prescricaoUsoInterno || undefined, // Opcional
+        prescricaoUsoExterno: formData.prescricaoUsoExterno || undefined, // Opcional
         observacoes: formData.observacoes || undefined,
       };
 
@@ -356,30 +356,28 @@ export default function CadastroProntuario() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="prescricaoUsoInterno">Prescrição de Uso Interno*</Label>
+              <Label htmlFor="prescricaoUsoInterno">Prescrição de Uso Interno</Label>
               <Textarea
                 id="prescricaoUsoInterno"
                 name="prescricaoUsoInterno"
                 value={formData.prescricaoUsoInterno}
                 onChange={handleInputChange}
-                required
                 disabled={isViewMode}
                 rows={4}
-                placeholder="Medicamentos para uso em ambiente domiciliar (obrigatório)..."
+                placeholder="Medicamentos para uso em ambiente domiciliar (opcional)..."
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="prescricaoUsoExterno">Prescrição de Uso Externo*</Label>
+              <Label htmlFor="prescricaoUsoExterno">Prescrição de Uso Externo</Label>
               <Textarea
                 id="prescricaoUsoExterno"
                 name="prescricaoUsoExterno"
                 value={formData.prescricaoUsoExterno}
                 onChange={handleInputChange}
-                required
                 disabled={isViewMode}
                 rows={4}
-                placeholder="Medicamentos para uso em ambiente externo (obrigatório)..."
+                placeholder="Medicamentos para uso em ambiente externo (opcional)..."
               />
             </div>
 

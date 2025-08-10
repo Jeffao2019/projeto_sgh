@@ -436,12 +436,11 @@ const handleGenerateReceitaDigital = async (prontuario) => {
   console.log("📋 [RECEITA DIGITAL] Dados do prontuário:", prontuario);
   
   try {
-    // Verificar se existe pelo menos uma prescrição (geral, uso interno ou externo)
-    const temPrescricaoGeral = prontuario.prescricao && prontuario.prescricao.trim() !== '';
+    // Verificar se existe pelo menos uma prescrição (uso interno ou externo)
     const temPrescricaoUsoInterno = prontuario.prescricaoUsoInterno && prontuario.prescricaoUsoInterno.trim() !== '';
     const temPrescricaoUsoExterno = prontuario.prescricaoUsoExterno && prontuario.prescricaoUsoExterno.trim() !== '';
     
-    if (!temPrescricaoGeral && !temPrescricaoUsoInterno && !temPrescricaoUsoExterno) {
+    if (!temPrescricaoUsoInterno && !temPrescricaoUsoExterno) {
       toast.error("❌ Este prontuário não possui prescrições para gerar receita digital.");
       return;
     }
@@ -456,6 +455,11 @@ const handleGenerateReceitaDigital = async (prontuario) => {
     doc.setFontSize(18);
     doc.setFont('helvetica', 'bold');
     doc.text('RECEITA MÉDICA DIGITAL', 20, yPosition);
+    
+    // Data e hora da impressão no cabeçalho
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Impresso em: ${new Date().toLocaleString('pt-BR')}`, 120, yPosition);
     yPosition += 10;
     
     doc.setFontSize(10);
@@ -515,22 +519,10 @@ const handleGenerateReceitaDigital = async (prontuario) => {
     doc.setFontSize(11);
     doc.setFont('helvetica', 'normal');
     
-    // Prescrição Geral (para pacientes internados)
-    if (prontuario.prescricao && prontuario.prescricao.trim() !== '') {
-      doc.setFont('helvetica', 'bold');
-      doc.text('PRESCRIÇÃO GERAL (Para uso hospitalar/internação):', 20, yPosition);
-      yPosition += 8;
-      
-      doc.setFont('helvetica', 'normal');
-      const prescricaoGeralLines = doc.splitTextToSize(prontuario.prescricao, 170);
-      doc.text(prescricaoGeralLines, 20, yPosition);
-      yPosition += prescricaoGeralLines.length * 7 + 10;
-    }
-    
     // Prescrições de Uso Interno
     if (prontuario.prescricaoUsoInterno && prontuario.prescricaoUsoInterno.trim() !== '') {
       doc.setFont('helvetica', 'bold');
-      doc.text('MEDICAMENTOS DE USO INTERNO (Ambiente Domiciliar):', 20, yPosition);
+      doc.text('MEDICAMENTOS DE USO INTERNO:', 20, yPosition);
       yPosition += 8;
       
       doc.setFont('helvetica', 'normal');
@@ -547,7 +539,7 @@ const handleGenerateReceitaDigital = async (prontuario) => {
       }
       
       doc.setFont('helvetica', 'bold');
-      doc.text('MEDICAMENTOS DE USO EXTERNO (Ambiente Externo):', 20, yPosition);
+      doc.text('MEDICAMENTOS DE USO EXTERNO:', 20, yPosition);
       yPosition += 8;
       
       doc.setFont('helvetica', 'normal');
@@ -558,65 +550,61 @@ const handleGenerateReceitaDigital = async (prontuario) => {
     
     yPosition += 10;
     
+    // ===== OBSERVAÇÕES MÉDICAS =====
+    if (prontuario.observacoes && prontuario.observacoes.trim() !== '') {
+      // Verificar se precisa de nova página
+      if (yPosition > 200) {
+        doc.addPage();
+        yPosition = 20;
+      }
+      
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.text('OBSERVAÇÕES MÉDICAS', 20, yPosition);
+      yPosition += 10;
+      
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'normal');
+      const observacoesLines = doc.splitTextToSize(prontuario.observacoes, 170);
+      doc.text(observacoesLines, 20, yPosition);
+      yPosition += observacoesLines.length * 6 + 15;
+    }
+    
     // Verificar se precisa de nova página
-    if (yPosition > 220) {
+    if (yPosition > 230) {
       doc.addPage();
       yPosition = 20;
     }
     
-    // ===== OBSERVAÇÕES IMPORTANTES =====
+    // ===== ORIENTAÇÕES DE SEGURANÇA =====
     doc.setFontSize(12);
     doc.setFont('helvetica', 'bold');
-    doc.text('OBSERVAÇÕES IMPORTANTES', 20, yPosition);
+    doc.text('ORIENTAÇÕES DE SEGURANÇA', 20, yPosition);
     yPosition += 10;
     
     doc.setFontSize(9);
     doc.setFont('helvetica', 'normal');
+    doc.text('• Todo medicamento deve ser mantido fora do alcance de crianças', 20, yPosition); yPosition += 5;
+    doc.text('• Conservar medicamentos em local seco, arejado e protegido da luz', 20, yPosition); yPosition += 5;
+    doc.text('• Verificar sempre o prazo de validade antes do uso', 20, yPosition); yPosition += 5;
+    doc.text('• Seguir rigorosamente a posologia prescrita pelo médico', 20, yPosition); yPosition += 5;
+    doc.text('• Em caso de efeitos adversos, suspender o uso e procurar orientação médica', 20, yPosition); yPosition += 5;
+    doc.text('• Não compartilhar medicamentos com outras pessoas', 20, yPosition); yPosition += 5;
+    doc.text('• Descartar medicamentos vencidos conforme orientação farmacêutica', 20, yPosition); yPosition += 15;
     
-    // Observações sobre prescrições
-    doc.setFont('helvetica', 'bold');
-    doc.text('INFORMAÇÕES IMPORTANTES:', 20, yPosition); yPosition += 6;
-    doc.setFont('helvetica', 'normal');
-    doc.text('• Seguir rigorosamente posologia, horários e duração do tratamento', 20, yPosition); yPosition += 5;
-    doc.text('• Medicamentos controlados exigem receituário específico', 20, yPosition); yPosition += 5;
-    doc.text('• Conservar medicamentos em local adequado', 20, yPosition); yPosition += 5;
-    doc.text('• Verificar prazo de validade antes do uso', 20, yPosition); yPosition += 5;
-    doc.text('• Em caso de efeitos adversos, suspender e procurar orientação médica', 20, yPosition); yPosition += 5;
-    doc.text('• Não interromper tratamento sem orientação médica', 20, yPosition); yPosition += 10;
-    
-    doc.setFont('helvetica', 'bold');
-    doc.text('PRESCRIÇÃO GERAL (Para uso hospitalar/internação):', 20, yPosition); yPosition += 6;
-    doc.setFont('helvetica', 'normal');
-    doc.text('• Medicamentos para uso durante internação hospitalar', 20, yPosition); yPosition += 5;
-    doc.text('• Administração sob supervisão da equipe médica e de enfermagem', 20, yPosition); yPosition += 5;
-    doc.text('• Uso restrito ao ambiente hospitalar', 20, yPosition); yPosition += 10;
-    
-    doc.setFont('helvetica', 'bold');
-    doc.text('MEDICAMENTOS DE USO INTERNO (Ambiente Domiciliar):', 20, yPosition); yPosition += 6;
-    doc.setFont('helvetica', 'normal');
-    doc.text('• Medicamentos para uso no ambiente doméstico/residencial', 20, yPosition); yPosition += 5;
-    doc.text('• Administrar conforme orientação médica em casa', 20, yPosition); yPosition += 5;
-    doc.text('• Manter em local seguro, longe do alcance de crianças', 20, yPosition); yPosition += 10;
-    
-    doc.setFont('helvetica', 'bold');
-    doc.text('MEDICAMENTOS DE USO EXTERNO (Ambiente Externo):', 20, yPosition); yPosition += 6;
-    doc.setFont('helvetica', 'normal');
-    doc.text('• Medicamentos para uso fora do ambiente doméstico', 20, yPosition); yPosition += 5;
-    doc.text('• Podem ser adquiridos em farmácias e drogarias', 20, yPosition); yPosition += 5;
-    doc.text('• Seguir rigorosamente posologia e orientações médicas', 20, yPosition); yPosition += 5;
-    doc.text('• Informar outros medicamentos em uso ao farmacêutico', 20, yPosition); yPosition += 5;
-    
-    // ===== RODAPÉ DE IDENTIFICAÇÃO =====
-    if (yPosition > 240) {
+    // Verificar se precisa de nova página
+    if (yPosition > 230) {
       doc.addPage();
       yPosition = 20;
     }
+    
+    // ===== RODAPÉ DE IDENTIFICAÇÃO =====
     
     doc.setFontSize(8);
     doc.setFont('helvetica', 'italic');
     doc.text(`Receita digital gerada em: ${new Date().toLocaleString('pt-BR')}`, 20, yPosition); yPosition += 5;
     doc.text(`ID do Prontuário: ${prontuario.id}`, 20, yPosition); yPosition += 5;
-    doc.text(`Sistema: SGH - Sistema de Gestão Hospitalar`, 20, yPosition); yPosition += 10;
+    doc.text(`Sistema: SGH - Sistema de Gestão Hospitalar`, 20, yPosition); yPosition += 15;
     
     // Linha de assinatura digital
     doc.setLineWidth(0.3);
@@ -627,11 +615,20 @@ const handleGenerateReceitaDigital = async (prontuario) => {
     doc.text(`Dr(a). ${prontuario.medico?.nome || 'Nome do Médico'}`, 120, yPosition); yPosition += 4;
     doc.text(`CRM: ${prontuario.medico?.crm || 'CRM'}`, 120, yPosition);
     
-    // Rodapé LGPD
-    doc.setFontSize(7);
-    doc.setFont('helvetica', 'italic');
-    doc.text('Dados pessoais tratados conforme LGPD - Lei 13.709/2018', 20, 285);
-    doc.text('Receita digital válida conforme CFM Resolução 2.299/2021', 120, 285);
+    // Rodapé LGPD fixo na parte inferior da página
+    const totalPages = (doc as any).internal.getNumberOfPages();
+    for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.setFontSize(7);
+      doc.setFont('helvetica', 'italic');
+      doc.text('Dados pessoais tratados conforme LGPD - Lei 13.709/2018', 20, 280);
+      doc.text('Receita digital válida conforme CFM Resolução 2.299/2021', 120, 280);
+      
+      // Numeração de páginas
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'normal');
+      doc.text(`Página ${i}/${totalPages}`, 160, 285);
+    }
     
     const nomeArquivo = `receita_digital_${prontuario.paciente?.nome?.replace(/\s+/g, '_') || 'paciente'}_${new Date().toISOString().split('T')[0]}.pdf`;
     doc.save(nomeArquivo);
