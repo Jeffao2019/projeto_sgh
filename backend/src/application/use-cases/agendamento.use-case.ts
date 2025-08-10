@@ -112,34 +112,46 @@ export class AgendamentoUseCase {
   ): Promise<Agendamento> {
     const agendamento = await this.findById(id);
 
-    // Se está reagendando
+    // Se está reagendando (mudança efetiva de data/hora)
     if (updateAgendamentoDto.dataHora) {
       const novaDataHora = new Date(updateAgendamentoDto.dataHora);
+      const dataAtual = new Date(agendamento.dataHora);
 
-      // Verificar se a nova data não é no passado
-      if (novaDataHora < new Date()) {
-        throw new BadRequestException(
-          'Não é possível reagendar para uma data passada',
+      // Verificar se a data realmente mudou
+      const dataRealmenteMudou = novaDataHora.getTime() !== dataAtual.getTime();
+
+      if (dataRealmenteMudou) {
+        // Verificar se a nova data não é no passado
+        if (novaDataHora < new Date()) {
+          throw new BadRequestException(
+            'Não é possível reagendar para uma data passada',
+          );
+        }
+
+        // Verificar disponibilidade do médico na nova data
+        const isAvailable = await this.agendamentoRepository.checkAvailability(
+          agendamento.medicoId,
+          novaDataHora,
         );
+
+        if (!isAvailable) {
+          throw new ConflictException('Médico não está disponível neste horário');
+        }
+
+        const reagendamento = agendamento.reagendar(novaDataHora);
+        return await this.agendamentoRepository.update(reagendamento);
       }
-
-      // Verificar disponibilidade do médico na nova data
-      const isAvailable = await this.agendamentoRepository.checkAvailability(
-        agendamento.medicoId,
-        novaDataHora,
-      );
-
-      if (!isAvailable) {
-        throw new ConflictException('Médico não está disponível neste horário');
-      }
-
-      const reagendamento = agendamento.reagendar(novaDataHora);
-      return await this.agendamentoRepository.update(reagendamento);
     }
 
-    // Para outros tipos de atualização, seria necessário implementar
-    // métodos específicos na entidade Agendamento
-    return agendamento;
+    // Para outras atualizações (status, tipo, observações)
+    const agendamentoAtualizado = agendamento.atualizar(
+      updateAgendamentoDto.dataHora ? new Date(updateAgendamentoDto.dataHora) : undefined,
+      updateAgendamentoDto.tipo,
+      updateAgendamentoDto.status,
+      updateAgendamentoDto.observacoes,
+    );
+
+    return await this.agendamentoRepository.update(agendamentoAtualizado);
   }
 
   async confirmar(id: string): Promise<Agendamento> {

@@ -7,7 +7,9 @@ export interface Prontuario {
   anamnese: string;
   exameFisico: string;
   diagnostico: string;
-  prescricao: string;
+  prescricao?: string; // Opcional - apenas para uso interno do hospital
+  prescricaoUsoInterno: string; // Obrigatório - para ambiente domiciliar
+  prescricaoUsoExterno: string; // Obrigatório - para ambiente externo
   observacoes?: string;
   createdAt: string;
   updatedAt: string;
@@ -38,7 +40,9 @@ export interface CreateProntuarioDTO {
   anamnese: string;
   exameFisico: string;
   diagnostico: string;
-  prescricao: string;
+  prescricao?: string; // Opcional - apenas para uso interno do hospital
+  prescricaoUsoInterno: string; // Obrigatório - para ambiente domiciliar
+  prescricaoUsoExterno: string; // Obrigatório - para ambiente externo
   observacoes?: string;
 }
 
@@ -47,6 +51,8 @@ export interface UpdateProntuarioDTO {
   exameFisico?: string;
   diagnostico?: string;
   prescricao?: string;
+  prescricaoUsoInterno?: string;
+  prescricaoUsoExterno?: string;
   observacoes?: string;
 }
 

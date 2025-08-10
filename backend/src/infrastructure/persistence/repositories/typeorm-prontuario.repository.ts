@@ -155,6 +155,8 @@ export class TypeOrmProntuarioRepository implements ProntuarioRepository {
       entity.diagnostico || '',
       entity.prescricao || '',
       entity.observacoes || '',
+      entity.prescricaoUsoInterno || '',
+      entity.prescricaoUsoExterno || '',
       entity.createdAt,
       entity.updatedAt,
     );

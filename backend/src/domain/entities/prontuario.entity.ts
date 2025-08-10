@@ -9,7 +9,9 @@ export class Prontuario {
   public readonly anamnese: string;
   public readonly exameFisico: string;
   public readonly diagnostico: string;
-  public readonly prescricao: string;
+  public readonly prescricao?: string; // Opcional - apenas para uso interno do hospital
+  public readonly prescricaoUsoInterno: string; // Obrigatório - para ambiente domiciliar
+  public readonly prescricaoUsoExterno: string; // Obrigatório - para ambiente externo
   public readonly observacoes?: string;
   public readonly createdAt: Date;
   public readonly updatedAt: Date;
@@ -23,7 +25,9 @@ export class Prontuario {
     anamnese: string,
     exameFisico: string,
     diagnostico: string,
-    prescricao: string,
+    prescricaoUsoInterno: string,
+    prescricaoUsoExterno: string,
+    prescricao?: string,
     observacoes?: string,
     createdAt: Date = new Date(),
     updatedAt: Date = new Date(),
@@ -36,6 +40,8 @@ export class Prontuario {
     this.anamnese = anamnese;
     this.exameFisico = exameFisico;
     this.diagnostico = diagnostico;
+    this.prescricaoUsoInterno = prescricaoUsoInterno;
+    this.prescricaoUsoExterno = prescricaoUsoExterno;
     this.prescricao = prescricao;
     this.observacoes = observacoes;
     this.createdAt = createdAt;
@@ -50,7 +56,9 @@ export class Prontuario {
     anamnese: string,
     exameFisico: string,
     diagnostico: string,
-    prescricao: string,
+    prescricaoUsoInterno: string,
+    prescricaoUsoExterno: string,
+    prescricao?: string,
     observacoes?: string,
   ): Prontuario {
     return new Prontuario(
@@ -62,6 +70,8 @@ export class Prontuario {
       anamnese,
       exameFisico,
       diagnostico,
+      prescricaoUsoInterno,
+      prescricaoUsoExterno,
       prescricao,
       observacoes,
     );
@@ -71,7 +81,9 @@ export class Prontuario {
     anamnese: string,
     exameFisico: string,
     diagnostico: string,
-    prescricao: string,
+    prescricaoUsoInterno: string,
+    prescricaoUsoExterno: string,
+    prescricao?: string,
     observacoes?: string,
   ): Prontuario {
     return new Prontuario(
@@ -83,6 +95,8 @@ export class Prontuario {
       anamnese,
       exameFisico,
       diagnostico,
+      prescricaoUsoInterno,
+      prescricaoUsoExterno,
       prescricao,
       observacoes,
       this.createdAt,

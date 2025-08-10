@@ -436,9 +436,13 @@ const handleGenerateReceitaDigital = async (prontuario) => {
   console.log("📋 [RECEITA DIGITAL] Dados do prontuário:", prontuario);
   
   try {
-    // Verificar se existe prescrição
-    if (!prontuario.prescricao || prontuario.prescricao.trim() === '') {
-      toast.error("❌ Este prontuário não possui prescrição médica para gerar receita.");
+    // Verificar se existe pelo menos uma prescrição (geral, uso interno ou externo)
+    const temPrescricaoGeral = prontuario.prescricao && prontuario.prescricao.trim() !== '';
+    const temPrescricaoUsoInterno = prontuario.prescricaoUsoInterno && prontuario.prescricaoUsoInterno.trim() !== '';
+    const temPrescricaoUsoExterno = prontuario.prescricaoUsoExterno && prontuario.prescricaoUsoExterno.trim() !== '';
+    
+    if (!temPrescricaoGeral && !temPrescricaoUsoInterno && !temPrescricaoUsoExterno) {
+      toast.error("❌ Este prontuário não possui prescrições para gerar receita digital.");
       return;
     }
     
@@ -508,206 +512,48 @@ const handleGenerateReceitaDigital = async (prontuario) => {
     doc.text('PRESCRIÇÃO MÉDICA', 20, yPosition);
     yPosition += 12;
     
-    // Função para classificar medicamentos
-    const classificarMedicamentos = (prescricao) => {
-      if (!prescricao) return { usoInterno: [], usoExterno: [], outros: [] };
-      
-      // Separar a prescrição em segmentos mais inteligentes
-      const segmentos = prescricao.split(/[\.\n]/).filter(seg => seg.trim() !== '');
-      const usoInterno = [];
-      const usoExterno = [];
-      const outros = [];
-      
-      // Palavras-chave para identificar uso interno (hospitalar/clínico)
-      const palavrasUsoInterno = [
-        'soro', 'solução', 'endovenoso', 'ev', 'intravenoso', 'iv', 'intramuscular', 'im',
-        'subcutâneo', 'sc', 'infusão', 'gotejamento', 'ampola', 'frasco', 'plasma',
-        'sangue', 'transfusão', 'heparina', 'insulina regular', 'dopamina', 'noradrenalina',
-        'adrenalina', 'morfina iv', 'fentanil', 'midazolam', 'propofol', 'etomidato',
-        'succinilcolina', 'rocurônio', 'atracúrio', 'vecurônio', 'cisatracúrio',
-        'sedação', 'anestesia', 'bloqueio', 'peridural', 'raqui'
-      ];
-      
-      // Medicamentos específicos de uso interno (hospitalar)
-      const medicamentosUsoInterno = [
-        'dopamina', 'noradrenalina', 'dobutamina', 'vasopressina', 'epinefrina',
-        'propofol', 'midazolam', 'fentanil', 'morfina', 'tramadol iv', 'ketamina',
-        'suxametônio', 'rocurônio', 'atracúrio', 'vecurônio', 'cisatracúrio',
-        'heparina', 'warfarina iv', 'alteplase', 'estreptoquinase',
-        'insulina regular', 'insulina cristalina', 'glucagon',
-        'furosemida iv', 'manitol', 'albumina', 'plasma fresco',
-        'concentrado de hemácias', 'plaquetas', 'plasma',
-        'vancomicina iv', 'meropenem', 'piperacilina', 'ceftriaxona iv',
-        'metilprednisolona', 'hidrocortisona iv', 'dexametasona iv'
-      ];
-      
-      // Medicamentos comuns de farmácia (uso externo)
-      const medicamentosFarmacia = [
-        // Analgésicos e Anti-inflamatórios
-        'paracetamol', 'dipirona', 'ibuprofeno', 'diclofenaco', 'nimesulida',
-        'aspirina', 'naproxeno', 'celecoxibe', 'meloxicam', 'piroxicam',
-        
-        // Antibióticos
-        'amoxicilina', 'azitromicina', 'ciprofloxacino', 'cefalexina', 'doxiciclina',
-        'claritromicina', 'levofloxacino', 'clindamicina', 'sulfametoxazol',
-        
-        // Gastrointestinais
-        'omeprazol', 'pantoprazol', 'ranitidina', 'domperidona', 'ondansetrona',
-        'loperamida', 'simeticona', 'lactulona', 'bromoprida',
-        
-        // Cardiovasculares
-        'losartana', 'enalapril', 'atenolol', 'propranolol', 'hidroclorotiazida',
-        'anlodipino', 'nifedipino', 'captopril', 'valsartana', 'carvedilol',
-        
-        // Endócrinos
-        'metformina', 'glibenclamida', 'insulina nph', 'levotiroxina',
-        
-        // Psiquiátricos
-        'bromazepam', 'clonazepam', 'alprazolam', 'fluoxetina', 'sertralina',
-        'paroxetina', 'escitalopram', 'amitriptilina', 'risperidona',
-        
-        // Respiratórios
-        'salbutamol', 'budesonida', 'formoterol', 'montelucaste',
-        
-        // Outros
-        'sinvastatina', 'atorvastatina', 'alopurinol', 'prednisona',
-        'prednisolona', 'dexametasona', 'betametasona'
-      ];
-      
-      // Formas farmacêuticas de uso externo
-      const formasFarmaceuticas = [
-        'comprimido', 'cápsula', 'drágea', 'xarope', 'suspensão', 'gotas', 'pomada',
-        'creme', 'gel', 'loção', 'spray', 'aerossol', 'inalador', 'supositório',
-        'óvulo', 'colírio', 'sachê', 'envelope', 'pastilha', 'tablet', 'elixir',
-        'solução oral', 'emulsão', 'adesivo', 'patch', 'adesivo transdérmico',
-        'nebulização', 'pó para inalação', 'cápsula inalatória', 'spray nasal'
-      ];
-      
-      // Palavras que indicam orientações (não medicamentos)
-      const palavrasOrientacao = [
-        'orientações', 'recomendações', 'higiene', 'controle', 'evitar', 'manter',
-        'exercícios', 'dieta', 'retorno', 'consulta', 'observação', 'cuidados'
-      ];
-      
-      segmentos.forEach(segmento => {
-        const segmentoLower = segmento.trim().toLowerCase();
-        
-        // Ignorar segmentos vazios ou muito curtos
-        if (segmentoLower.length < 3) return;
-        
-        // Ignorar segmentos que são claramente orientações médicas
-        const isOrientacao = palavrasOrientacao.some(palavra => 
-          segmentoLower.includes(palavra)
-        );
-        
-        if (isOrientacao) {
-          outros.push(segmento.trim());
-          return;
-        }
-        
-        // Verificar se contém medicamento específico de uso interno
-        const contemMedicamentoInterno = medicamentosUsoInterno.some(med => 
-          segmentoLower.includes(med)
-        );
-        
-        // Verificar se contém medicamento de farmácia
-        const contemMedicamentoFarmacia = medicamentosFarmacia.some(med => 
-          segmentoLower.includes(med)
-        );
-        
-        // Verificar se é uso interno por via de administração
-        const isUsoInterno = palavrasUsoInterno.some(palavra => 
-          segmentoLower.includes(palavra)
-        );
-        
-        // Verificar forma farmacêutica
-        const temFormaFarmaceutica = formasFarmaceuticas.some(forma => 
-          segmentoLower.includes(forma)
-        );
-        
-        // Verificar se tem padrão de dosagem (mg, ml, cp, etc.)
-        const temDosagem = /\d+\s*(mg|ml|g|mcg|ui|cp|comprimidos?|cápsulas?|gotas?)/i.test(segmento);
-        
-        // Verificar se tem padrão de posologia (8/8h, 12/12h, etc.)
-        const temPosologia = /\d+\/\d+h|vezes?\s+ao\s+dia|manhã|tarde|noite|dose\s+única/i.test(segmento);
-        
-        // Verificar se é claramente um medicamento (tem nome + dosagem/forma)
-        const isMedicamento = temDosagem && (contemMedicamentoFarmacia || contemMedicamentoInterno || temFormaFarmaceutica);
-        
-        // Classificar com base nos critérios
-        if (contemMedicamentoInterno || isUsoInterno) {
-          usoInterno.push(segmento.trim());
-        } else if (contemMedicamentoFarmacia || (isMedicamento && !isUsoInterno)) {
-          usoExterno.push(segmento.trim());
-        } else if (temFormaFarmaceutica && temDosagem) {
-          // Se tem forma farmacêutica + dosagem mas não foi identificado, assume uso externo
-          usoExterno.push(segmento.trim());
-        } else {
-          outros.push(segmento.trim());
-        }
-      });
-      
-      return { usoInterno, usoExterno, outros };
-    };
-    
-    const medicamentos = classificarMedicamentos(prontuario.prescricao);
-    
     doc.setFontSize(11);
     doc.setFont('helvetica', 'normal');
     
-    // Medicamentos de Uso Externo (Farmácia)
-    if (medicamentos.usoExterno.length > 0) {
+    // Prescrição Geral (para pacientes internados)
+    if (prontuario.prescricao && prontuario.prescricao.trim() !== '') {
       doc.setFont('helvetica', 'bold');
-      doc.text('MEDICAMENTOS DE USO EXTERNO (Farmácia):', 20, yPosition);
-      yPosition += 10;
+      doc.text('PRESCRIÇÃO GERAL (Para uso hospitalar/internação):', 20, yPosition);
+      yPosition += 8;
       
       doc.setFont('helvetica', 'normal');
-      medicamentos.usoExterno.forEach((medicamento, index) => {
-        const medicamentoLines = doc.splitTextToSize(`${index + 1}. ${medicamento}`, 170);
-        doc.text(medicamentoLines, 25, yPosition);
-        yPosition += medicamentoLines.length * 7 + 3;
-      });
-      yPosition += 10;
+      const prescricaoGeralLines = doc.splitTextToSize(prontuario.prescricao, 170);
+      doc.text(prescricaoGeralLines, 20, yPosition);
+      yPosition += prescricaoGeralLines.length * 7 + 10;
     }
     
-    // Medicamentos de Uso Interno (Hospitalar/Clínico)
-    if (medicamentos.usoInterno.length > 0) {
+    // Prescrições de Uso Interno
+    if (prontuario.prescricaoUsoInterno && prontuario.prescricaoUsoInterno.trim() !== '') {
+      doc.setFont('helvetica', 'bold');
+      doc.text('MEDICAMENTOS DE USO INTERNO (Ambiente Domiciliar):', 20, yPosition);
+      yPosition += 8;
+      
+      doc.setFont('helvetica', 'normal');
+      const usoInternoLines = doc.splitTextToSize(prontuario.prescricaoUsoInterno, 170);
+      doc.text(usoInternoLines, 20, yPosition);
+      yPosition += usoInternoLines.length * 7 + 10;
+    }
+    
+    // Prescrições de Uso Externo
+    if (prontuario.prescricaoUsoExterno && prontuario.prescricaoUsoExterno.trim() !== '') {
       if (yPosition > 220) {
         doc.addPage();
         yPosition = 20;
       }
       
       doc.setFont('helvetica', 'bold');
-      doc.text('MEDICAMENTOS DE USO INTERNO (Hospitalar):', 20, yPosition);
-      yPosition += 10;
+      doc.text('MEDICAMENTOS DE USO EXTERNO (Ambiente Externo):', 20, yPosition);
+      yPosition += 8;
       
       doc.setFont('helvetica', 'normal');
-      medicamentos.usoInterno.forEach((medicamento, index) => {
-        const medicamentoLines = doc.splitTextToSize(`${index + 1}. ${medicamento}`, 170);
-        doc.text(medicamentoLines, 25, yPosition);
-        yPosition += medicamentoLines.length * 7 + 3;
-      });
-      yPosition += 10;
-    }
-    
-    // Outras Prescrições (não classificadas)
-    if (medicamentos.outros.length > 0) {
-      if (yPosition > 220) {
-        doc.addPage();
-        yPosition = 20;
-      }
-      
-      doc.setFont('helvetica', 'bold');
-      doc.text('ORIENTAÇÕES MÉDICAS E OUTRAS PRESCRIÇÕES:', 20, yPosition);
-      yPosition += 10;
-      
-      doc.setFont('helvetica', 'normal');
-      medicamentos.outros.forEach((item, index) => {
-        const itemLines = doc.splitTextToSize(`${index + 1}. ${item}`, 170);
-        doc.text(itemLines, 25, yPosition);
-        yPosition += itemLines.length * 7 + 3;
-      });
-      yPosition += 10;
+      const usoExternoLines = doc.splitTextToSize(prontuario.prescricaoUsoExterno, 170);
+      doc.text(usoExternoLines, 20, yPosition);
+      yPosition += usoExternoLines.length * 7 + 10;
     }
     
     yPosition += 10;
@@ -727,45 +573,38 @@ const handleGenerateReceitaDigital = async (prontuario) => {
     doc.setFontSize(9);
     doc.setFont('helvetica', 'normal');
     
-    // Observações específicas por tipo de medicamento
-    if (medicamentos.usoExterno.length > 0) {
-      doc.setFont('helvetica', 'bold');
-      doc.text('Medicamentos de Uso Externo (Farmácia):', 20, yPosition); yPosition += 6;
-      doc.setFont('helvetica', 'normal');
-      doc.text('• Podem ser adquiridos em farmácias comerciais', 20, yPosition); yPosition += 5;
-      doc.text('• Seguir posologia e horários prescritos rigorosamente', 20, yPosition); yPosition += 5;
-      doc.text('• Medicamentos controlados exigem receituário específico', 20, yPosition); yPosition += 5;
-      doc.text('• Conservar conforme orientações da bula', 20, yPosition); yPosition += 5;
-      doc.text('• Em caso de efeitos adversos, suspender e procurar orientação médica', 20, yPosition); yPosition += 8;
-    }
-    
-    if (medicamentos.usoInterno.length > 0) {
-      doc.setFont('helvetica', 'bold');
-      doc.text('Medicamentos de Uso Interno (Hospitalar):', 20, yPosition); yPosition += 6;
-      doc.setFont('helvetica', 'normal');
-      doc.text('• Administração EXCLUSIVA em ambiente hospitalar/clínico', 20, yPosition); yPosition += 5;
-      doc.text('• Requer supervisão médica e de enfermagem especializada', 20, yPosition); yPosition += 5;
-      doc.text('• NÃO disponível para dispensação em farmácias comerciais', 20, yPosition); yPosition += 5;
-      doc.text('• Monitoramento contínuo de sinais vitais pode ser necessário', 20, yPosition); yPosition += 5;
-      doc.text('• Administração conforme protocolos hospitalares específicos', 20, yPosition); yPosition += 8;
-    }
-    
-    if (medicamentos.outros.length > 0) {
-      doc.setFont('helvetica', 'bold');
-      doc.text('Orientações Médicas:', 20, yPosition); yPosition += 6;
-      doc.setFont('helvetica', 'normal');
-      doc.text('• Seguir rigorosamente as orientações descritas', 20, yPosition); yPosition += 5;
-      doc.text('• Mudanças no estilo de vida são fundamentais para o tratamento', 20, yPosition); yPosition += 8;
-    }
-    
-    // Observações gerais
+    // Observações sobre prescrições
     doc.setFont('helvetica', 'bold');
-    doc.text('Observações Gerais:', 20, yPosition); yPosition += 6;
+    doc.text('INFORMAÇÕES IMPORTANTES:', 20, yPosition); yPosition += 6;
     doc.setFont('helvetica', 'normal');
-    doc.text('• Esta receita é válida em todo território nacional', 20, yPosition); yPosition += 5;
-    doc.text('• Em caso de dúvidas, entre em contato com o médico prescritor', 20, yPosition); yPosition += 5;
-    doc.text('• Documento gerado digitalmente, dispensa assinatura física', 20, yPosition); yPosition += 5;
-    doc.text('• Medicamentos controlados seguem legislação específica da ANVISA', 20, yPosition); yPosition += 15;
+    doc.text('• Seguir rigorosamente posologia, horários e duração do tratamento', 20, yPosition); yPosition += 5;
+    doc.text('• Medicamentos controlados exigem receituário específico', 20, yPosition); yPosition += 5;
+    doc.text('• Conservar medicamentos em local adequado', 20, yPosition); yPosition += 5;
+    doc.text('• Verificar prazo de validade antes do uso', 20, yPosition); yPosition += 5;
+    doc.text('• Em caso de efeitos adversos, suspender e procurar orientação médica', 20, yPosition); yPosition += 5;
+    doc.text('• Não interromper tratamento sem orientação médica', 20, yPosition); yPosition += 10;
+    
+    doc.setFont('helvetica', 'bold');
+    doc.text('PRESCRIÇÃO GERAL (Para uso hospitalar/internação):', 20, yPosition); yPosition += 6;
+    doc.setFont('helvetica', 'normal');
+    doc.text('• Medicamentos para uso durante internação hospitalar', 20, yPosition); yPosition += 5;
+    doc.text('• Administração sob supervisão da equipe médica e de enfermagem', 20, yPosition); yPosition += 5;
+    doc.text('• Uso restrito ao ambiente hospitalar', 20, yPosition); yPosition += 10;
+    
+    doc.setFont('helvetica', 'bold');
+    doc.text('MEDICAMENTOS DE USO INTERNO (Ambiente Domiciliar):', 20, yPosition); yPosition += 6;
+    doc.setFont('helvetica', 'normal');
+    doc.text('• Medicamentos para uso no ambiente doméstico/residencial', 20, yPosition); yPosition += 5;
+    doc.text('• Administrar conforme orientação médica em casa', 20, yPosition); yPosition += 5;
+    doc.text('• Manter em local seguro, longe do alcance de crianças', 20, yPosition); yPosition += 10;
+    
+    doc.setFont('helvetica', 'bold');
+    doc.text('MEDICAMENTOS DE USO EXTERNO (Ambiente Externo):', 20, yPosition); yPosition += 6;
+    doc.setFont('helvetica', 'normal');
+    doc.text('• Medicamentos para uso fora do ambiente doméstico', 20, yPosition); yPosition += 5;
+    doc.text('• Podem ser adquiridos em farmácias e drogarias', 20, yPosition); yPosition += 5;
+    doc.text('• Seguir rigorosamente posologia e orientações médicas', 20, yPosition); yPosition += 5;
+    doc.text('• Informar outros medicamentos em uso ao farmacêutico', 20, yPosition); yPosition += 5;
     
     // ===== RODAPÉ DE IDENTIFICAÇÃO =====
     if (yPosition > 240) {

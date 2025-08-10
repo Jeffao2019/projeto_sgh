@@ -28,7 +28,9 @@ interface FormData {
   anamnese: string;
   exameFisico: string;
   diagnostico: string;
-  prescricao: string;
+  prescricao?: string; // Opcional - apenas para uso interno do hospital
+  prescricaoUsoInterno: string; // Obrigatório - para ambiente domiciliar
+  prescricaoUsoExterno: string; // Obrigatório - para ambiente externo
   observacoes: string;
 }
 
@@ -65,6 +67,8 @@ export default function CadastroProntuario() {
     exameFisico: "",
     diagnostico: "",
     prescricao: "",
+    prescricaoUsoInterno: "",
+    prescricaoUsoExterno: "",
     observacoes: "",
   });
 
@@ -127,6 +131,8 @@ export default function CadastroProntuario() {
         exameFisico: data.exameFisico,
         diagnostico: data.diagnostico,
         prescricao: data.prescricao,
+        prescricaoUsoInterno: data.prescricaoUsoInterno || "",
+        prescricaoUsoExterno: data.prescricaoUsoExterno || "",
         observacoes: data.observacoes || "",
       });
     } catch (error) {
@@ -151,7 +157,9 @@ export default function CadastroProntuario() {
         anamnese: formData.anamnese,
         exameFisico: formData.exameFisico,
         diagnostico: formData.diagnostico,
-        prescricao: formData.prescricao,
+        prescricao: formData.prescricao || undefined, // Opcional
+        prescricaoUsoInterno: formData.prescricaoUsoInterno, // Obrigatório
+        prescricaoUsoExterno: formData.prescricaoUsoExterno, // Obrigatório
         observacoes: formData.observacoes || undefined,
       };
 
@@ -161,6 +169,8 @@ export default function CadastroProntuario() {
           exameFisico: submissionData.exameFisico,
           diagnostico: submissionData.diagnostico,
           prescricao: submissionData.prescricao,
+          prescricaoUsoInterno: submissionData.prescricaoUsoInterno,
+          prescricaoUsoExterno: submissionData.prescricaoUsoExterno,
           observacoes: submissionData.observacoes,
         });
         toast.success("Prontuário atualizado com sucesso!");
@@ -333,16 +343,43 @@ export default function CadastroProntuario() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="prescricao">Prescrição*</Label>
+              <Label htmlFor="prescricao">Prescrição Geral (Opcional - Uso Hospitalar)</Label>
               <Textarea
                 id="prescricao"
                 name="prescricao"
                 value={formData.prescricao}
                 onChange={handleInputChange}
+                disabled={isViewMode}
+                rows={4}
+                placeholder="Medicamentos para uso interno hospitalar (opcional)..."
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="prescricaoUsoInterno">Prescrição de Uso Interno*</Label>
+              <Textarea
+                id="prescricaoUsoInterno"
+                name="prescricaoUsoInterno"
+                value={formData.prescricaoUsoInterno}
+                onChange={handleInputChange}
                 required
                 disabled={isViewMode}
                 rows={4}
-                placeholder="Medicamentos, dosagens, instruções de uso..."
+                placeholder="Medicamentos para uso em ambiente domiciliar (obrigatório)..."
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="prescricaoUsoExterno">Prescrição de Uso Externo*</Label>
+              <Textarea
+                id="prescricaoUsoExterno"
+                name="prescricaoUsoExterno"
+                value={formData.prescricaoUsoExterno}
+                onChange={handleInputChange}
+                required
+                disabled={isViewMode}
+                rows={4}
+                placeholder="Medicamentos para uso em ambiente externo (obrigatório)..."
               />
             </div>
 

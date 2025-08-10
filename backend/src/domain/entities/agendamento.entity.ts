@@ -106,6 +106,25 @@ export class Agendamento {
       new Date(),
     );
   }
+
+  public atualizar(
+    dataHora?: Date,
+    tipo?: TipoConsulta,
+    status?: StatusAgendamento,
+    observacoes?: string,
+  ): Agendamento {
+    return new Agendamento(
+      this.id,
+      this.pacienteId,
+      this.medicoId,
+      dataHora ?? this.dataHora,
+      tipo ?? this.tipo,
+      status ?? this.status,
+      observacoes ?? this.observacoes,
+      this.createdAt,
+      new Date(),
+    );
+  }
 }
 
 export const TipoConsulta = {
