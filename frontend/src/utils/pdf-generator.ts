@@ -1,7 +1,7 @@
 import jsPDF from 'jspdf';
 import { Prontuario } from '@/types/prontuarios';
 
-export class ProntuarioPDFGenerator {
+class ProntuarioPDFGenerator {
   private doc: jsPDF;
   private yPosition: number = 20;
   private pageHeight: number = 297; // A4 height in mm
@@ -171,5 +171,5 @@ export class ProntuarioPDFGenerator {
   }
 }
 
-// Export class directly
+export { ProntuarioPDFGenerator };
 export default ProntuarioPDFGenerator;

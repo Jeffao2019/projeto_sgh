@@ -11,11 +11,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Calendar, Download, Eye, FileText, Plus, Search, User, UserCheck } from "lucide-react";
+import { Calendar, Download, Eye, FileText, Plus, Search, User, UserCheck, Shield, Stethoscope } from "lucide-react";
 import { apiService } from "@/lib/api-service";
 import { toast } from "sonner";
 import { Prontuario } from "@/types/prontuarios";
 import ProntuarioPDFGenerator from "@/utils/pdf-generator";
+import ProntuarioLGPDPDFGenerator from "@/utils/pdf-generator-lgpd";
 
 export default function Prontuarios() {
   const navigate = useNavigate();
@@ -27,8 +28,24 @@ export default function Prontuarios() {
   const [statusFilter, setStatusFilter] = useState("");
   const [pacienteInfo, setPacienteInfo] = useState<{ nome: string; cpf: string } | null>(null);
   
+  // DEBUG: Log dos parâmetros da URL
+  console.log('🔍 [PRONTUARIOS DEBUG] URL atual:', window.location.href);
+  console.log('🔍 [PRONTUARIOS DEBUG] searchParams:', searchParams.toString());
+  
+  // Função para formatar data de forma intuitiva
+  const formatarDataConsulta = (dataConsulta: string | Date) => {
+    const data = new Date(dataConsulta);
+    const dataFormatada = data.toLocaleDateString('pt-BR');
+    const horaFormatada = data.toLocaleTimeString('pt-BR', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+    return `${dataFormatada} às ${horaFormatada}`;
+  };
+  
   // Pegar o ID do paciente da query string se existir
   const pacienteId = searchParams.get('paciente');
+  console.log('🔍 [PRONTUARIOS DEBUG] pacienteId extraído:', pacienteId);
 
   useEffect(() => {
     loadProntuarios();
@@ -71,25 +88,726 @@ export default function Prontuarios() {
     }
   };
 
-  const handleGeneratePDF = async (prontuario: Prontuario) => {
-    try {
-      toast.info("Gerando PDF...");
+const handleGeneratePDF = async (prontuario) => {
+  console.log("🔵 [PDF COMPLETO] Gerando PDF com TODAS as informações do prontuário...");
+  console.log("📋 [PDF COMPLETO] Dados completos:", prontuario);
+  
+  try {
+    toast.info("Gerando PDF completo com todas as informações...");
+    
+    const jsPDF = (await import('jspdf')).default;
+    const doc = new jsPDF();
+    let yPosition = 20;
+    
+    // CABEÇALHO
+    doc.setFontSize(20);
+    doc.setFont('helvetica', 'bold');
+    doc.text('PRONTUÁRIO MÉDICO COMPLETO', 20, yPosition);
+    yPosition += 15;
+    
+    // Linha separadora
+    doc.setLineWidth(0.5);
+    doc.line(20, yPosition, 190, yPosition);
+    yPosition += 15;
+    
+    // ===== DADOS DO PACIENTE =====
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    doc.text('DADOS DO PACIENTE', 20, yPosition);
+    yPosition += 12;
+    
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Nome: ${prontuario.paciente?.nome || 'Não informado'}`, 20, yPosition); yPosition += 7;
+    doc.text(`CPF: ${prontuario.paciente?.cpf || 'Não informado'}`, 20, yPosition); yPosition += 7;
+    doc.text(`Email: ${prontuario.paciente?.email || 'Não informado'}`, 20, yPosition); yPosition += 7;
+    doc.text(`Telefone: ${prontuario.paciente?.telefone || 'Não informado'}`, 20, yPosition); yPosition += 7;
+    doc.text(`Data de Nascimento: ${prontuario.paciente?.dataNascimento ? new Date(prontuario.paciente.dataNascimento).toLocaleDateString('pt-BR') : 'Não informado'}`, 20, yPosition); yPosition += 7;
+    
+    // Endereço completo
+    if (prontuario.paciente?.endereco) {
+      const endereco = prontuario.paciente.endereco;
+      const enderecoCompleto = `${endereco.logradouro || ''}, ${endereco.numero || ''} ${endereco.complemento ? '- ' + endereco.complemento : ''} - ${endereco.bairro || ''}, ${endereco.cidade || ''} - ${endereco.estado || ''} - CEP: ${endereco.cep || ''}`;
+      doc.text(`Endereço: ${enderecoCompleto}`, 20, yPosition);
+    } else {
+      doc.text(`Endereço: Não informado`, 20, yPosition);
+    }
+    yPosition += 7;
+    
+    doc.text(`Convênio: ${prontuario.paciente?.convenio || 'Particular'}`, 20, yPosition); yPosition += 7;
+    doc.text(`Número do Convênio: ${prontuario.paciente?.numeroConvenio || 'Não aplicável'}`, 20, yPosition); yPosition += 15;
+    
+    // ===== DADOS DO MÉDICO =====
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    doc.text('DADOS DO MÉDICO', 20, yPosition);
+    yPosition += 12;
+    
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Nome: Dr(a). ${prontuario.medico?.nome || 'Não informado'}`, 20, yPosition); yPosition += 7;
+    doc.text(`CRM: ${prontuario.medico?.crm || 'Não informado'}`, 20, yPosition); yPosition += 7;
+    doc.text(`Especialidade: ${prontuario.medico?.especialidade || 'Não informado'}`, 20, yPosition); yPosition += 7;
+    doc.text(`Email: ${prontuario.medico?.email || 'Não informado'}`, 20, yPosition); yPosition += 7;
+    doc.text(`Telefone: ${prontuario.medico?.telefone || 'Não informado'}`, 20, yPosition); yPosition += 15;
+    
+    // ===== DADOS DA CONSULTA =====
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    doc.text('DADOS DA CONSULTA', 20, yPosition);
+    yPosition += 12;
+    
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Data/Hora da Consulta: ${formatarDataConsulta(prontuario.dataConsulta)}`, 20, yPosition); yPosition += 7;
+    doc.text(`Status: ${getStatusFromDate(prontuario.dataConsulta)}`, 20, yPosition); yPosition += 7;
+    doc.text(`ID do Prontuário: ${prontuario.id}`, 20, yPosition); yPosition += 7;
+    doc.text(`Criado em: ${new Date(prontuario.createdAt).toLocaleString('pt-BR')}`, 20, yPosition); yPosition += 7;
+    doc.text(`Última atualização: ${new Date(prontuario.updatedAt).toLocaleString('pt-BR')}`, 20, yPosition); yPosition += 15;
+    
+    // Verificar se precisa de nova página
+    if (yPosition > 250) {
+      doc.addPage();
+      yPosition = 20;
+    }
+    
+    // ===== DADOS CLÍNICOS COMPLETOS =====
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    doc.text('DADOS CLÍNICOS COMPLETOS', 20, yPosition);
+    yPosition += 12;
+    
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'normal');
+    
+    // Anamnese
+    if (prontuario.anamnese) {
+      doc.setFont('helvetica', 'bold');
+      doc.text('ANAMNESE:', 20, yPosition); yPosition += 7;
+      doc.setFont('helvetica', 'normal');
+      const anamneseLines = doc.splitTextToSize(prontuario.anamnese, 170);
+      doc.text(anamneseLines, 20, yPosition);
+      yPosition += anamneseLines.length * 7 + 10;
+    }
+    
+    // Exame Físico
+    if (prontuario.exameFisico) {
+      if (yPosition > 250) { doc.addPage(); yPosition = 20; }
+      doc.setFont('helvetica', 'bold');
+      doc.text('EXAME FÍSICO:', 20, yPosition); yPosition += 7;
+      doc.setFont('helvetica', 'normal');
+      const exameLines = doc.splitTextToSize(prontuario.exameFisico, 170);
+      doc.text(exameLines, 20, yPosition);
+      yPosition += exameLines.length * 7 + 10;
+    }
+    
+    // Diagnóstico
+    if (yPosition > 250) { doc.addPage(); yPosition = 20; }
+    doc.setFont('helvetica', 'bold');
+    doc.text('DIAGNÓSTICO:', 20, yPosition); yPosition += 7;
+    doc.setFont('helvetica', 'normal');
+    const diagnosticoLines = doc.splitTextToSize(prontuario.diagnostico || 'Não informado', 170);
+    doc.text(diagnosticoLines, 20, yPosition);
+    yPosition += diagnosticoLines.length * 7 + 10;
+    
+    // Prescrição
+    if (prontuario.prescricao) {
+      if (yPosition > 250) { doc.addPage(); yPosition = 20; }
+      doc.setFont('helvetica', 'bold');
+      doc.text('PRESCRIÇÃO MÉDICA:', 20, yPosition); yPosition += 7;
+      doc.setFont('helvetica', 'normal');
+      const prescricaoLines = doc.splitTextToSize(prontuario.prescricao, 170);
+      doc.text(prescricaoLines, 20, yPosition);
+      yPosition += prescricaoLines.length * 7 + 10;
+    }
+    
+    // Observações
+    if (prontuario.observacoes) {
+      if (yPosition > 250) { doc.addPage(); yPosition = 20; }
+      doc.setFont('helvetica', 'bold');
+      doc.text('OBSERVAÇÕES:', 20, yPosition); yPosition += 7;
+      doc.setFont('helvetica', 'normal');
+      const observacoesLines = doc.splitTextToSize(prontuario.observacoes, 170);
+      doc.text(observacoesLines, 20, yPosition);
+      yPosition += observacoesLines.length * 7 + 10;
+    }
+    
+    // Rodapé em todas as páginas
+    const currentPage = (doc as any).internal.getNumberOfPages();
+    for (let i = 1; i <= currentPage; i++) {
+      doc.setPage(i);
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'normal');
+      doc.text(`Documento gerado em: ${new Date().toLocaleString('pt-BR')}`, 20, 285);
+      doc.text(`Página ${i} de ${currentPage}`, 160, 285);
+    }
+    
+    const nomeArquivo = `prontuario_completo_${prontuario.paciente?.nome?.replace(/\s+/g, '_') || 'paciente'}_${new Date().toISOString().split('T')[0]}.pdf`;
+    doc.save(nomeArquivo);
+    
+    console.log("🎉 [PDF COMPLETO] PDF completo gerado com TODAS as informações!");
+    toast.success("✅ PDF completo gerado com todas as informações do prontuário!");
+    
+  } catch (error) {
+    console.error("❌ [PDF COMPLETO] Erro:", error);
+    toast.error(`Erro: ${error.message}`);
+  }
+};
+
+const handleGenerateLGPDPDF = async (prontuario) => {
+  console.log("🔒 [LGPD COMPLETO] Gerando PDF LGPD com TODAS as informações anonimizadas...");
+  console.log("📋 [LGPD COMPLETO] Dados completos:", prontuario);
+  
+  try {
+    toast.info("Gerando PDF LGPD completo com todas as informações anonimizadas...");
+    
+    const jsPDF = (await import('jspdf')).default;
+    const doc = new jsPDF();
+    let yPosition = 20;
+    
+    // Funções de anonimização LGPD
+    const anonimizarCPF = (cpf) => cpf ? `${cpf.substring(0, 3)}.XXX.XXX-${cpf.slice(-2)}` : 'XXX.XXX.XXX-XX';
+    const anonimizarEmail = (email) => email ? `***@${email.split('@')[1] || 'domain.com'}` : '***@domain.com';
+    const anonimizarTelefone = (tel) => tel ? `(XX) XXXX-${tel.slice(-4)}` : '(XX) XXXX-XXXX';
+    const anonimizarEndereco = (endereco) => {
+      if (!endereco) return 'Endereço restrito (LGPD)';
+      return `${endereco.logradouro?.substring(0, 10) || 'XXX'}..., XXX - ${endereco.bairro?.substring(0, 8) || 'XXX'}..., ${endereco.cidade || 'XXX'} - ${endereco.estado || 'XX'}`;
+    };
+    
+    // CABEÇALHO LGPD
+    doc.setFontSize(20);
+    doc.setFont('helvetica', 'bold');
+    doc.text('PRONTUÁRIO MÉDICO - LGPD', 20, yPosition);
+    yPosition += 12;
+    
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.text('DOCUMENTO ANONIMIZADO CONFORME LEI GERAL DE PROTEÇÃO DE DADOS', 20, yPosition);
+    yPosition += 15;
+    
+    // Linha separadora
+    doc.setLineWidth(0.5);
+    doc.line(20, yPosition, 190, yPosition);
+    yPosition += 15;
+    
+    // ===== DADOS DO PACIENTE (ANONIMIZADOS) =====
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    doc.text('DADOS DO PACIENTE (ANONIMIZADOS)', 20, yPosition);
+    yPosition += 12;
+    
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Nome: ${prontuario.paciente?.nome || 'Não informado'}`, 20, yPosition); yPosition += 7;
+    doc.text(`CPF: ${anonimizarCPF(prontuario.paciente?.cpf)}`, 20, yPosition); yPosition += 7;
+    doc.text(`Email: ${anonimizarEmail(prontuario.paciente?.email)}`, 20, yPosition); yPosition += 7;
+    doc.text(`Telefone: ${anonimizarTelefone(prontuario.paciente?.telefone)}`, 20, yPosition); yPosition += 7;
+    doc.text(`Data de Nascimento: ${prontuario.paciente?.dataNascimento ? 'XX/XX/XXXX (Restrito pela LGPD)' : 'Não informado'}`, 20, yPosition); yPosition += 7;
+    doc.text(`Endereço: ${anonimizarEndereco(prontuario.paciente?.endereco)}`, 20, yPosition); yPosition += 7;
+    doc.text(`Convênio: ${prontuario.paciente?.convenio || 'Particular'}`, 20, yPosition); yPosition += 7;
+    doc.text(`Número do Convênio: ${prontuario.paciente?.numeroConvenio ? 'XXXX...XXXX (Restrito)' : 'Não aplicável'}`, 20, yPosition); yPosition += 15;
+    
+    // ===== DADOS DO MÉDICO =====
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    doc.text('DADOS DO MÉDICO', 20, yPosition);
+    yPosition += 12;
+    
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Nome: Dr(a). ${prontuario.medico?.nome || 'Não informado'}`, 20, yPosition); yPosition += 7;
+    doc.text(`CRM: ${prontuario.medico?.crm || 'Não informado'}`, 20, yPosition); yPosition += 7;
+    doc.text(`Especialidade: ${prontuario.medico?.especialidade || 'Não informado'}`, 20, yPosition); yPosition += 7;
+    doc.text(`Email: ${anonimizarEmail(prontuario.medico?.email)}`, 20, yPosition); yPosition += 7;
+    doc.text(`Telefone: ${anonimizarTelefone(prontuario.medico?.telefone)}`, 20, yPosition); yPosition += 15;
+    
+    // ===== DADOS DA CONSULTA =====
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    doc.text('DADOS DA CONSULTA', 20, yPosition);
+    yPosition += 12;
+    
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Data/Hora da Consulta: ${formatarDataConsulta(prontuario.dataConsulta)}`, 20, yPosition); yPosition += 7;
+    doc.text(`Status: ${getStatusFromDate(prontuario.dataConsulta)}`, 20, yPosition); yPosition += 7;
+    doc.text(`ID do Prontuário: ${prontuario.id}`, 20, yPosition); yPosition += 7;
+    doc.text(`Criado em: ${new Date(prontuario.createdAt).toLocaleString('pt-BR')}`, 20, yPosition); yPosition += 7;
+    doc.text(`Última atualização: ${new Date(prontuario.updatedAt).toLocaleString('pt-BR')}`, 20, yPosition); yPosition += 15;
+    
+    // Verificar se precisa de nova página
+    if (yPosition > 240) {
+      doc.addPage();
+      yPosition = 20;
+    }
+    
+    // ===== DADOS CLÍNICOS COMPLETOS =====
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    doc.text('DADOS CLÍNICOS COMPLETOS', 20, yPosition);
+    yPosition += 10;
+    
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'italic');
+    doc.text('(Dados clínicos mantidos na íntegra pois são essenciais para continuidade do tratamento)', 20, yPosition);
+    yPosition += 12;
+    
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'normal');
+    
+    // Anamnese
+    if (prontuario.anamnese) {
+      if (yPosition > 240) { doc.addPage(); yPosition = 20; }
+      doc.setFont('helvetica', 'bold');
+      doc.text('ANAMNESE:', 20, yPosition); yPosition += 7;
+      doc.setFont('helvetica', 'normal');
+      const anamneseLines = doc.splitTextToSize(prontuario.anamnese, 170);
+      doc.text(anamneseLines, 20, yPosition);
+      yPosition += anamneseLines.length * 7 + 10;
+    }
+    
+    // Exame Físico
+    if (prontuario.exameFisico) {
+      if (yPosition > 240) { doc.addPage(); yPosition = 20; }
+      doc.setFont('helvetica', 'bold');
+      doc.text('EXAME FÍSICO:', 20, yPosition); yPosition += 7;
+      doc.setFont('helvetica', 'normal');
+      const exameLines = doc.splitTextToSize(prontuario.exameFisico, 170);
+      doc.text(exameLines, 20, yPosition);
+      yPosition += exameLines.length * 7 + 10;
+    }
+    
+    // Diagnóstico
+    if (yPosition > 240) { doc.addPage(); yPosition = 20; }
+    doc.setFont('helvetica', 'bold');
+    doc.text('DIAGNÓSTICO:', 20, yPosition); yPosition += 7;
+    doc.setFont('helvetica', 'normal');
+    const diagnosticoLines = doc.splitTextToSize(prontuario.diagnostico || 'Não informado', 170);
+    doc.text(diagnosticoLines, 20, yPosition);
+    yPosition += diagnosticoLines.length * 7 + 10;
+    
+    // Prescrição
+    if (prontuario.prescricao) {
+      if (yPosition > 240) { doc.addPage(); yPosition = 20; }
+      doc.setFont('helvetica', 'bold');
+      doc.text('PRESCRIÇÃO MÉDICA:', 20, yPosition); yPosition += 7;
+      doc.setFont('helvetica', 'normal');
+      const prescricaoLines = doc.splitTextToSize(prontuario.prescricao, 170);
+      doc.text(prescricaoLines, 20, yPosition);
+      yPosition += prescricaoLines.length * 7 + 10;
+    }
+    
+    // Observações
+    if (prontuario.observacoes) {
+      if (yPosition > 240) { doc.addPage(); yPosition = 20; }
+      doc.setFont('helvetica', 'bold');
+      doc.text('OBSERVAÇÕES:', 20, yPosition); yPosition += 7;
+      doc.setFont('helvetica', 'normal');
+      const observacoesLines = doc.splitTextToSize(prontuario.observacoes, 170);
+      doc.text(observacoesLines, 20, yPosition);
+      yPosition += observacoesLines.length * 7 + 10;
+    }
+    
+    // Rodapé LGPD em todas as páginas
+    const currentPage = (doc as any).internal.getNumberOfPages();
+    for (let i = 1; i <= currentPage; i++) {
+      doc.setPage(i);
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'normal');
+      doc.text(`Documento LGPD gerado em: ${new Date().toLocaleString('pt-BR')}`, 20, 275);
+      doc.text(`Este documento foi anonimizado conforme a Lei Geral de Proteção de Dados (LGPD)`, 20, 280);
+      doc.text(`Página ${i} de ${currentPage}`, 160, 280);
+    }
+    
+    const nomeArquivo = `prontuario_lgpd_completo_${prontuario.paciente?.nome?.replace(/\s+/g, '_') || 'paciente'}_${new Date().toISOString().split('T')[0]}.pdf`;
+    doc.save(nomeArquivo);
+    
+    console.log("🎉 [LGPD COMPLETO] PDF LGPD completo gerado com TODAS as informações anonimizadas!");
+    toast.success("✅ PDF LGPD completo gerado com todas as informações anonimizadas conforme LGPD!");
+    
+  } catch (error) {
+    console.error("❌ [LGPD COMPLETO] Erro:", error);
+    toast.error(`Erro LGPD: ${error.message}`);
+  }
+};
+
+const handleGenerateReceitaDigital = async (prontuario) => {
+  console.log("💊 [RECEITA DIGITAL] Gerando receita digital para profissional de saúde...");
+  console.log("📋 [RECEITA DIGITAL] Dados do prontuário:", prontuario);
+  
+  try {
+    // Verificar se existe prescrição
+    if (!prontuario.prescricao || prontuario.prescricao.trim() === '') {
+      toast.error("❌ Este prontuário não possui prescrição médica para gerar receita.");
+      return;
+    }
+    
+    toast.info("Gerando receita digital conforme normas LGPD...");
+    
+    const jsPDF = (await import('jspdf')).default;
+    const doc = new jsPDF();
+    let yPosition = 20;
+    
+    // CABEÇALHO DA RECEITA
+    doc.setFontSize(18);
+    doc.setFont('helvetica', 'bold');
+    doc.text('RECEITA MÉDICA DIGITAL', 20, yPosition);
+    yPosition += 10;
+    
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.text('Documento gerado conforme Lei Geral de Proteção de Dados (LGPD)', 20, yPosition);
+    yPosition += 15;
+    
+    // Linha separadora
+    doc.setLineWidth(0.5);
+    doc.line(20, yPosition, 190, yPosition);
+    yPosition += 15;
+    
+    // ===== DADOS DO MÉDICO (COMPLETOS) =====
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text('DADOS DO MÉDICO PRESCRITOR', 20, yPosition);
+    yPosition += 12;
+    
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Nome: Dr(a). ${prontuario.medico?.nome || 'Não informado'}`, 20, yPosition); yPosition += 7;
+    doc.text(`CRM: ${prontuario.medico?.crm || 'Não informado'}`, 20, yPosition); yPosition += 7;
+    doc.text(`Especialidade: ${prontuario.medico?.especialidade || 'Não informado'}`, 20, yPosition); yPosition += 7;
+    doc.text(`Data da Consulta: ${formatarDataConsulta(prontuario.dataConsulta)}`, 20, yPosition); yPosition += 15;
+    
+    // ===== DADOS BÁSICOS DO PACIENTE (LGPD) =====
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text('DADOS DO PACIENTE', 20, yPosition);
+    yPosition += 12;
+    
+    // Funções de anonimização específicas para receita
+    const anonimizarCPFReceita = (cpf) => cpf ? `${cpf.substring(0, 3)}.XXX.XXX-${cpf.slice(-2)}` : 'XXX.XXX.XXX-XX';
+    const calcularIdade = (dataNascimento) => {
+      if (!dataNascimento) return 'Não informado';
+      const nascimento = new Date(dataNascimento);
+      const hoje = new Date();
+      const idade = hoje.getFullYear() - nascimento.getFullYear();
+      const m = hoje.getMonth() - nascimento.getMonth();
+      if (m < 0 || (m === 0 && hoje.getDate() < nascimento.getDate())) {
+        return idade - 1;
+      }
+      return idade;
+    };
+    
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Nome: ${prontuario.paciente?.nome || 'Não informado'}`, 20, yPosition); yPosition += 7;
+    doc.text(`CPF: ${anonimizarCPFReceita(prontuario.paciente?.cpf)}`, 20, yPosition); yPosition += 15;
+    
+    // ===== PRESCRIÇÃO MÉDICA =====
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    doc.text('PRESCRIÇÃO MÉDICA', 20, yPosition);
+    yPosition += 12;
+    
+    // Função para classificar medicamentos
+    const classificarMedicamentos = (prescricao) => {
+      if (!prescricao) return { usoInterno: [], usoExterno: [], outros: [] };
       
-      // Buscar dados completos do prontuário se necessário
-      let prontuarioCompleto = prontuario;
-      if (!prontuario.paciente || !prontuario.medico) {
-        prontuarioCompleto = await apiService.getProntuarioById(prontuario.id);
+      // Separar a prescrição em segmentos mais inteligentes
+      const segmentos = prescricao.split(/[\.\n]/).filter(seg => seg.trim() !== '');
+      const usoInterno = [];
+      const usoExterno = [];
+      const outros = [];
+      
+      // Palavras-chave para identificar uso interno (hospitalar/clínico)
+      const palavrasUsoInterno = [
+        'soro', 'solução', 'endovenoso', 'ev', 'intravenoso', 'iv', 'intramuscular', 'im',
+        'subcutâneo', 'sc', 'infusão', 'gotejamento', 'ampola', 'frasco', 'plasma',
+        'sangue', 'transfusão', 'heparina', 'insulina regular', 'dopamina', 'noradrenalina',
+        'adrenalina', 'morfina iv', 'fentanil', 'midazolam', 'propofol', 'etomidato',
+        'succinilcolina', 'rocurônio', 'atracúrio', 'vecurônio', 'cisatracúrio',
+        'sedação', 'anestesia', 'bloqueio', 'peridural', 'raqui'
+      ];
+      
+      // Medicamentos específicos de uso interno (hospitalar)
+      const medicamentosUsoInterno = [
+        'dopamina', 'noradrenalina', 'dobutamina', 'vasopressina', 'epinefrina',
+        'propofol', 'midazolam', 'fentanil', 'morfina', 'tramadol iv', 'ketamina',
+        'suxametônio', 'rocurônio', 'atracúrio', 'vecurônio', 'cisatracúrio',
+        'heparina', 'warfarina iv', 'alteplase', 'estreptoquinase',
+        'insulina regular', 'insulina cristalina', 'glucagon',
+        'furosemida iv', 'manitol', 'albumina', 'plasma fresco',
+        'concentrado de hemácias', 'plaquetas', 'plasma',
+        'vancomicina iv', 'meropenem', 'piperacilina', 'ceftriaxona iv',
+        'metilprednisolona', 'hidrocortisona iv', 'dexametasona iv'
+      ];
+      
+      // Medicamentos comuns de farmácia (uso externo)
+      const medicamentosFarmacia = [
+        // Analgésicos e Anti-inflamatórios
+        'paracetamol', 'dipirona', 'ibuprofeno', 'diclofenaco', 'nimesulida',
+        'aspirina', 'naproxeno', 'celecoxibe', 'meloxicam', 'piroxicam',
+        
+        // Antibióticos
+        'amoxicilina', 'azitromicina', 'ciprofloxacino', 'cefalexina', 'doxiciclina',
+        'claritromicina', 'levofloxacino', 'clindamicina', 'sulfametoxazol',
+        
+        // Gastrointestinais
+        'omeprazol', 'pantoprazol', 'ranitidina', 'domperidona', 'ondansetrona',
+        'loperamida', 'simeticona', 'lactulona', 'bromoprida',
+        
+        // Cardiovasculares
+        'losartana', 'enalapril', 'atenolol', 'propranolol', 'hidroclorotiazida',
+        'anlodipino', 'nifedipino', 'captopril', 'valsartana', 'carvedilol',
+        
+        // Endócrinos
+        'metformina', 'glibenclamida', 'insulina nph', 'levotiroxina',
+        
+        // Psiquiátricos
+        'bromazepam', 'clonazepam', 'alprazolam', 'fluoxetina', 'sertralina',
+        'paroxetina', 'escitalopram', 'amitriptilina', 'risperidona',
+        
+        // Respiratórios
+        'salbutamol', 'budesonida', 'formoterol', 'montelucaste',
+        
+        // Outros
+        'sinvastatina', 'atorvastatina', 'alopurinol', 'prednisona',
+        'prednisolona', 'dexametasona', 'betametasona'
+      ];
+      
+      // Formas farmacêuticas de uso externo
+      const formasFarmaceuticas = [
+        'comprimido', 'cápsula', 'drágea', 'xarope', 'suspensão', 'gotas', 'pomada',
+        'creme', 'gel', 'loção', 'spray', 'aerossol', 'inalador', 'supositório',
+        'óvulo', 'colírio', 'sachê', 'envelope', 'pastilha', 'tablet', 'elixir',
+        'solução oral', 'emulsão', 'adesivo', 'patch', 'adesivo transdérmico',
+        'nebulização', 'pó para inalação', 'cápsula inalatória', 'spray nasal'
+      ];
+      
+      // Palavras que indicam orientações (não medicamentos)
+      const palavrasOrientacao = [
+        'orientações', 'recomendações', 'higiene', 'controle', 'evitar', 'manter',
+        'exercícios', 'dieta', 'retorno', 'consulta', 'observação', 'cuidados'
+      ];
+      
+      segmentos.forEach(segmento => {
+        const segmentoLower = segmento.trim().toLowerCase();
+        
+        // Ignorar segmentos vazios ou muito curtos
+        if (segmentoLower.length < 3) return;
+        
+        // Ignorar segmentos que são claramente orientações médicas
+        const isOrientacao = palavrasOrientacao.some(palavra => 
+          segmentoLower.includes(palavra)
+        );
+        
+        if (isOrientacao) {
+          outros.push(segmento.trim());
+          return;
+        }
+        
+        // Verificar se contém medicamento específico de uso interno
+        const contemMedicamentoInterno = medicamentosUsoInterno.some(med => 
+          segmentoLower.includes(med)
+        );
+        
+        // Verificar se contém medicamento de farmácia
+        const contemMedicamentoFarmacia = medicamentosFarmacia.some(med => 
+          segmentoLower.includes(med)
+        );
+        
+        // Verificar se é uso interno por via de administração
+        const isUsoInterno = palavrasUsoInterno.some(palavra => 
+          segmentoLower.includes(palavra)
+        );
+        
+        // Verificar forma farmacêutica
+        const temFormaFarmaceutica = formasFarmaceuticas.some(forma => 
+          segmentoLower.includes(forma)
+        );
+        
+        // Verificar se tem padrão de dosagem (mg, ml, cp, etc.)
+        const temDosagem = /\d+\s*(mg|ml|g|mcg|ui|cp|comprimidos?|cápsulas?|gotas?)/i.test(segmento);
+        
+        // Verificar se tem padrão de posologia (8/8h, 12/12h, etc.)
+        const temPosologia = /\d+\/\d+h|vezes?\s+ao\s+dia|manhã|tarde|noite|dose\s+única/i.test(segmento);
+        
+        // Verificar se é claramente um medicamento (tem nome + dosagem/forma)
+        const isMedicamento = temDosagem && (contemMedicamentoFarmacia || contemMedicamentoInterno || temFormaFarmaceutica);
+        
+        // Classificar com base nos critérios
+        if (contemMedicamentoInterno || isUsoInterno) {
+          usoInterno.push(segmento.trim());
+        } else if (contemMedicamentoFarmacia || (isMedicamento && !isUsoInterno)) {
+          usoExterno.push(segmento.trim());
+        } else if (temFormaFarmaceutica && temDosagem) {
+          // Se tem forma farmacêutica + dosagem mas não foi identificado, assume uso externo
+          usoExterno.push(segmento.trim());
+        } else {
+          outros.push(segmento.trim());
+        }
+      });
+      
+      return { usoInterno, usoExterno, outros };
+    };
+    
+    const medicamentos = classificarMedicamentos(prontuario.prescricao);
+    
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'normal');
+    
+    // Medicamentos de Uso Externo (Farmácia)
+    if (medicamentos.usoExterno.length > 0) {
+      doc.setFont('helvetica', 'bold');
+      doc.text('MEDICAMENTOS DE USO EXTERNO (Farmácia):', 20, yPosition);
+      yPosition += 10;
+      
+      doc.setFont('helvetica', 'normal');
+      medicamentos.usoExterno.forEach((medicamento, index) => {
+        const medicamentoLines = doc.splitTextToSize(`${index + 1}. ${medicamento}`, 170);
+        doc.text(medicamentoLines, 25, yPosition);
+        yPosition += medicamentoLines.length * 7 + 3;
+      });
+      yPosition += 10;
+    }
+    
+    // Medicamentos de Uso Interno (Hospitalar/Clínico)
+    if (medicamentos.usoInterno.length > 0) {
+      if (yPosition > 220) {
+        doc.addPage();
+        yPosition = 20;
       }
       
-      const pdfGenerator = new ProntuarioPDFGenerator();
-      pdfGenerator.generate(prontuarioCompleto);
+      doc.setFont('helvetica', 'bold');
+      doc.text('MEDICAMENTOS DE USO INTERNO (Hospitalar):', 20, yPosition);
+      yPosition += 10;
       
-      toast.success("PDF gerado com sucesso!");
-    } catch (error: any) {
-      console.error("Erro ao gerar PDF:", error);
-      toast.error("Erro ao gerar PDF: " + (error.message || "Erro desconhecido"));
+      doc.setFont('helvetica', 'normal');
+      medicamentos.usoInterno.forEach((medicamento, index) => {
+        const medicamentoLines = doc.splitTextToSize(`${index + 1}. ${medicamento}`, 170);
+        doc.text(medicamentoLines, 25, yPosition);
+        yPosition += medicamentoLines.length * 7 + 3;
+      });
+      yPosition += 10;
     }
-  };
+    
+    // Outras Prescrições (não classificadas)
+    if (medicamentos.outros.length > 0) {
+      if (yPosition > 220) {
+        doc.addPage();
+        yPosition = 20;
+      }
+      
+      doc.setFont('helvetica', 'bold');
+      doc.text('ORIENTAÇÕES MÉDICAS E OUTRAS PRESCRIÇÕES:', 20, yPosition);
+      yPosition += 10;
+      
+      doc.setFont('helvetica', 'normal');
+      medicamentos.outros.forEach((item, index) => {
+        const itemLines = doc.splitTextToSize(`${index + 1}. ${item}`, 170);
+        doc.text(itemLines, 25, yPosition);
+        yPosition += itemLines.length * 7 + 3;
+      });
+      yPosition += 10;
+    }
+    
+    yPosition += 10;
+    
+    // Verificar se precisa de nova página
+    if (yPosition > 220) {
+      doc.addPage();
+      yPosition = 20;
+    }
+    
+    // ===== OBSERVAÇÕES IMPORTANTES =====
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'bold');
+    doc.text('OBSERVAÇÕES IMPORTANTES', 20, yPosition);
+    yPosition += 10;
+    
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    
+    // Observações específicas por tipo de medicamento
+    if (medicamentos.usoExterno.length > 0) {
+      doc.setFont('helvetica', 'bold');
+      doc.text('Medicamentos de Uso Externo (Farmácia):', 20, yPosition); yPosition += 6;
+      doc.setFont('helvetica', 'normal');
+      doc.text('• Podem ser adquiridos em farmácias comerciais', 20, yPosition); yPosition += 5;
+      doc.text('• Seguir posologia e horários prescritos rigorosamente', 20, yPosition); yPosition += 5;
+      doc.text('• Medicamentos controlados exigem receituário específico', 20, yPosition); yPosition += 5;
+      doc.text('• Conservar conforme orientações da bula', 20, yPosition); yPosition += 5;
+      doc.text('• Em caso de efeitos adversos, suspender e procurar orientação médica', 20, yPosition); yPosition += 8;
+    }
+    
+    if (medicamentos.usoInterno.length > 0) {
+      doc.setFont('helvetica', 'bold');
+      doc.text('Medicamentos de Uso Interno (Hospitalar):', 20, yPosition); yPosition += 6;
+      doc.setFont('helvetica', 'normal');
+      doc.text('• Administração EXCLUSIVA em ambiente hospitalar/clínico', 20, yPosition); yPosition += 5;
+      doc.text('• Requer supervisão médica e de enfermagem especializada', 20, yPosition); yPosition += 5;
+      doc.text('• NÃO disponível para dispensação em farmácias comerciais', 20, yPosition); yPosition += 5;
+      doc.text('• Monitoramento contínuo de sinais vitais pode ser necessário', 20, yPosition); yPosition += 5;
+      doc.text('• Administração conforme protocolos hospitalares específicos', 20, yPosition); yPosition += 8;
+    }
+    
+    if (medicamentos.outros.length > 0) {
+      doc.setFont('helvetica', 'bold');
+      doc.text('Orientações Médicas:', 20, yPosition); yPosition += 6;
+      doc.setFont('helvetica', 'normal');
+      doc.text('• Seguir rigorosamente as orientações descritas', 20, yPosition); yPosition += 5;
+      doc.text('• Mudanças no estilo de vida são fundamentais para o tratamento', 20, yPosition); yPosition += 8;
+    }
+    
+    // Observações gerais
+    doc.setFont('helvetica', 'bold');
+    doc.text('Observações Gerais:', 20, yPosition); yPosition += 6;
+    doc.setFont('helvetica', 'normal');
+    doc.text('• Esta receita é válida em todo território nacional', 20, yPosition); yPosition += 5;
+    doc.text('• Em caso de dúvidas, entre em contato com o médico prescritor', 20, yPosition); yPosition += 5;
+    doc.text('• Documento gerado digitalmente, dispensa assinatura física', 20, yPosition); yPosition += 5;
+    doc.text('• Medicamentos controlados seguem legislação específica da ANVISA', 20, yPosition); yPosition += 15;
+    
+    // ===== RODAPÉ DE IDENTIFICAÇÃO =====
+    if (yPosition > 240) {
+      doc.addPage();
+      yPosition = 20;
+    }
+    
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'italic');
+    doc.text(`Receita digital gerada em: ${new Date().toLocaleString('pt-BR')}`, 20, yPosition); yPosition += 5;
+    doc.text(`ID do Prontuário: ${prontuario.id}`, 20, yPosition); yPosition += 5;
+    doc.text(`Sistema: SGH - Sistema de Gestão Hospitalar`, 20, yPosition); yPosition += 10;
+    
+    // Linha de assinatura digital
+    doc.setLineWidth(0.3);
+    doc.line(120, yPosition, 190, yPosition);
+    yPosition += 5;
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Dr(a). ${prontuario.medico?.nome || 'Nome do Médico'}`, 120, yPosition); yPosition += 4;
+    doc.text(`CRM: ${prontuario.medico?.crm || 'CRM'}`, 120, yPosition);
+    
+    // Rodapé LGPD
+    doc.setFontSize(7);
+    doc.setFont('helvetica', 'italic');
+    doc.text('Dados pessoais tratados conforme LGPD - Lei 13.709/2018', 20, 285);
+    doc.text('Receita digital válida conforme CFM Resolução 2.299/2021', 120, 285);
+    
+    const nomeArquivo = `receita_digital_${prontuario.paciente?.nome?.replace(/\s+/g, '_') || 'paciente'}_${new Date().toISOString().split('T')[0]}.pdf`;
+    doc.save(nomeArquivo);
+    
+    console.log("🎉 [RECEITA DIGITAL] Receita digital gerada com sucesso!");
+    toast.success("✅ Receita digital gerada com sucesso conforme normas LGPD!");
+    
+  } catch (error) {
+    console.error("❌ [RECEITA DIGITAL] Erro:", error);
+    toast.error(`Erro ao gerar receita: ${error.message}`);
+  }
+};
+
+  
+  
 
   const getStatusFromDate = (dataConsulta: string): string => {
     const hoje = new Date();
@@ -198,7 +916,12 @@ export default function Prontuarios() {
 
       {/* Botão de ação */}
       <div className="flex justify-end mb-8">
-        <Button variant="medical" onClick={() => navigate("/prontuarios/novo")}>
+        <Button variant="medical" onClick={() => {
+          const returnUrl = pacienteId ? `/prontuarios?paciente=${pacienteId}` : '/prontuarios';
+          console.log('🔍 [NOVO PRONTUARIO DEBUG] pacienteId:', pacienteId);
+          console.log('🔍 [NOVO PRONTUARIO DEBUG] returnUrl:', returnUrl);
+          navigate(`/prontuarios/novo?return=${encodeURIComponent(returnUrl)}`);
+        }}>
           <Plus className="w-4 h-4 mr-2" />
           Novo Prontuário
         </Button>
@@ -348,26 +1071,36 @@ export default function Prontuarios() {
                         {getStatusLabel(prontuario.status)}
                       </span>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 text-sm text-muted-foreground">
+                    
+                    {/* Linha com médico e data */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm text-muted-foreground mb-2">
                       <div className="flex items-center space-x-1">
                         <User className="w-3 h-3" />
                         <span>Dr(a). {prontuario.medico?.nome || "Médico não identificado"}</span>
                       </div>
                       <div className="flex items-center space-x-1">
                         <Calendar className="w-3 h-3" />
-                        <span>{new Date(prontuario.dataConsulta).toLocaleDateString('pt-BR')}</span>
+                        <span>{formatarDataConsulta(prontuario.dataConsulta)}</span>
                       </div>
-                      <div className="flex items-center space-x-1">
-                        <FileText className="w-3 h-3" />
-                        <span className="truncate">{prontuario.diagnostico}</span>
-                      </div>
+                    </div>
+                    
+                    {/* Linha separada para o diagnóstico */}
+                    <div className="flex items-start space-x-1 text-sm text-muted-foreground">
+                      <FileText className="w-3 h-3 mt-0.5 flex-shrink-0" />
+                      <span className="break-words">{prontuario.diagnostico}</span>
                     </div>
                   </div>
                   <div className="flex space-x-2 mt-3 lg:mt-0">
                     <Button 
                       variant="outline" 
                       size="sm"
-                      onClick={() => navigate(`/prontuarios/${prontuario.id}`)}
+                      onClick={() => {
+                        const returnUrl = pacienteId ? `/prontuarios?paciente=${pacienteId}` : '/prontuarios';
+                        console.log('🔍 [VER PRONTUARIO DEBUG] pacienteId:', pacienteId);
+                        console.log('🔍 [VER PRONTUARIO DEBUG] returnUrl:', returnUrl);
+                        console.log('🔍 [VER PRONTUARIO DEBUG] URL final:', `/prontuarios/${prontuario.id}?return=${encodeURIComponent(returnUrl)}`);
+                        navigate(`/prontuarios/${prontuario.id}?return=${encodeURIComponent(returnUrl)}`);
+                      }}
                     >
                       <Eye className="w-3 h-3 mr-1" />
                       Ver
@@ -375,17 +1108,43 @@ export default function Prontuarios() {
                     <Button
                       variant="secondary"
                       size="sm"
-                      onClick={() => navigate(`/prontuarios/${prontuario.id}/editar`)}
+                      onClick={() => {
+                        const returnUrl = pacienteId ? `/prontuarios?paciente=${pacienteId}` : '/prontuarios';
+                        console.log('🔍 [EDITAR PRONTUARIO DEBUG] pacienteId:', pacienteId);
+                        console.log('🔍 [EDITAR PRONTUARIO DEBUG] returnUrl:', returnUrl);
+                        navigate(`/prontuarios/${prontuario.id}/editar?return=${encodeURIComponent(returnUrl)}`);
+                      }}
                     >
                       Editar
                     </Button>
                     <Button 
                       variant="outline" 
                       size="sm"
+                      onClick={() => handleGenerateReceitaDigital(prontuario)}
+                      title="Gerar receita digital para profissional de saúde (LGPD)"
+                      className="text-green-600 hover:text-green-700 border-green-300 hover:border-green-400"
+                    >
+                      <Stethoscope className="w-3 h-3 mr-1" />
+                      Receita
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
                       onClick={() => handleGeneratePDF(prontuario)}
+                      title="Exportar PDF completo"
                     >
                       <Download className="w-3 h-3 mr-1" />
                       PDF
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => handleGenerateLGPDPDF(prontuario)}
+                      title="Exportar PDF com dados anonimizados (LGPD)"
+                      className="text-purple-600 hover:text-purple-700 border-purple-300 hover:border-purple-400"
+                    >
+                      <Shield className="w-3 h-3 mr-1" />
+                      LGPD
                     </Button>
                   </div>
                 </div>

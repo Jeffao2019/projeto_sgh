@@ -84,6 +84,11 @@ export class ProntuarioController {
     return await this.prontuarioUseCase.findById(id);
   }
 
+  @Get(':id/with-relations')
+  async findByIdWithRelations(@Param('id') id: string): Promise<any> {
+    return await this.prontuarioUseCase.findByIdWithRelations(id);
+  }
+
   @Put(':id')
   async update(
     @Param('id') id: string,

@@ -106,6 +106,27 @@ export class ProntuarioUseCase {
     return prontuario;
   }
 
+  async findByIdWithRelations(id: string): Promise<any> {
+    const prontuario = await this.prontuarioRepository.findById(id);
+    if (!prontuario) {
+      throw new NotFoundException('Prontuário não encontrado');
+    }
+
+    // Buscar paciente, médico e agendamento
+    const paciente = await this.pacienteRepository.findById(prontuario.pacienteId);
+    const medico = await this.userRepository.findById(prontuario.medicoId);
+    const agendamento = prontuario.agendamentoId 
+      ? await this.agendamentoRepository.findById(prontuario.agendamentoId)
+      : null;
+
+    return {
+      ...prontuario,
+      paciente,
+      medico,
+      agendamento,
+    };
+  }
+
   async findByPacienteId(pacienteId: string): Promise<Prontuario[]> {
     // Verificar se paciente existe
     const paciente = await this.pacienteRepository.findById(pacienteId);

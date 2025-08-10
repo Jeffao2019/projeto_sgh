@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { PacienteEntity } from './paciente.entity';
 import { UserEntity } from './user.entity';
+import { AgendamentoEntity } from './agendamento.entity';
 
 @Entity('prontuarios')
 export class ProntuarioEntity {
@@ -23,6 +24,10 @@ export class ProntuarioEntity {
 
   @Column({ type: 'uuid', nullable: true })
   agendamentoId?: string;
+
+  @ManyToOne(() => AgendamentoEntity)
+  @JoinColumn({ name: 'agendamentoId' })
+  agendamento?: AgendamentoEntity;
 
   @Column({ type: 'text' })
   queixaPrincipal: string;

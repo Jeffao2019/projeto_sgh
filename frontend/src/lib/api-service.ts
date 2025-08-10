@@ -232,7 +232,7 @@ class ApiService {
   }
 
   async getProntuarioById(id: string) {
-    return this.get<Prontuario>(API_CONFIG.ENDPOINTS.PRONTUARIOS.BY_ID(id));
+    return this.get<Prontuario>(`${API_CONFIG.ENDPOINTS.PRONTUARIOS.BY_ID(id)}/with-relations`);
   }
 
   async getProntuariosByPaciente(pacienteId: string) {

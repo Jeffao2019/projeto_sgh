@@ -32,7 +32,7 @@ export class TypeOrmProntuarioRepository implements ProntuarioRepository {
   async findById(id: string): Promise<Prontuario | null> {
     const entity = await this.repository.findOne({ 
       where: { id, isActive: true },
-      relations: ['paciente', 'medico']
+      relations: ['paciente', 'medico', 'agendamento']
     });
     return entity ? this.toDomain(entity) : null;
   }
@@ -40,7 +40,7 @@ export class TypeOrmProntuarioRepository implements ProntuarioRepository {
   async findAll(): Promise<Prontuario[]> {
     const entities = await this.repository.find({ 
       where: { isActive: true },
-      relations: ['paciente', 'medico'],
+      relations: ['paciente', 'medico', 'agendamento'],
       order: { dataConsulta: 'DESC' }
     });
     return entities.map(entity => this.toDomain(entity));
@@ -100,7 +100,7 @@ export class TypeOrmProntuarioRepository implements ProntuarioRepository {
   async findAllWithRelations(): Promise<any[]> {
     const entities = await this.repository.find({ 
       where: { isActive: true },
-      relations: ['paciente', 'medico'],
+      relations: ['paciente', 'medico', 'agendamento'],
       order: { dataConsulta: 'DESC' }
     });
     return entities.map(entity => ({
@@ -119,12 +119,26 @@ export class TypeOrmProntuarioRepository implements ProntuarioRepository {
       paciente: entity.paciente ? {
         id: entity.paciente.id,
         nome: entity.paciente.nome,
-        cpf: entity.paciente.cpf
+        cpf: entity.paciente.cpf,
+        email: entity.paciente.email,
+        telefone: entity.paciente.telefone,
+        dataNascimento: entity.paciente.dataNascimento,
+        endereco: entity.paciente.endereco,
+        convenio: entity.paciente.convenio,
+        numeroConvenio: entity.paciente.numeroConvenio
       } : null,
       medico: entity.medico ? {
         id: entity.medico.id,
         nome: entity.medico.nome,
-        email: entity.medico.email
+        email: entity.medico.email,
+        papel: entity.medico.papel
+      } : null,
+      agendamento: entity.agendamento ? {
+        id: entity.agendamento.id,
+        dataHora: entity.agendamento.dataHora,
+        tipo: entity.agendamento.tipo,
+        status: entity.agendamento.status,
+        observacoes: entity.agendamento.observacoes
       } : null
     }));
   }

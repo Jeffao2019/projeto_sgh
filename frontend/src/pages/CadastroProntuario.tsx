@@ -41,6 +41,16 @@ export default function CadastroProntuario() {
   const [medicos, setMedicos] = useState<Medico[]>([]);
   const [agendamentos, setAgendamentos] = useState<Agendamento[]>([]);
   
+  // Determinar URL de retorno baseada no parâmetro da query string
+  const searchParams = new URLSearchParams(location.search);
+  const returnUrl = searchParams.get('return') || '/prontuarios';
+  
+  // DEBUG: Log dos parâmetros da URL
+  console.log('🔍 [CADASTRO PRONTUARIO DEBUG] URL atual:', window.location.href);
+  console.log('🔍 [CADASTRO PRONTUARIO DEBUG] searchParams:', searchParams.toString());
+  console.log('🔍 [CADASTRO PRONTUARIO DEBUG] returnUrl recebido:', searchParams.get('return'));
+  console.log('🔍 [CADASTRO PRONTUARIO DEBUG] returnUrl final:', returnUrl);
+  
   // Determinar se está em modo de visualização ou edição
   const isViewMode = id && id !== 'novo' && !location.pathname.includes('/editar');
   const isEditMode = id && id !== 'novo' && location.pathname.includes('/editar');
@@ -64,8 +74,18 @@ export default function CadastroProntuario() {
     loadAgendamentos();
     if (id) {
       loadProntuario(id);
+    } else if (isCreateMode && returnUrl.includes('paciente=')) {
+      // Pré-selecionar paciente se vier de uma lista filtrada
+      const urlParams = new URLSearchParams(returnUrl.split('?')[1] || '');
+      const pacienteIdFromFilter = urlParams.get('paciente');
+      if (pacienteIdFromFilter) {
+        setFormData(prev => ({
+          ...prev,
+          pacienteId: pacienteIdFromFilter
+        }));
+      }
     }
-  }, [id]);
+  }, [id, isCreateMode, returnUrl]);
 
   const loadPacientes = async () => {
     try {
@@ -111,7 +131,8 @@ export default function CadastroProntuario() {
       });
     } catch (error) {
       toast.error("Erro ao carregar dados do prontuário");
-      navigate("/prontuarios");
+      console.log('🔍 [ERRO CARREGAR DEBUG] Navegando para returnUrl:', returnUrl);
+      navigate(returnUrl);
     } finally {
       setIsLoading(false);
     }
@@ -147,7 +168,8 @@ export default function CadastroProntuario() {
         await apiService.createProntuario(submissionData);
         toast.success("Prontuário cadastrado com sucesso!");
       }
-      navigate("/prontuarios");
+      console.log('🔍 [SUBMIT SUCCESS DEBUG] Navegando para returnUrl:', returnUrl);
+      navigate(returnUrl);
     } catch (error: any) {
       toast.error(error.message || "Erro ao salvar prontuário");
     } finally {
@@ -344,7 +366,10 @@ export default function CadastroProntuario() {
               <Button 
                 type="button" 
                 variant="outline" 
-                onClick={() => navigate("/prontuarios")}
+                onClick={() => {
+                  console.log('🔍 [VOLTAR DEBUG] Navegando para returnUrl:', returnUrl);
+                  navigate(returnUrl);
+                }}
               >
                 Voltar
               </Button>
@@ -354,7 +379,10 @@ export default function CadastroProntuario() {
                 <Button 
                   type="button" 
                   variant="outline" 
-                  onClick={() => navigate("/prontuarios")}
+                  onClick={() => {
+                    console.log('🔍 [CANCELAR DEBUG] Navegando para returnUrl:', returnUrl);
+                    navigate(returnUrl);
+                  }}
                 >
                   Cancelar
                 </Button>
