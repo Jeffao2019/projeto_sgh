@@ -31,6 +31,8 @@ export default function Prontuarios() {
   // DEBUG: Log dos parâmetros da URL
   console.log('🔍 [PRONTUARIOS DEBUG] URL atual:', window.location.href);
   console.log('🔍 [PRONTUARIOS DEBUG] searchParams:', searchParams.toString());
+  console.log('🔍 [PRONTUARIOS DEBUG] location.search:', window.location.search);
+  console.log('🔍 [PRONTUARIOS DEBUG] URLSearchParams full:', Object.fromEntries(searchParams.entries()));
   
   // Função para formatar data de forma intuitiva
   const formatarDataConsulta = (dataConsulta: string | Date) => {
@@ -43,11 +45,75 @@ export default function Prontuarios() {
     return `${dataFormatada} às ${horaFormatada}`;
   };
   
-  // Pegar o ID do paciente da query string se existir
-  const pacienteId = searchParams.get('paciente');
+  // Pegar o ID do paciente da query string se existir - VERSÃO ROBUSTA
+  const getPacienteIdRobust = () => {
+    // Método 1: searchParams.get
+    let pacienteId = searchParams.get('paciente');
+    
+    // Método 2: Fallback - parsing manual da URL
+    if (!pacienteId) {
+      const urlString = window.location.search;
+      const match = urlString.match(/[?&]paciente=([^&]*)/);
+      if (match) {
+        pacienteId = decodeURIComponent(match[1]);
+      }
+    }
+    
+    // Método 3: Fallback - sessionStorage
+    if (!pacienteId) {
+      pacienteId = sessionStorage.getItem('currentPacienteFilter');
+    }
+    
+    // Salvar no sessionStorage para backup
+    if (pacienteId) {
+      sessionStorage.setItem('currentPacienteFilter', pacienteId);
+    } else {
+      sessionStorage.removeItem('currentPacienteFilter');
+    }
+    
+    return pacienteId;
+  };
+  
+  const pacienteId = getPacienteIdRobust();
   console.log('🔍 [PRONTUARIOS DEBUG] pacienteId extraído:', pacienteId);
+  console.log('🔍 [PRONTUARIOS DEBUG] Parâmetros disponíveis:', [...searchParams.keys()]);
+  console.log('🔍 [PRONTUARIOS DEBUG] SessionStorage backup:', sessionStorage.getItem('currentPacienteFilter'));
+
+  // Função para navegação robusta com preservação do filtro
+  const navigateWithFilter = (path: string) => {
+    const returnUrl = pacienteId ? `/prontuarios?paciente=${pacienteId}` : '/prontuarios';
+    
+    // Se há um termo de busca ativo mas não um pacienteId, preservar a busca
+    let finalReturnUrl = returnUrl;
+    if (!pacienteId && searchTerm.trim()) {
+      finalReturnUrl = `/prontuarios?search=${encodeURIComponent(searchTerm.trim())}`;
+    }
+    
+    const encodedReturnUrl = encodeURIComponent(finalReturnUrl);
+    const finalUrl = `${path}?return=${encodedReturnUrl}`;
+    
+    console.log('🔧 [NAVEGAÇÃO ROBUSTA]', {
+      pacienteId,
+      searchTerm,
+      returnUrl: finalReturnUrl,
+      encodedReturnUrl,
+      finalUrl
+    });
+    
+    // Salvar no sessionStorage antes da navegação
+    if (pacienteId) {
+      sessionStorage.setItem('preNavigationFilter', pacienteId);
+      sessionStorage.setItem('originalReturnUrl', finalReturnUrl);
+    } else if (searchTerm.trim()) {
+      sessionStorage.setItem('preNavigationSearch', searchTerm.trim());
+      sessionStorage.setItem('originalReturnUrl', finalReturnUrl);
+    }
+    
+    navigate(finalUrl);
+  };
 
   useEffect(() => {
+    console.log('🔄 [PRONTUARIOS DEBUG] useEffect disparado - pacienteId:', pacienteId);
     loadProntuarios();
     if (pacienteId) {
       loadPacienteInfo(pacienteId);
@@ -55,6 +121,24 @@ export default function Prontuarios() {
       setPacienteInfo(null);
     }
   }, [pacienteId]); // Recarregar quando o pacienteId mudar
+
+  // Novo useEffect para sincronizar o parâmetro search da URL com o estado searchTerm
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const searchFromUrl = searchParams.get('search');
+    
+    console.log('🔍 [SEARCH SYNC DEBUG] Sincronizando search da URL com estado');
+    console.log('🔍 [SEARCH SYNC DEBUG] searchFromUrl:', searchFromUrl);
+    console.log('🔍 [SEARCH SYNC DEBUG] searchTerm atual:', searchTerm);
+    
+    if (searchFromUrl && searchFromUrl !== searchTerm) {
+      console.log('🔍 [SEARCH SYNC DEBUG] Aplicando searchTerm da URL:', searchFromUrl);
+      setSearchTerm(searchFromUrl);
+    } else if (!searchFromUrl && searchTerm) {
+      console.log('🔍 [SEARCH SYNC DEBUG] Limpando searchTerm (sem parâmetro na URL)');
+      setSearchTerm('');
+    }
+  }, [location.search]); // Executar quando a URL mudar
 
   const loadPacienteInfo = async (id: string) => {
     try {
@@ -72,16 +156,27 @@ export default function Prontuarios() {
   const loadProntuarios = async () => {
     setIsLoading(true);
     try {
+      console.log('🔍 [LOAD PRONTUARIOS DEBUG] Iniciando carregamento...');
+      console.log('🔍 [LOAD PRONTUARIOS DEBUG] Verificando autenticação...');
+      console.log('🔍 [LOAD PRONTUARIOS DEBUG] pacienteId:', pacienteId);
+      
       let data;
       if (pacienteId) {
         // Se há um paciente específico, buscar prontuários desse paciente
+        console.log('🔍 [LOAD PRONTUARIOS DEBUG] Buscando por paciente:', pacienteId);
         data = await apiService.getProntuariosByPaciente(pacienteId);
       } else {
         // Caso contrário, buscar todos os prontuários
+        console.log('🔍 [LOAD PRONTUARIOS DEBUG] Buscando todos os prontuários...');
         data = await apiService.getProntuarios();
       }
+      
+      console.log('🔍 [LOAD PRONTUARIOS DEBUG] Prontuários carregados:', data.length);
       setProntuarios(data);
     } catch (error: any) {
+      console.error('🔍 [LOAD PRONTUARIOS DEBUG] Erro ao carregar:', error);
+      console.error('🔍 [LOAD PRONTUARIOS DEBUG] Status:', error.response?.status);
+      console.error('🔍 [LOAD PRONTUARIOS DEBUG] Message:', error.message);
       toast.error("Erro ao carregar prontuários");
     } finally {
       setIsLoading(false);
@@ -753,10 +848,8 @@ const handleGenerateReceitaDigital = async (prontuario) => {
       {/* Botão de ação */}
       <div className="flex justify-end mb-8">
         <Button variant="medical" onClick={() => {
-          const returnUrl = pacienteId ? `/prontuarios?paciente=${pacienteId}` : '/prontuarios';
           console.log('🔍 [NOVO PRONTUARIO DEBUG] pacienteId:', pacienteId);
-          console.log('🔍 [NOVO PRONTUARIO DEBUG] returnUrl:', returnUrl);
-          navigate(`/prontuarios/novo?return=${encodeURIComponent(returnUrl)}`);
+          navigateWithFilter('/prontuarios/novo');
         }}>
           <Plus className="w-4 h-4 mr-2" />
           Novo Prontuário
@@ -931,11 +1024,10 @@ const handleGenerateReceitaDigital = async (prontuario) => {
                       variant="outline" 
                       size="sm"
                       onClick={() => {
-                        const returnUrl = pacienteId ? `/prontuarios?paciente=${pacienteId}` : '/prontuarios';
                         console.log('🔍 [VER PRONTUARIO DEBUG] pacienteId:', pacienteId);
-                        console.log('🔍 [VER PRONTUARIO DEBUG] returnUrl:', returnUrl);
-                        console.log('🔍 [VER PRONTUARIO DEBUG] URL final:', `/prontuarios/${prontuario.id}?return=${encodeURIComponent(returnUrl)}`);
-                        navigate(`/prontuarios/${prontuario.id}?return=${encodeURIComponent(returnUrl)}`);
+                        console.log('🔍 [VER PRONTUARIO DEBUG] Histórico antes da navegação:', window.history.length);
+                        navigateWithFilter(`/prontuarios/${prontuario.id}`);
+                        console.log('🔍 [VER PRONTUARIO DEBUG] Navegação executada');
                       }}
                     >
                       <Eye className="w-3 h-3 mr-1" />
@@ -945,10 +1037,8 @@ const handleGenerateReceitaDigital = async (prontuario) => {
                       variant="secondary"
                       size="sm"
                       onClick={() => {
-                        const returnUrl = pacienteId ? `/prontuarios?paciente=${pacienteId}` : '/prontuarios';
                         console.log('🔍 [EDITAR PRONTUARIO DEBUG] pacienteId:', pacienteId);
-                        console.log('🔍 [EDITAR PRONTUARIO DEBUG] returnUrl:', returnUrl);
-                        navigate(`/prontuarios/${prontuario.id}/editar?return=${encodeURIComponent(returnUrl)}`);
+                        navigateWithFilter(`/prontuarios/${prontuario.id}/editar`);
                       }}
                     >
                       Editar

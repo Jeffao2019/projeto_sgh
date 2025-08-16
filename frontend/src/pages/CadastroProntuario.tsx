@@ -43,16 +43,70 @@ export default function CadastroProntuario() {
   const [medicos, setMedicos] = useState<Medico[]>([]);
   const [agendamentos, setAgendamentos] = useState<Agendamento[]>([]);
   
-  // Determinar URL de retorno baseada no parâmetro da query string
-  const searchParams = new URLSearchParams(location.search);
-  const returnUrl = searchParams.get('return') || '/prontuarios';
+  // Determinar URL de retorno baseada no parâmetro da query string - VERSÃO ROBUSTA
+  const getReturnUrlRobust = () => {
+    const searchParams = new URLSearchParams(location.search);
+    let returnUrl = searchParams.get('return');
+    
+    if (returnUrl) {
+      try {
+        returnUrl = decodeURIComponent(returnUrl);
+      } catch (e) {
+        console.warn('🚨 [CADASTRO PRONTUARIO] Erro ao decodificar returnUrl:', e);
+      }
+    }
+    
+    // Fallback: usar sessionStorage
+    if (!returnUrl) {
+      const savedFilter = sessionStorage.getItem('preNavigationFilter');
+      const savedSearch = sessionStorage.getItem('preNavigationSearch');
+      
+      if (savedFilter) {
+        returnUrl = `/prontuarios?paciente=${savedFilter}`;
+        console.log('🔄 [CADASTRO PRONTUARIO] Usando sessionStorage paciente fallback:', returnUrl);
+      } else if (savedSearch) {
+        returnUrl = `/prontuarios?search=${encodeURIComponent(savedSearch)}`;
+        console.log('🔄 [CADASTRO PRONTUARIO] Usando sessionStorage search fallback:', returnUrl);
+      }
+    }
+    
+    // Fallback: usar originalReturnUrl do sessionStorage
+    if (!returnUrl) {
+      const originalUrl = sessionStorage.getItem('originalReturnUrl');
+      if (originalUrl) {
+        returnUrl = originalUrl;
+        console.log('🔄 [CADASTRO PRONTUARIO] Usando originalReturnUrl fallback:', returnUrl);
+      }
+    }
+    
+    return returnUrl || '/prontuarios';
+  };
+  
+  const returnUrl = getReturnUrlRobust();
   
   // DEBUG: Log dos parâmetros da URL
   console.log('🔍 [CADASTRO PRONTUARIO DEBUG] URL atual:', window.location.href);
-  console.log('🔍 [CADASTRO PRONTUARIO DEBUG] searchParams:', searchParams.toString());
-  console.log('🔍 [CADASTRO PRONTUARIO DEBUG] returnUrl recebido:', searchParams.get('return'));
+  console.log('🔍 [CADASTRO PRONTUARIO DEBUG] location.search:', location.search);
+  console.log('🔍 [CADASTRO PRONTUARIO DEBUG] searchParams:', new URLSearchParams(location.search).toString());
+  console.log('🔍 [CADASTRO PRONTUARIO DEBUG] returnUrl recebido (raw):', new URLSearchParams(location.search).get('return'));
   console.log('🔍 [CADASTRO PRONTUARIO DEBUG] returnUrl final:', returnUrl);
+  console.log('🔍 [CADASTRO PRONTUARIO DEBUG] sessionStorage preNav:', sessionStorage.getItem('preNavigationFilter'));
+  console.log('🔍 [CADASTRO PRONTUARIO DEBUG] sessionStorage original:', sessionStorage.getItem('originalReturnUrl'));
+  console.log('🔍 [CADASTRO PRONTUARIO DEBUG] Todos os parâmetros:', Object.fromEntries(new URLSearchParams(location.search).entries()));
   
+  // Função para navegação de retorno robusta
+  const navigateBack = () => {
+    console.log('🔍 [VOLTAR DEBUG] Navegando para returnUrl:', returnUrl);
+    console.log('🔍 [VOLTAR DEBUG] Limpando sessionStorage...');
+    
+    // Limpar sessionStorage após uso
+    sessionStorage.removeItem('preNavigationFilter');
+    sessionStorage.removeItem('preNavigationSearch');
+    sessionStorage.removeItem('originalReturnUrl');
+    
+    navigate(returnUrl);
+  };
+
   // Determinar se está em modo de visualização ou edição
   const isViewMode = id && id !== 'novo' && !location.pathname.includes('/editar');
   const isEditMode = id && id !== 'novo' && location.pathname.includes('/editar');
@@ -138,7 +192,7 @@ export default function CadastroProntuario() {
     } catch (error) {
       toast.error("Erro ao carregar dados do prontuário");
       console.log('🔍 [ERRO CARREGAR DEBUG] Navegando para returnUrl:', returnUrl);
-      navigate(returnUrl);
+      navigateBack();
     } finally {
       setIsLoading(false);
     }
@@ -179,7 +233,7 @@ export default function CadastroProntuario() {
         toast.success("Prontuário cadastrado com sucesso!");
       }
       console.log('🔍 [SUBMIT SUCCESS DEBUG] Navegando para returnUrl:', returnUrl);
-      navigate(returnUrl);
+      navigateBack();
     } catch (error: any) {
       toast.error(error.message || "Erro ao salvar prontuário");
     } finally {
@@ -402,8 +456,7 @@ export default function CadastroProntuario() {
                 type="button" 
                 variant="outline" 
                 onClick={() => {
-                  console.log('🔍 [VOLTAR DEBUG] Navegando para returnUrl:', returnUrl);
-                  navigate(returnUrl);
+                  navigateBack();
                 }}
               >
                 Voltar
@@ -415,8 +468,7 @@ export default function CadastroProntuario() {
                   type="button" 
                   variant="outline" 
                   onClick={() => {
-                    console.log('🔍 [CANCELAR DEBUG] Navegando para returnUrl:', returnUrl);
-                    navigate(returnUrl);
+                    navigateBack();
                   }}
                 >
                   Cancelar
