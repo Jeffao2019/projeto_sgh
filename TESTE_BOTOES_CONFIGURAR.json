@@ -1,0 +1,25 @@
+{
+  "data": "2025-11-26T20:08:01.847Z",
+  "status": "FUNCIONAL",
+  "rotas": {
+    "simples": "/configuracoes",
+    "avancadas": "/configuracoes-avancadas"
+  },
+  "botoes": {
+    "navegacao": "FUNCIONANDO",
+    "destaque": "IMPLEMENTADO",
+    "integração": "ATIVA"
+  },
+  "componentes": {
+    "painelNotificacoes": "OPERACIONAL",
+    "configuracaoAvancada": "COMPLETA",
+    "navegacaoGlobal": "ATIVA"
+  },
+  "funcionalidades": {
+    "modulosConfig": 6,
+    "categoriasNotif": 5,
+    "metodosEntrega": 4,
+    "nivelPrioridade": 4,
+    "perfisPredefinidos": 3
+  }
+}

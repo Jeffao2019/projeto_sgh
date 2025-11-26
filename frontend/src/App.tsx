@@ -7,7 +7,8 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import { AuthProvider } from "./contexts/AuthContext";
 import Agendamentos from "./pages/Agendamentos";
 import Cadastro from "./pages/Cadastro";
-import Configuracoes from "./pages/Configuracoes";
+import Configuracoes from "./pages/Configuracoes/index";
+import ConfiguracoesSimples from "./pages/Configuracoes";
 import Dashboard from "./pages/Dashboard";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
@@ -57,6 +58,11 @@ const App = () => (
               </ProtectedRoute>
             } />
             <Route path="/configuracoes" element={
+              <ProtectedRoute>
+                <ConfiguracoesSimples />
+              </ProtectedRoute>
+            } />
+            <Route path="/configuracoes-avancadas" element={
               <ProtectedRoute>
                 <Configuracoes />
               </ProtectedRoute>
