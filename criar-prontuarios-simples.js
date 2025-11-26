@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = 'http://localhost:3001';
 
 // Dados realistas para prontuários médicos
 const anamneseExemplos = [
@@ -90,7 +90,7 @@ async function criarProntuariosSimplificado() {
         // 1. Login
         console.log('1. Fazendo login...');
         const loginResponse = await axios.post(`${API_BASE_URL}/auth/login`, {
-            email: 'dr.teste.agendamento@teste.com',
+            email: 'admin@sgh.com',
             password: '123456'
         });
         

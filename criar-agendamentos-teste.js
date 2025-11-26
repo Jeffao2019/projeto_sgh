@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = 'http://localhost:3001';
 
 function gerarDataAgendamento() {
     // Gera datas futuras entre hoje e 60 dias no futuro
@@ -27,7 +27,7 @@ async function criarAgendamentosParaTodos() {
         // 1. Login
         console.log('1. Fazendo login...');
         const loginResponse = await axios.post(`${API_BASE_URL}/auth/login`, {
-            email: 'dr.teste.agendamento@teste.com',
+            email: 'admin@sgh.com',
             password: '123456'
         });
         
@@ -63,7 +63,7 @@ async function criarAgendamentosParaTodos() {
         // 4. Criar agendamentos para pacientes que têm poucos ou nenhum
         console.log('\n4. Criando agendamentos...\n');
         
-        const medicoId = '8d39054c-87e9-458b-a44a-9fc4b266776c';
+        const medicoId = 'be184b17-1ed5-4ad9-824b-f426baa55057'; // Dr. Carlos Silva
         let sucessos = 0;
         let erros = 0;
 

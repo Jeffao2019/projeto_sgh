@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = 'http://localhost:3001';
 
 // Função para gerar CPF válido
 function gerarCPF() {
@@ -119,7 +119,7 @@ async function cadastrarPacientesTeste() {
         // 1. Login para obter token
         console.log('1. Fazendo login...');
         const loginResponse = await axios.post(`${API_BASE_URL}/auth/login`, {
-            email: 'dr.teste.agendamento@teste.com',
+            email: 'admin@sgh.com',
             password: '123456'
         });
         
