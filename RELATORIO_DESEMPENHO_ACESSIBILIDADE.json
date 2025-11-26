@@ -1,0 +1,148 @@
+{
+  "timestamp": "2025-11-26T20:26:57.565Z",
+  "sistema": "SGH - Sistema de Gestão Hospitalar",
+  "modulo": "Validação de Desempenho e Acessibilidade",
+  "versao": "1.0.0",
+  "desempenho": {
+    "pontuacao": 24,
+    "maximo": 50,
+    "detalhes": {
+      "consultasCriticas": {
+        "pontos": 4,
+        "maximo": 10,
+        "detalhes": {
+          "backend": {
+            "pacientes": false,
+            "agendamentos": false,
+            "prontuarios": false,
+            "usuarios": false
+          },
+          "frontend": {
+            "paginacao": true,
+            "busca": true,
+            "filtros": false
+          }
+        },
+        "status": "PRECISA_MELHORAR"
+      },
+      "otimizacaoBanco": {
+        "pontos": 5,
+        "maximo": 10,
+        "detalhes": {
+          "indices": true,
+          "relacionamentos": false,
+          "queries": false,
+          "conexoes": true
+        },
+        "status": "PRECISA_MELHORAR"
+      },
+      "cacheEstrategias": {
+        "pontos": 3,
+        "maximo": 10,
+        "detalhes": {
+          "frontend": {
+            "reactQuery": true,
+            "localStorage": true,
+            "sessionStorage": false
+          },
+          "backend": {
+            "redis": false,
+            "memoryCache": false
+          }
+        },
+        "status": "PRECISA_MELHORAR"
+      },
+      "bundleOptimization": {
+        "pontos": 10,
+        "maximo": 10,
+        "detalhes": {
+          "vite": true,
+          "codesplitting": true,
+          "treeShaking": true,
+          "minificacao": true
+        },
+        "status": "EXCELENTE"
+      },
+      "lazyLoading": {
+        "pontos": 2,
+        "maximo": 10,
+        "detalhes": {
+          "componentesReact": false,
+          "imagens": true,
+          "rotas": false,
+          "tabelas": false
+        },
+        "status": "PRECISA_MELHORAR"
+      }
+    }
+  },
+  "acessibilidade": {
+    "pontuacao": 37,
+    "maximo": 50,
+    "detalhes": {
+      "wcagCompliance": {
+        "pontos": 9,
+        "maximo": 10,
+        "detalhes": {
+          "altText": true,
+          "aria": true,
+          "headings": true,
+          "forms": true,
+          "focus": false
+        },
+        "status": "EXCELENTE"
+      },
+      "responsividade": {
+        "pontos": 7,
+        "maximo": 10,
+        "detalhes": {
+          "breakpoints": true,
+          "flexbox": true,
+          "imagesResponsive": false,
+          "typography": true,
+          "navigation": false
+        },
+        "status": "BOM"
+      },
+      "navegacaoTeclado": {
+        "pontos": 6,
+        "maximo": 10,
+        "detalhes": {
+          "tabIndex": true,
+          "shortcuts": false,
+          "focusVisible": true,
+          "skipLinks": false,
+          "modals": true
+        },
+        "status": "BOM"
+      },
+      "contrasteCores": {
+        "pontos": 7,
+        "maximo": 10,
+        "detalhes": {
+          "cssVariables": true,
+          "darkMode": false,
+          "highContrast": true,
+          "colorBlind": true,
+          "ratios": true
+        },
+        "status": "BOM"
+      },
+      "semanticaHTML": {
+        "pontos": 8,
+        "maximo": 10,
+        "detalhes": {
+          "landmarks": true,
+          "headingStructure": true,
+          "lists": false,
+          "tables": true,
+          "forms": true
+        },
+        "status": "EXCELENTE"
+      }
+    }
+  },
+  "pontuacaoTotal": 61,
+  "maximoTotal": 100,
+  "status": "ACEITÁVEL - PRECISA MELHORIAS"
+}
