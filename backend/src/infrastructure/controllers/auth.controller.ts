@@ -171,14 +171,27 @@ export class AuthController {
 
   @Get('debug')
   @ApiOperation({ summary: 'Debug endpoint - remover em produção' })
-  debug() {
+  async debug() {
     // Este endpoint é apenas para debug - remover em produção
+    const allUsers = await this.authUseCase.getAllUsers();
+    const adminUsers = allUsers.filter(user => user.role === 'ADMIN');
+    
     return {
       message: 'Debug endpoint ativo',
       timestamp: new Date().toISOString(),
       jwtSecret: this.configService.get<string>('JWT_SECRET')
         ? 'Configurado'
         : 'Não configurado',
+      totalUsers: allUsers.length,
+      adminUsers: adminUsers.map(user => ({
+        id: user.id,
+        nome: user.nome,
+        email: user.email,
+        role: user.role,
+        isActive: user.isActive,
+        // NOTA: Senhas não são expostas por segurança
+        // Para recuperar senha, usar funcionalidade de reset
+      })),
     };
   }
 }

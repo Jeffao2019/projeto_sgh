@@ -279,6 +279,19 @@ export class AuthUseCase {
       }));
   }
 
+  async getAllUsers() {
+    const allUsers = await this.userRepository.findAll();
+    return allUsers.map(user => ({
+      id: user.id,
+      nome: user.nome,
+      email: user.email,
+      role: user.role,
+      isActive: user.isActive,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    }));
+  }
+
   private generateToken(user: User): string {
     const payload = {
       sub: user.id,
