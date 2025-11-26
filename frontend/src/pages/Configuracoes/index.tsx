@@ -25,6 +25,7 @@ import {
 } from 'lucide-react';
 import { DashboardLayout } from '@/components/DashboardLayout';
 import ConfiguracoesNotificacoes from './Notificacoes';
+import DadosBackup from './DadosBackup';
 import PainelNotificacoes from '@/components/PainelNotificacoes';
 
 export default function Configuracoes() {
@@ -82,6 +83,19 @@ export default function Configuracoes() {
       ]
     },
     {
+      id: 'dados-backup',
+      titulo: 'Dados e Backup',
+      descricao: 'Backup automático e gerenciamento de dados',
+      icone: HardDrive,
+      itens: [
+        { nome: 'Backup Automático', valor: 'Ativo', tipo: 'toggle' },
+        { nome: 'Frequência', valor: 'Diário às 02:00', tipo: 'select' },
+        { nome: 'Armazenamento Usado', valor: '45 GB de 100 GB', tipo: 'info' },
+        { nome: 'Último Backup', valor: '26/11/2025 02:00', tipo: 'info' },
+        { nome: 'Retenção', valor: '30 dias', tipo: 'select' }
+      ]
+    },
+    {
       id: 'sistema',
       titulo: 'Sistema',
       descricao: 'Configurações técnicas e performance',
@@ -89,7 +103,6 @@ export default function Configuracoes() {
       itens: [
         { nome: 'Cache do Sistema', valor: '2.3 GB', tipo: 'info' },
         { nome: 'Logs de Auditoria', valor: 'Ativo', tipo: 'toggle' },
-        { nome: 'Backup Automático', valor: 'Diário às 02:00', tipo: 'select' },
         { nome: 'Limpeza Automática', valor: 'Semanal', tipo: 'select' }
       ]
     }
@@ -216,6 +229,10 @@ export default function Configuracoes() {
             <TabsTrigger value="aparencia" className="flex items-center gap-2">
               <Palette className="w-4 h-4" />
               Aparência
+            </TabsTrigger>
+            <TabsTrigger value="dados-backup" className="flex items-center gap-2">
+              <HardDrive className="w-4 h-4" />
+              Dados e Backup
             </TabsTrigger>
             <TabsTrigger value="sistema" className="flex items-center gap-2">
               <Database className="w-4 h-4" />
@@ -440,6 +457,11 @@ export default function Configuracoes() {
                 </Button>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          {/* Aba de Dados e Backup */}
+          <TabsContent value="dados-backup">
+            <DadosBackup />
           </TabsContent>
 
           {/* Aba do Sistema */}
