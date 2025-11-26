@@ -1,0 +1,73 @@
+{
+  "dataValidacao": "2025-11-26T18:56:01.518Z",
+  "scoreEscalabilidade": 13,
+  "suporteMultiUnidade": false,
+  "statusFinal": "SINGLE_TENANT",
+  "aspectosFuncionais": 2,
+  "resultadosDetalhados": {
+    "estrutura": {
+      "funcional": true,
+      "entidadesEncontradas": 1,
+      "migrationsEncontradas": false,
+      "configMultiTenant": false,
+      "implementacao": "PARCIAL"
+    },
+    "endpoints": {
+      "funcional": false,
+      "endpointsEncontrados": 0,
+      "totalEndpoints": 6,
+      "endpointsDisponiveis": [],
+      "percentualImplementado": 0
+    },
+    "isolamento": {
+      "funcional": false,
+      "dadosComTenant": 0,
+      "totalEndpoints": 4,
+      "percentualIsolamento": 0,
+      "implementacaoTenant": "AUSENTE"
+    },
+    "escala": {
+      "funcional": true,
+      "aspectosEscalabilidade": 3,
+      "totalAspectos": 5,
+      "estruturasMultiTenant": 0,
+      "configsPerformance": {
+        "Cache": false,
+        "Database Indexing": false,
+        "API Rate Limiting": false,
+        "Connection Pooling": false,
+        "Lazy Loading": false
+      },
+      "performanceScore": 0,
+      "scoreEscalabilidade": 20,
+      "recomendacoes": [
+        "Implementar arquitetura multi-tenant",
+        "Configurar isolamento de dados por unidade",
+        "Adicionar sistema de cache",
+        "Implementar connection pooling",
+        "Configurar load balancing"
+      ]
+    },
+    "simulacao": {
+      "funcional": false,
+      "cenariosTestados": 2,
+      "requisitosIdentificados": 6,
+      "capacidadeMaximaSimulada": 1430,
+      "suporteAtual": "SINGLE_TENANT",
+      "necessarioImplementar": [
+        "Isolamento de dados entre unidades",
+        "Gestão centralizada de usuários",
+        "Relatórios consolidados por unidade",
+        "Transferência de pacientes entre unidades",
+        "Configurações específicas por unidade",
+        "Dashboard multi-unidade"
+      ]
+    }
+  },
+  "recomendacoes": [
+    "Sistema atualmente configurado como single-tenant",
+    "Necessária implementação de arquitetura multi-tenant",
+    "Priorizar isolamento de dados por unidade hospitalar",
+    "Implementar dashboard consolidado para múltiplas unidades"
+  ]
+}

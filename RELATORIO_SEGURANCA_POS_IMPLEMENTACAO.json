@@ -1,0 +1,87 @@
+{
+  "dataValidacao": "2025-11-26T18:45:41.527Z",
+  "scoreAnterior": 35,
+  "scoreAtual": 50,
+  "melhoria": 15,
+  "status": "EM DESENVOLVIMENTO",
+  "detalhes": {
+    "arquivos": {
+      "funcional": true,
+      "arquivosImplementados": 8,
+      "totalArquivos": 8,
+      "percentual": 100,
+      "detalhes": [
+        {
+          "caminho": "backend/src/domain/auditoria.entity.ts",
+          "descricao": "Entidade de auditoria",
+          "implementado": true
+        },
+        {
+          "caminho": "backend/src/services/auditoria.service.ts",
+          "descricao": "Serviço de auditoria",
+          "implementado": true
+        },
+        {
+          "caminho": "backend/src/middleware/auditoria.middleware.ts",
+          "descricao": "Middleware de auditoria",
+          "implementado": true
+        },
+        {
+          "caminho": "backend/src/controllers/auditoria.controller.ts",
+          "descricao": "Controller de auditoria",
+          "implementado": true
+        },
+        {
+          "caminho": "backend/src/services/lgpd.service.ts",
+          "descricao": "Serviço LGPD",
+          "implementado": true
+        },
+        {
+          "caminho": "backend/src/controllers/lgpd.controller.ts",
+          "descricao": "Controller LGPD",
+          "implementado": true
+        },
+        {
+          "caminho": "backend/src/services/monitoramento.service.ts",
+          "descricao": "Sistema de monitoramento",
+          "implementado": true
+        },
+        {
+          "caminho": "backend/docs/POLITICA_SEGURANCA.md",
+          "descricao": "Política de segurança",
+          "implementado": true
+        }
+      ]
+    },
+    "auditoria": {
+      "funcional": false,
+      "endpointsFuncionais": 0,
+      "totalEndpoints": 2,
+      "implementacaoPercent": 0
+    },
+    "lgpd": {
+      "funcional": false,
+      "endpointsFuncionais": 0,
+      "totalEndpoints": 3,
+      "implementacaoPercent": 0
+    },
+    "logs": {
+      "funcional": true,
+      "camposDefinidos": 10,
+      "totalCampos": 10,
+      "percentualCompleto": 100
+    },
+    "documentacao": {
+      "funcional": true,
+      "documentosCompletos": 1,
+      "totalDocumentos": 1,
+      "percentualGeral": 100
+    }
+  },
+  "recomendacoes": [
+    "Sistema base de segurança implementado",
+    "Estruturas preparadas para integração",
+    "Documentação de segurança criada",
+    "Próximo passo: integração e testes funcionais"
+  ]
+}
