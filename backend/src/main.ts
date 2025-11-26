@@ -47,7 +47,7 @@ async function bootstrap() {
   // Habilitar CORS
   app.enableCors();
 
-  const port = 3001; // Porta fixa para resolver conflitos
+  const port = 3005; // Mudança para porta menos comum
   await app.listen(port);
   console.log(`SGH Backend está rodando na porta ${port}`);
 }
