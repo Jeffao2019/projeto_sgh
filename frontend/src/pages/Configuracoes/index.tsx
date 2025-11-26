@@ -26,6 +26,7 @@ import {
 import { DashboardLayout } from '@/components/DashboardLayout';
 import ConfiguracoesNotificacoes from './Notificacoes';
 import DadosBackup from './DadosBackup';
+import Seguranca from './Seguranca';
 import PainelNotificacoes from '@/components/PainelNotificacoes';
 
 export default function Configuracoes() {
@@ -330,76 +331,7 @@ export default function Configuracoes() {
 
           {/* Aba de Segurança */}
           <TabsContent value="seguranca">
-            <div className="grid gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <Shield className="w-5 h-5" />
-                    Configurações de Segurança
-                  </CardTitle>
-                  <CardDescription>
-                    Gerencie a segurança da sua conta e dados
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <Card className="border-green-200 bg-green-50">
-                      <CardContent className="p-4">
-                        <div className="flex items-center gap-3">
-                          <Lock className="w-5 h-5 text-green-600" />
-                          <div>
-                            <h4 className="font-medium">2FA Ativo</h4>
-                            <p className="text-sm text-muted-foreground">
-                              Autenticação em duas etapas ativada
-                            </p>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-
-                    <Card className="border-blue-200 bg-blue-50">
-                      <CardContent className="p-4">
-                        <div className="flex items-center gap-3">
-                          <Eye className="w-5 h-5 text-blue-600" />
-                          <div>
-                            <h4 className="font-medium">Audit Log</h4>
-                            <p className="text-sm text-muted-foreground">
-                              Rastreamento de atividades ativo
-                            </p>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between p-3 border rounded-lg">
-                      <div>
-                        <Label className="font-medium">Timeout de Sessão</Label>
-                        <p className="text-sm text-muted-foreground">
-                          Tempo limite para sessão inativa
-                        </p>
-                      </div>
-                      <div className="text-sm font-medium">30 minutos</div>
-                    </div>
-
-                    <div className="flex items-center justify-between p-3 border rounded-lg">
-                      <div>
-                        <Label className="font-medium">Histórico de Senhas</Label>
-                        <p className="text-sm text-muted-foreground">
-                          Lembrar últimas 5 senhas
-                        </p>
-                      </div>
-                      <div className="text-sm font-medium text-green-600">Ativo</div>
-                    </div>
-                  </div>
-
-                  <Button variant="outline">
-                    Alterar Senha
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
+            <Seguranca />
           </TabsContent>
 
           {/* Aba de Aparência */}

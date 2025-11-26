@@ -6,6 +6,7 @@ import { AuthModule } from './infrastructure/modules/auth.module';
 import { PacienteModule } from './infrastructure/modules/paciente.module';
 import { ProntuarioModule } from './infrastructure/modules/prontuario.module';
 import { BackupModule } from './backup/backup.module';
+import { SegurancaModule } from './seguranca/seguranca.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { BackupModule } from './backup/backup.module';
     AgendamentoModule,
     ProntuarioModule,
     BackupModule,
+    SegurancaModule,
   ],
   controllers: [],
   providers: [],
