@@ -13,6 +13,7 @@ import {
   USER_REPOSITORY,
 } from '../../infrastructure/tokens/injection.tokens';
 import { ChangePasswordDto, LoginDto, LoginResponseDto } from '../dto/auth.dto';
+import { UpdateProfileDto } from '../dto/update-profile.dto';
 import { RegisterUserDto } from '../dto/register-user.dto';
 
 @Injectable()
@@ -200,6 +201,63 @@ export class AuthUseCase {
       );
       await this.userRepository.create(user);
     }
+  }
+
+  async getProfile(userId: string): Promise<any> {
+    const user = await this.userRepository.findById(userId);
+    if (!user) {
+      throw new UnauthorizedException('Usuário não encontrado');
+    }
+
+    return {
+      id: user.id,
+      nome: user.nome,
+      email: user.email,
+      papel: user.role,
+      isActive: user.isActive,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    };
+  }
+
+  async updateProfile(userId: string, updateProfileDto: UpdateProfileDto): Promise<any> {
+    const user = await this.userRepository.findById(userId);
+    if (!user) {
+      throw new UnauthorizedException('Usuário não encontrado');
+    }
+
+    // Verificar se o novo email já está em uso por outro usuário
+    if (updateProfileDto.email !== user.email) {
+      const existingUser = await this.userRepository.findByEmail(updateProfileDto.email);
+      if (existingUser && existingUser.id !== userId) {
+        throw new ConflictException('Email já está em uso por outro usuário');
+      }
+    }
+
+    // Criar nova instância com dados atualizados
+    const updatedUser = new User(
+      user.id,
+      updateProfileDto.email,
+      user.password,
+      updateProfileDto.nome,
+      user.role,
+      user.telefone,
+      user.createdAt,
+      new Date(),
+      user.isActive,
+    );
+
+    const savedUser = await this.userRepository.update(updatedUser);
+
+    return {
+      id: savedUser.id,
+      nome: savedUser.nome,
+      email: savedUser.email,
+      papel: savedUser.role,
+      isActive: savedUser.isActive,
+      createdAt: savedUser.createdAt,
+      updatedAt: savedUser.updatedAt,
+    };
   }
 
   private formatMedicos(users: any[]) {

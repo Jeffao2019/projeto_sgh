@@ -1,5 +1,13 @@
 import { Button } from "@/components/ui/button";
-import { Calendar, FileText, Heart, LogOut, Settings, UserCircle } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Calendar, FileText, Heart, LogOut, Settings, UserCircle, ChevronDown, User } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
@@ -65,18 +73,44 @@ export function DashboardLayout({ children, title, subtitle }: DashboardLayoutPr
 
             {/* Área do Usuário */}
             <div className="flex items-center space-x-3">
-              <span className="text-sm text-muted-foreground">
-                Olá, <strong>{user?.nome}</strong>
-              </span>
-              <Button 
-                variant="outline" 
-                size="sm" 
-                onClick={handleLogout}
-                className="flex items-center space-x-2"
-              >
-                <LogOut className="w-4 h-4" />
-                <span>Sair</span>
-              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="flex items-center space-x-2 hover:bg-muted">
+                    <UserCircle className="w-5 h-5" />
+                    <span className="hidden md:inline">{user?.nome || user?.name}</span>
+                    <ChevronDown className="w-4 h-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuLabel>
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium">{user?.nome || user?.name}</p>
+                      <p className="text-xs text-muted-foreground">{user?.email}</p>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem asChild>
+                    <Link to="/perfil" className="flex items-center space-x-2 cursor-pointer">
+                      <User className="w-4 h-4" />
+                      <span>Meu Perfil</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/configuracoes" className="flex items-center space-x-2 cursor-pointer">
+                      <Settings className="w-4 h-4" />
+                      <span>Configurações</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem 
+                    onClick={handleLogout}
+                    className="flex items-center space-x-2 cursor-pointer text-red-600 focus:text-red-600"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span>Sair</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
         </div>

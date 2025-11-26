@@ -14,6 +14,7 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Pacientes from "./pages/Pacientes";
 import Prontuarios from "./pages/Prontuarios";
+import PerfilUsuario from "./pages/PerfilUsuario";
 import CadastroPaciente from "./pages/CadastroPaciente";
 import CadastroProntuario from "./pages/CadastroProntuario";
 import CadastroAgendamento from "./pages/CadastroAgendamento";
@@ -57,6 +58,11 @@ const App = () => (
             <Route path="/configuracoes" element={
               <ProtectedRoute>
                 <Configuracoes />
+              </ProtectedRoute>
+            } />
+            <Route path="/perfil" element={
+              <ProtectedRoute>
+                <PerfilUsuario />
               </ProtectedRoute>
             } />
             

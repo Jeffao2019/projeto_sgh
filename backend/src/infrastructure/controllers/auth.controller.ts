@@ -23,6 +23,7 @@ import {
   LoginDto,
   LoginResponseDto,
 } from '../../application/dto/auth.dto';
+import { UpdateProfileDto } from '../../application/dto/update-profile.dto';
 import { RegisterUserDto } from '../../application/dto/register-user.dto';
 import { AuthUseCase } from '../../application/use-cases/auth.use-case';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
@@ -117,13 +118,38 @@ export class AuthController {
     status: 401,
     description: 'Token inválido ou expirado',
   })
-  getProfile(
+  async getProfile(
     @Request()
     req: {
       user: { sub: string; email: string; role: string; nome: string };
     },
   ) {
-    return req.user;
+    return await this.authUseCase.getProfile(req.user.sub);
+  }
+
+  @Put('profile')
+  @UseGuards(JwtAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @ApiBearerAuth('JWT-auth')
+  @ApiOperation({ summary: 'Atualizar perfil do usuário logado' })
+  @ApiBody({ type: UpdateProfileDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Perfil atualizado com sucesso',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Dados inválidos',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Token inválido ou expirado',
+  })
+  async updateProfile(
+    @Request() req: { user: { sub: string } },
+    @Body(ValidationPipe) updateProfileDto: UpdateProfileDto,
+  ) {
+    return await this.authUseCase.updateProfile(req.user.sub, updateProfileDto);
   }
 
   @Get('medicos')

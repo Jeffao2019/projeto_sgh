@@ -2,36 +2,42 @@ import { DashboardLayout } from "@/components/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Bell, Database, Shield, User } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Configuracoes = () => {
+  const navigate = useNavigate();
   const configuracoes = [
     {
       icon: User,
       title: "Perfil do Usuário",
       description: "Gerencie suas informações pessoais e preferências",
       color: "text-primary",
-      bgColor: "bg-primary/10"
+      bgColor: "bg-primary/10",
+      action: () => navigate("/perfil")
     },
     {
       icon: Shield,
       title: "Segurança",
       description: "Configurações de senha, autenticação e privacidade",
       color: "text-success",
-      bgColor: "bg-success/10"
+      bgColor: "bg-success/10",
+      action: () => navigate("/perfil")
     },
     {
       icon: Bell,
       title: "Notificações",
       description: "Configure alertas, lembretes e notificações",
       color: "text-accent",
-      bgColor: "bg-accent/10"
+      bgColor: "bg-accent/10",
+      action: () => console.log("Notificações - Em desenvolvimento")
     },
     {
       icon: Database,
       title: "Dados e Backup",
       description: "Backup automático e gerenciamento de dados",
       color: "text-secondary",
-      bgColor: "bg-secondary/10"
+      bgColor: "bg-secondary/10",
+      action: () => console.log("Backup - Em desenvolvimento")
     }
   ];
 
@@ -43,7 +49,11 @@ const Configuracoes = () => {
       {/* Cards de configurações */}
       <div className="grid md:grid-cols-2 gap-6 mb-8">
         {configuracoes.map((config, index) => (
-          <Card key={index} className="p-6 bg-card shadow-card hover:shadow-medical transition-all duration-200 cursor-pointer group">
+          <Card 
+            key={index} 
+            className="p-6 bg-card shadow-card hover:shadow-medical transition-all duration-200 cursor-pointer group"
+            onClick={config.action}
+          >
             <div className="flex items-start space-x-4">
               <div className={`flex-shrink-0 w-12 h-12 ${config.bgColor} rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-200`}>
                 <config.icon className={`w-6 h-6 ${config.color}`} />
@@ -55,7 +65,15 @@ const Configuracoes = () => {
                 <p className="text-muted-foreground text-sm mb-4">
                   {config.description}
                 </p>
-                <Button variant="outline" size="sm" className="group-hover:border-primary group-hover:text-primary transition-colors">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="group-hover:border-primary group-hover:text-primary transition-colors"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    config.action();
+                  }}
+                >
                   Configurar
                 </Button>
               </div>

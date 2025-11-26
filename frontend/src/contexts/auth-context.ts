@@ -3,8 +3,10 @@ import { createContext } from "react";
 export interface User {
   id: string;
   name: string;
+  nome: string;
   email: string;
   role: string;
+  papel: string;
   especialidade?: string;
   crm?: string;
 }
