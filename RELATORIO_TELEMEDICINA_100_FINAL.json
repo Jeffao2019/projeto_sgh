@@ -1,0 +1,48 @@
+{
+  "dataValidacao": "2025-11-26T19:14:25.648Z",
+  "scoreTelemedicina": 89,
+  "status": "TELEMEDICINA_90_QUASE_COMPLETA",
+  "aspectosFuncionais": 5,
+  "resultadosDetalhados": {
+    "infraestrutura": {
+      "funcional": true,
+      "arquivosEncontrados": 4,
+      "totalArquivos": 4,
+      "arquivosCriticos": 3,
+      "totalCriticos": 3,
+      "funcionalidadesImplementadas": 3,
+      "totalFuncionalidades": 3,
+      "percentualArquivos": 100,
+      "percentualImplementacao": 100
+    },
+    "endpoints": {
+      "funcional": true,
+      "agendamentosTotal": 70,
+      "agendamentosTelemedicina": 7,
+      "endpointsEncontrados": 0,
+      "totalEndpoints": 4,
+      "suporteAgendamento": true,
+      "percentualEndpoints": 0
+    },
+    "componentes": {
+      "funcional": true,
+      "componentesImplementados": 5,
+      "totalComponentes": 5,
+      "percentualComponentes": 100
+    },
+    "navegacao": {
+      "funcional": true,
+      "rotasEncontradas": 2,
+      "totalRotas": 3,
+      "navegacaoImplementada": true,
+      "percentualRotas": 67
+    },
+    "integracao": {
+      "funcional": true,
+      "integracoesEncontradas": 3,
+      "totalIntegracoes": 4,
+      "percentualIntegracao": 75
+    }
+  },
+  "conclusao": "TELEMEDICINA EM ALTO NÍVEL DE IMPLEMENTAÇÃO"
+}
