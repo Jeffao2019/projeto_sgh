@@ -18,6 +18,7 @@ import PerfilUsuario from "./pages/PerfilUsuario";
 import CadastroPaciente from "./pages/CadastroPaciente";
 import CadastroProntuario from "./pages/CadastroProntuario";
 import CadastroAgendamento from "./pages/CadastroAgendamento";
+import SalaTelemedicina from "./pages/SalaTelemedicina";
 
 const queryClient = new QueryClient();
 
@@ -132,6 +133,24 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <CadastroAgendamento />
+                </ProtectedRoute>
+              } 
+            />
+            
+            {/* Rota de Telemedicina */}
+            <Route 
+              path="/telemedicina/:id" 
+              element={
+                <ProtectedRoute>
+                  <SalaTelemedicina />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/telemedicina" 
+              element={
+                <ProtectedRoute>
+                  <SalaTelemedicina />
                 </ProtectedRoute>
               } 
             />

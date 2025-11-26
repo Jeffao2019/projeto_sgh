@@ -311,6 +311,23 @@ export default function Agendamentos() {
                         Ver Detalhes
                       </Link>
                     </Button>
+                    
+                    {/* Botão de Telemedicina */}
+                    {agendamento.tipo === TipoConsulta.TELEMEDICINA && (
+                      agendamento.status === StatusAgendamento.CONFIRMADO || 
+                      agendamento.status === StatusAgendamento.AGENDADO
+                    ) && (
+                      <Button 
+                        variant="default" 
+                        size="sm" 
+                        asChild
+                        className="bg-green-600 hover:bg-green-700"
+                      >
+                        <Link to={`/telemedicina/${agendamento.id}`}>
+                          Iniciar Videochamada
+                        </Link>
+                      </Button>
+                    )}
                   </div>
                 </div>
               </CardContent>

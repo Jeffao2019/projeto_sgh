@@ -7,7 +7,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Calendar, FileText, Heart, LogOut, Settings, UserCircle, ChevronDown, User } from "lucide-react";
+import { Calendar, FileText, Heart, LogOut, Settings, UserCircle, ChevronDown, User, Video } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
@@ -61,6 +61,12 @@ export function DashboardLayout({ children, title, subtitle }: DashboardLayoutPr
                 <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
                   <UserCircle className="w-4 h-4 mr-2" />
                   Pacientes
+                </Button>
+              </Link>
+              <Link to="/telemedicina">
+                <Button variant="ghost" className="text-muted-foreground hover:text-foreground">
+                  <Video className="w-4 h-4 mr-2" />
+                  Telemedicina
                 </Button>
               </Link>
               <Link to="/configuracoes">
