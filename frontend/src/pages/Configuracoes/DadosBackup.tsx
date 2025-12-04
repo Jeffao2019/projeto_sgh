@@ -148,7 +148,7 @@ export default function DadosBackup() {
   // Carregar configuração de backup do backend
   const carregarConfiguracaoBackup = async () => {
     try {
-      const response = await fetch(`http://localhost:3010/backup/configuracoes`, {
+      const response = await fetch(`http://localhost:3000/backup/configuracoes`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -171,10 +171,10 @@ export default function DadosBackup() {
     console.log('🔄 [DadosBackup] Iniciando salvamento das configurações...', backupConfig);
     
     try {
-      console.log('📡 [DadosBackup] Fazendo requisição para:', 'http://localhost:3010/backup/configuracoes');
-      console.log('� [DadosBackup] Dados a enviar:', JSON.stringify(backupConfig, null, 2));
+      console.log('📡 [DadosBackup] Fazendo requisição para:', 'http://localhost:3000/backup/configuracoes');
+      console.log('📝 [DadosBackup] Dados a enviar:', JSON.stringify(backupConfig, null, 2));
       
-      const response = await fetch(`http://localhost:3010/backup/configuracoes`, {
+      const response = await fetch(`http://localhost:3000/backup/configuracoes`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -278,7 +278,7 @@ export default function DadosBackup() {
       setProgressoBackup(10);
       
       // Chamar o endpoint real do backend
-      const response = await fetch('http://localhost:3010/backup/manual', {
+      const response = await fetch('http://localhost:3000/backup/manual', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -392,7 +392,7 @@ export default function DadosBackup() {
       console.log('🌐 Fazendo requisição para exportação...');
 
       // Fazer chamada real para a API com responseType blob para receber arquivo
-      const response = await fetch('http://localhost:3010/backup/exportar', {
+      const response = await fetch('http://localhost:3000/backup/exportar', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

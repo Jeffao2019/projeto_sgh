@@ -12,13 +12,13 @@ exec('netstat -an | findstr "5433"', (error, stdout, stderr) => {
         console.log('❌ PostgreSQL não encontrado na porta 5433');
     }
     
-    console.log('\n2️⃣ Verificando processo backend na porta 3010...');
-    exec('netstat -an | findstr "3010"', (error2, stdout2, stderr2) => {
+    console.log('\n2️⃣ Verificando processo backend na porta 3000...');
+    exec('netstat -an | findstr "3000"', (error2, stdout2, stderr2) => {
         if (stdout2) {
-            console.log('✅ Serviço ativo na porta 3010');
+            console.log('✅ Serviço ativo na porta 3000');
             console.log(stdout2.trim());
         } else {
-            console.log('❌ Nenhum serviço na porta 3010');
+            console.log('❌ Nenhum serviço na porta 3000');
         }
         
         console.log('\n3️⃣ Verificando processos Node.js...');
@@ -37,6 +37,7 @@ setTimeout(() => {
     console.log('\n🔧 Para solucionar, tente:');
     console.log('1. cd backend');
     console.log('2. npm run start:dev');
-    console.log('3. Aguarde a mensagem "SGH Backend está rodando na porta 3010"');
+    console.log('3. Aguarde a mensagem "SGH Backend está rodando na porta 3000"');
     console.log('4. Em seguida, execute o teste novamente');
 }, 2000);
+

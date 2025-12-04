@@ -5,7 +5,7 @@ async function testarBackend() {
   try {
     console.log('1️⃣ Testando conexão com backend...');
     
-    const response = await fetch('http://localhost:3010/backup/status', {
+    const response = await fetch('http://localhost:3000/backup/status', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -34,7 +34,7 @@ async function testarEndpointConfiguracoes() {
     console.log('2️⃣ Testando endpoint de configurações...');
     
     // Primeiro GET para buscar configurações
-    const getResponse = await fetch('http://localhost:3010/backup/configuracoes', {
+    const getResponse = await fetch('http://localhost:3000/backup/configuracoes', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -59,7 +59,7 @@ async function testarEndpointConfiguracoes() {
       criptografia: false
     };
 
-    const putResponse = await fetch('http://localhost:3010/backup/configuracoes', {
+    const putResponse = await fetch('http://localhost:3000/backup/configuracoes', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -91,10 +91,11 @@ async function executarTestes() {
   if (backendOk) {
     await testarEndpointConfiguracoes();
   } else {
-    console.log('❌ Backend não está acessível. Verifique se está rodando na porta 3010');
+    console.log('❌ Backend não está acessível. Verifique se está rodando na porta 3000');
   }
   
   console.log('🏁 Testes finalizados!');
 }
 
 executarTestes();
+

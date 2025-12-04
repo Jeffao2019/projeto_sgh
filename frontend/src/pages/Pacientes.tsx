@@ -91,8 +91,16 @@ export default function Pacientes() {
       subtitle="Gerencie informações dos pacientes"
     >
       {/* Botão de ação */}
-      <div className="flex justify-end mb-8">
-        <Button variant="medical" onClick={() => navigate("/pacientes/novo")}>
+      <div className="flex justify-end mb-8" style={{ position: 'relative', zIndex: 10 }}>
+        <Button 
+          variant="default" 
+          onClick={() => {
+            console.log('Botão clicado - navegando para /pacientes/novo');
+            navigate("/pacientes/novo");
+          }}
+          className="bg-blue-600 hover:bg-blue-700 text-white"
+          style={{ minWidth: '150px', minHeight: '40px' }}
+        >
           <Plus className="w-4 h-4 mr-2" />
           Novo Paciente
         </Button>

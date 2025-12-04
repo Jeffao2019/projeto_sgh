@@ -64,7 +64,7 @@ const handleBackupManual = async () => {
   
   try {
     // Chama endpoint real do backend
-    const response = await fetch('http://localhost:3010/backup/manual', {
+    const response = await fetch('http://localhost:3000/backup/manual', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

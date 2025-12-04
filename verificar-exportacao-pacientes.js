@@ -80,7 +80,7 @@ async function testarExportacao() {
   console.log('\n🧪 Testando exportação via API...\n');
 
   try {
-    const response = await fetch('http://localhost:3010/backup/exportar', {
+    const response = await fetch('http://localhost:3000/backup/exportar', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' }
     });
@@ -168,3 +168,4 @@ async function executarVerificacao() {
 }
 
 executarVerificacao().catch(console.error);
+

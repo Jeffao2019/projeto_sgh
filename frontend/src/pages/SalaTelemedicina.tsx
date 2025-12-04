@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -6,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
+import { apiService } from '@/lib/api-service';
 import { 
   Video, 
   VideoOff, 
@@ -18,42 +20,28 @@ import {
   FileText,
   Clock,
   User,
-  Stethoscope
+  Stethoscope,
+  ArrowLeft
 } from 'lucide-react';
 import { DashboardLayout } from '@/components/DashboardLayout';
 import { useToast } from '@/hooks/use-toast';
+import { Agendamento } from '@/types/agendamentos';
+import { Paciente } from '@/types/pacientes';
+import { Medico } from '@/types/medicos';
 
-interface Teleconsulta {
-  id: string;
-  paciente: {
-    id: string;
-    nome: string;
-    idade: number;
-    telefone: string;
-    email: string;
-  };
-  medico: {
-    id: string;
-    nome: string;
-    crm: string;
-    especialidade: string;
-  };
-  dataHora: string;
-  status: 'AGENDADO' | 'EM_ANDAMENTO' | 'FINALIZADO';
-  observacoes?: string;
-}
-
-interface NotasConsulta {
-  anamnese: string;
-  exameFisico: string;
-  diagnostico: string;
-  prescricaoUsoInterno: string;
-  prescricaoUsoExterno: string;
-  observacoes: string;
+interface AgendamentoWithDetails extends Agendamento {
+  paciente?: Paciente;
+  medico?: Medico;
 }
 
 export default function SalaTelemedicina() {
+  const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
   const { toast } = useToast();
+  
+  // Estado dos dados do agendamento
+  const [agendamento, setAgendamento] = useState<AgendamentoWithDetails | null>(null);
+  const [loading, setLoading] = useState(true);
   
   // Estado da videochamada
   const [isVideoEnabled, setIsVideoEnabled] = useState(true);
@@ -76,29 +64,81 @@ export default function SalaTelemedicina() {
     observacoes: ''
   });
   
+interface NotasConsulta {
+  anamnese: string;
+  exameFisico: string;
+  diagnostico: string;
+  prescricaoUsoInterno: string;
+  prescricaoUsoExterno: string;
+  observacoes: string;
+}
+  
   // Referências para os elementos de vídeo
   const localVideoRef = useRef<HTMLVideoElement>(null);
   const remoteVideoRef = useRef<HTMLVideoElement>(null);
   
-  // Dados da teleconsulta atual (simulado)
-  const teleconsulta: Teleconsulta = {
-    id: '1',
-    paciente: {
-      id: '1',
-      nome: 'Maria Silva Santos',
-      idade: 45,
-      telefone: '(11) 99999-9999',
-      email: 'maria.silva@email.com'
-    },
-    medico: {
-      id: '1',
-      nome: 'Dr. Carlos Silva',
-      crm: '234567',
-      especialidade: 'Dermatologia'
-    },
-    dataHora: new Date().toISOString(),
-    status: 'AGENDADO'
-  };
+  // Carregar dados do agendamento
+  useEffect(() => {
+    const loadAgendamento = async () => {
+      if (!id) {
+        toast({
+          title: "Erro",
+          description: "ID do agendamento não informado",
+          variant: "destructive",
+        });
+        navigate('/agendamentos');
+        return;
+      }
+
+      try {
+        setLoading(true);
+        const [agendamentoData, pacientesData, medicosData] = await Promise.all([
+          apiService.getAgendamentoById(id),
+          apiService.getPacientes(),
+          apiService.getMedicos()
+        ]);
+
+        const paciente = pacientesData.find(p => p.id === agendamentoData.pacienteId);
+        const medico = medicosData.find(m => m.id === agendamentoData.medicoId);
+        
+        setAgendamento({
+          ...agendamentoData,
+          paciente,
+          medico
+        });
+      } catch (error) {
+        console.error('Erro ao carregar agendamento:', error);
+        toast({
+          title: "Erro",
+          description: "Não foi possível carregar os dados do agendamento",
+          variant: "destructive",
+        });
+        navigate('/agendamentos');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadAgendamento();
+  }, [id, navigate, toast]);
+    loadAgendamento();
+  }, [id, navigate, toast]);
+  
+  // Mostrar loading enquanto carrega dados
+  if (loading || !agendamento) {
+    return (
+      <DashboardLayout
+        title="Sala de Telemedicina"
+        subtitle="Carregando dados da consulta..."
+      >
+        <Card>
+          <CardContent className="p-6 text-center">
+            <p>Carregando informações da teleconsulta...</p>
+          </CardContent>
+        </Card>
+      </DashboardLayout>
+    );
+  }
 
   // Simulação de inicialização da câmera
   useEffect(() => {
@@ -202,15 +242,27 @@ export default function SalaTelemedicina() {
     >
       <div className="space-y-6">
         
+        {/* Botão Voltar */}
+        <div className="flex items-center gap-4">
+          <Button 
+            variant="outline" 
+            onClick={() => navigate('/agendamentos')}
+            className="flex items-center gap-2"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Voltar aos Agendamentos
+          </Button>
+        </div>
+        
         {/* Informações da Teleconsulta */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Video className="w-5 h-5" />
-              Teleconsulta #{teleconsulta.id}
+              Teleconsulta #{agendamento.id}
             </CardTitle>
             <CardDescription>
-              {new Date(teleconsulta.dataHora).toLocaleString('pt-BR')}
+              {new Date(agendamento.dataHora).toLocaleString('pt-BR')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -220,15 +272,18 @@ export default function SalaTelemedicina() {
                   <User className="w-4 h-4" />
                   Paciente
                 </h4>
-                <p className="font-medium">{teleconsulta.paciente.nome}</p>
+                <p className="font-medium">{agendamento.paciente?.nome || 'Paciente não encontrado'}</p>
                 <p className="text-sm text-muted-foreground">
-                  {teleconsulta.paciente.idade} anos
+                  {agendamento.paciente?.dataNascimento ? 
+                    `${new Date().getFullYear() - new Date(agendamento.paciente.dataNascimento).getFullYear()} anos` : 
+                    'Idade não informada'
+                  }
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  {teleconsulta.paciente.telefone}
+                  {agendamento.paciente?.telefone || 'Telefone não informado'}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  {teleconsulta.paciente.email}
+                  {agendamento.paciente?.email || 'Email não informado'}
                 </p>
               </div>
               <div>
@@ -236,12 +291,12 @@ export default function SalaTelemedicina() {
                   <Stethoscope className="w-4 h-4" />
                   Médico
                 </h4>
-                <p className="font-medium">{teleconsulta.medico.nome}</p>
+                <p className="font-medium">{agendamento.medico?.nome || 'Médico não encontrado'}</p>
                 <p className="text-sm text-muted-foreground">
-                  CRM: {teleconsulta.medico.crm}
+                  CRM: {agendamento.medico?.crm || 'Não informado'}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  {teleconsulta.medico.especialidade}
+                  {agendamento.medico?.especialidade || 'Especialidade não informada'}
                 </p>
               </div>
             </div>
@@ -494,13 +549,26 @@ export default function SalaTelemedicina() {
                   />
                 </div>
 
-                <Button 
-                  onClick={handleSaveNotes}
-                  className="w-full"
-                  variant="secondary"
-                >
-                  Salvar Prontuário
-                </Button>
+                <div className="flex gap-3">
+                  <Button 
+                    onClick={handleSaveNotes}
+                    className="flex-1"
+                    variant="secondary"
+                  >
+                    Salvar Prontuário
+                  </Button>
+                  
+                  <Button 
+                    onClick={() => {
+                      handleSaveNotes();
+                      navigate('/agendamentos');
+                    }}
+                    className="flex-1"
+                    variant="default"
+                  >
+                    Finalizar e Voltar
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           </div>

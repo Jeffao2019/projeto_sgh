@@ -4,7 +4,7 @@ async function testarConectividade() {
   // Teste 1: Status do backup
   try {
     console.log('1️⃣ Testando endpoint /backup/status...');
-    const statusResponse = await fetch('http://localhost:3010/backup/status', {
+    const statusResponse = await fetch('http://localhost:3000/backup/status', {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
     });
@@ -22,7 +22,7 @@ async function testarConectividade() {
   // Teste 2: Login
   try {
     console.log('\n2️⃣ Testando login...');
-    const loginResponse = await fetch('http://localhost:3010/auth/login', {
+    const loginResponse = await fetch('http://localhost:3000/auth/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -47,7 +47,7 @@ async function testarConectividade() {
   // Teste 3: Verificar se há usuário admin
   try {
     console.log('\n3️⃣ Testando endpoint de debug...');
-    const debugResponse = await fetch('http://localhost:3010/auth/debug', {
+    const debugResponse = await fetch('http://localhost:3000/auth/debug', {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' }
     });
@@ -64,3 +64,4 @@ async function testarConectividade() {
 }
 
 testarConectividade().catch(console.error);
+

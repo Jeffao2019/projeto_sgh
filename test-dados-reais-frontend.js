@@ -9,7 +9,7 @@ async function testarDadosReais() {
         
         // Login para obter token
         console.log('   - Fazendo login...');
-        const loginResponse = await axios.post('http://localhost:3010/auth/login', {
+        const loginResponse = await axios.post('http://localhost:3000/auth/login', {
             email: 'admin@sgh.com',
             password: '123456'
         });
@@ -23,19 +23,19 @@ async function testarDadosReais() {
 
         // Testar endpoint de pacientes
         console.log('   - Buscando pacientes...');
-        const pacientesResponse = await axios.get('http://localhost:3010/pacientes', { headers });
+        const pacientesResponse = await axios.get('http://localhost:3000/pacientes', { headers });
         const totalPacientes = pacientesResponse.data.length;
         console.log(`   ✅ Total de pacientes: ${totalPacientes}`);
 
         // Testar endpoint de agendamentos
         console.log('   - Buscando agendamentos...');
-        const agendamentosResponse = await axios.get('http://localhost:3010/agendamentos', { headers });
+        const agendamentosResponse = await axios.get('http://localhost:3000/agendamentos', { headers });
         const totalAgendamentos = agendamentosResponse.data.length;
         console.log(`   ✅ Total de agendamentos: ${totalAgendamentos}`);
 
         // Testar endpoint de prontuários
         console.log('   - Buscando prontuários...');
-        const prontuariosResponse = await axios.get('http://localhost:3010/prontuarios', { headers });
+        const prontuariosResponse = await axios.get('http://localhost:3000/prontuarios', { headers });
         const totalProntuarios = prontuariosResponse.data.length;
         console.log(`   ✅ Total de prontuários: ${totalProntuarios}\n`);
 
@@ -74,3 +74,4 @@ async function testarDadosReais() {
 
 // Aguardar um pouco para os serviços estarem prontos
 setTimeout(testarDadosReais, 2000);
+

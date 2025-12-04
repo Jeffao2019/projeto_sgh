@@ -4,7 +4,7 @@ const teste = async () => {
         console.log('🔧 Testando endpoint de configurações de backup...');
         
         // Primeiro, obter configurações
-        const responseGet = await fetch('http://localhost:3010/backup/configuracoes', {
+        const responseGet = await fetch('http://localhost:3000/backup/configuracoes', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ const teste = async () => {
             criptografia: true
         };
         
-        const responsePut = await fetch('http://localhost:3010/backup/configuracoes', {
+        const responsePut = await fetch('http://localhost:3000/backup/configuracoes', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -54,3 +54,4 @@ const teste = async () => {
 };
 
 teste();
+

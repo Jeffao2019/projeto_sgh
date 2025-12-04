@@ -8,7 +8,7 @@ async function testarBackupManual() {
     try {
         // 1. Login para obter token
         console.log('🔐 Fazendo login...');
-        const loginResponse = await axios.post('http://localhost:3010/auth/login', {
+        const loginResponse = await axios.post('http://localhost:3000/auth/login', {
             email: 'admin@sgh.com',
             password: '123456'
         });
@@ -24,9 +24,9 @@ async function testarBackupManual() {
         console.log('📊 VERIFICANDO DADOS REAIS NO BANCO:');
         
         const [pacientesData, agendamentosData, prontuariosData] = await Promise.all([
-            axios.get('http://localhost:3010/pacientes', { headers }),
-            axios.get('http://localhost:3010/agendamentos', { headers }),
-            axios.get('http://localhost:3010/prontuarios', { headers })
+            axios.get('http://localhost:3000/pacientes', { headers }),
+            axios.get('http://localhost:3000/agendamentos', { headers }),
+            axios.get('http://localhost:3000/prontuarios', { headers })
         ]);
 
         const dadosReais = {
@@ -43,7 +43,7 @@ async function testarBackupManual() {
 
         // 3. Executar backup manual
         console.log('🔄 EXECUTANDO BACKUP MANUAL...');
-        const backupResponse = await axios.post('http://localhost:3010/backup/manual', {}, { headers });
+        const backupResponse = await axios.post('http://localhost:3000/backup/manual', {}, { headers });
         console.log('✅ Backup manual executado\n');
 
         console.log('📁 INFORMAÇÕES DO BACKUP:');
@@ -147,3 +147,4 @@ async function testarBackupManual() {
 
 // Executar teste
 testarBackupManual();
+

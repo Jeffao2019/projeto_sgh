@@ -6,7 +6,7 @@ async function testarCorrecoesDadosReais() {
     try {
         // 1. Fazer login para obter token
         console.log('🔐 Fazendo login...');
-        const loginResponse = await axios.post('http://localhost:3010/auth/login', {
+        const loginResponse = await axios.post('http://localhost:3000/auth/login', {
             email: 'admin@sgh.com',
             password: '123456'
         });
@@ -22,9 +22,9 @@ async function testarCorrecoesDadosReais() {
         console.log('📊 Buscando dados reais dos endpoints...');
         
         const [pacientesData, agendamentosData, prontuariosData] = await Promise.all([
-            axios.get('http://localhost:3010/pacientes', { headers }),
-            axios.get('http://localhost:3010/agendamentos', { headers }),
-            axios.get('http://localhost:3010/prontuarios', { headers })
+            axios.get('http://localhost:3000/pacientes', { headers }),
+            axios.get('http://localhost:3000/agendamentos', { headers }),
+            axios.get('http://localhost:3000/prontuarios', { headers })
         ]);
 
         const pacientes = pacientesData.data.length;
@@ -93,3 +93,4 @@ async function testarCorrecoesDadosReais() {
 
 // Executar teste
 testarCorrecoesDadosReais();
+

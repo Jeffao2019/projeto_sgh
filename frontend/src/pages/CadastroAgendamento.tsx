@@ -50,6 +50,8 @@ export default function CadastroAgendamento() {
     observacoes: ''
   });
 
+  const [originalData, setOriginalData] = useState<AgendamentoFormData | null>(null);
+
   const [pacientes, setPacientes] = useState<Paciente[]>([]);
   const [medicos, setMedicos] = useState<Medico[]>([]);
   const [loading, setLoading] = useState(false);
@@ -72,14 +74,17 @@ export default function CadastroAgendamento() {
         // Formatar a data para datetime-local input
         const dataFormatada = new Date(agendamento.dataHora).toISOString().slice(0, 16);
         
-        setFormData({
+        const dadosCarregados = {
           pacienteId: agendamento.pacienteId,
           medicoId: agendamento.medicoId,
           dataHora: dataFormatada,
           tipo: agendamento.tipo,
           status: agendamento.status,
           observacoes: agendamento.observacoes || ''
-        });
+        };
+        
+        setFormData(dadosCarregados);
+        setOriginalData(dadosCarregados);
       }
     } catch (error) {
       console.error('Erro ao carregar dados:', error);
@@ -119,12 +124,35 @@ export default function CadastroAgendamento() {
     setLoading(true);
     try {
       if (isEditMode && id) {
-        const updateData: UpdateAgendamentoDto = {
-          dataHora: formData.dataHora,
-          tipo: formData.tipo,
-          status: formData.status,
-          observacoes: formData.observacoes
-        };
+        // Para edição, construir updateData apenas com campos que mudaram
+        const updateData: UpdateAgendamentoDto = {};
+        
+        if (originalData) {
+          // Só incluir campos que realmente mudaram
+          if (formData.tipo !== originalData.tipo) {
+            updateData.tipo = formData.tipo;
+          }
+          
+          if (formData.status !== originalData.status) {
+            updateData.status = formData.status;
+          }
+          
+          if (formData.observacoes !== originalData.observacoes) {
+            updateData.observacoes = formData.observacoes;
+          }
+          
+          // Só incluir dataHora se foi modificada
+          if (formData.dataHora !== originalData.dataHora) {
+            updateData.dataHora = formData.dataHora;
+          }
+        } else {
+          // Se não tem dados originais, incluir todos os campos (fallback)
+          updateData.dataHora = formData.dataHora;
+          updateData.tipo = formData.tipo;
+          updateData.status = formData.status;
+          updateData.observacoes = formData.observacoes;
+        }
+        
         await apiService.updateAgendamento(id, updateData);
         toast({
           title: "Sucesso",

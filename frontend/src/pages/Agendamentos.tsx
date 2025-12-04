@@ -2,8 +2,18 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+} from '@/components/ui/dialog';
 import { 
   Select, 
   SelectContent, 
@@ -11,9 +21,10 @@ import {
   SelectTrigger, 
   SelectValue 
 } from '@/components/ui/select';
-import { CalendarDays, Clock, Users, AlertCircle, Plus, Search, X, RefreshCcw } from 'lucide-react';
+import { CalendarDays, Clock, Users, AlertCircle, Plus, Search, X, RefreshCcw, Check, Calendar, Ban } from 'lucide-react';
 import { DashboardLayout } from '@/components/DashboardLayout';
 import { apiService } from '@/lib/api-service';
+import { useToast } from '@/hooks/use-toast';
 import { 
   Agendamento, 
   StatusAgendamento, 
@@ -30,14 +41,36 @@ interface AgendamentoWithDetails extends Agendamento {
   medico?: Medico;
 }
 
+// Chaves para persistência dos filtros
+const FILTER_STORAGE_KEYS = {
+  searchTerm: 'agendamentos_filter_search',
+  statusFilter: 'agendamentos_filter_status',
+  tipoFilter: 'agendamentos_filter_tipo'
+};
+
 export default function Agendamentos() {
+  const { toast } = useToast();
   const [agendamentos, setAgendamentos] = useState<AgendamentoWithDetails[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState<StatusAgendamento | 'all'>('all');
-  const [tipoFilter, setTipoFilter] = useState<TipoConsulta | 'all'>('all');
+  
+  // Inicializar filtros com valores persistidos ou padrões
+  const [searchTerm, setSearchTerm] = useState(() => 
+    sessionStorage.getItem(FILTER_STORAGE_KEYS.searchTerm) || ''
+  );
+  const [statusFilter, setStatusFilter] = useState<StatusAgendamento | 'all'>(() => 
+    (sessionStorage.getItem(FILTER_STORAGE_KEYS.statusFilter) as StatusAgendamento | 'all') || 'all'
+  );
+  const [tipoFilter, setTipoFilter] = useState<TipoConsulta | 'all'>(() => 
+    (sessionStorage.getItem(FILTER_STORAGE_KEYS.tipoFilter) as TipoConsulta | 'all') || 'all'
+  );
+  
   const [pacientes, setPacientes] = useState<Paciente[]>([]);
   const [medicos, setMedicos] = useState<Medico[]>([]);
+  
+  // Estados para modal de reagendamento
+  const [isReagendarModalOpen, setIsReagendarModalOpen] = useState(false);
+  const [agendamentoParaReagendar, setAgendamentoParaReagendar] = useState<AgendamentoWithDetails | null>(null);
+  const [novaDataHora, setNovaDataHora] = useState('');
 
   const loadData = async () => {
     setLoading(true);
@@ -73,6 +106,19 @@ export default function Agendamentos() {
     loadData();
   }, []);
 
+  // Persistir filtros no sessionStorage quando mudarem
+  useEffect(() => {
+    sessionStorage.setItem(FILTER_STORAGE_KEYS.searchTerm, searchTerm);
+  }, [searchTerm]);
+
+  useEffect(() => {
+    sessionStorage.setItem(FILTER_STORAGE_KEYS.statusFilter, statusFilter);
+  }, [statusFilter]);
+
+  useEffect(() => {
+    sessionStorage.setItem(FILTER_STORAGE_KEYS.tipoFilter, tipoFilter);
+  }, [tipoFilter]);
+
   const filteredAgendamentos = agendamentos.filter(agendamento => {
     const matchesSearch = 
       agendamento.paciente?.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -89,6 +135,79 @@ export default function Agendamentos() {
     setSearchTerm('');
     setStatusFilter('all');
     setTipoFilter('all');
+    
+    // Limpar também o sessionStorage
+    sessionStorage.removeItem(FILTER_STORAGE_KEYS.searchTerm);
+    sessionStorage.removeItem(FILTER_STORAGE_KEYS.statusFilter);
+    sessionStorage.removeItem(FILTER_STORAGE_KEYS.tipoFilter);
+  };
+
+  const updateAgendamentoStatus = async (agendamentoId: string, novoStatus: StatusAgendamento) => {
+    try {
+      await apiService.updateAgendamento(agendamentoId, { status: novoStatus });
+      
+      // Atualizar o estado local
+      setAgendamentos(prev => prev.map(agendamento => 
+        agendamento.id === agendamentoId 
+          ? { ...agendamento, status: novoStatus }
+          : agendamento
+      ));
+
+      toast({
+        title: 'Status atualizado',
+        description: `Agendamento ${StatusAgendamentoLabels[novoStatus].toLowerCase()} com sucesso.`,
+      });
+    } catch (error) {
+      console.error('Erro ao atualizar status:', error);
+      toast({
+        title: 'Erro',
+        description: 'Não foi possível atualizar o status do agendamento.',
+        variant: 'destructive',
+      });
+    }
+  };
+
+  const abrirModalReagendamento = (agendamento: AgendamentoWithDetails) => {
+    setAgendamentoParaReagendar(agendamento);
+    // Pré-preencher com a data/hora atual do agendamento
+    const dataAtual = new Date(agendamento.dataHora);
+    const dataFormatada = dataAtual.toISOString().slice(0, 16);
+    setNovaDataHora(dataFormatada);
+    setIsReagendarModalOpen(true);
+  };
+
+  const confirmarReagendamento = async () => {
+    if (!agendamentoParaReagendar || !novaDataHora) return;
+
+    try {
+      await apiService.updateAgendamento(agendamentoParaReagendar.id, { 
+        status: StatusAgendamento.REAGENDADO,
+        dataHora: novaDataHora 
+      });
+      
+      // Atualizar o estado local
+      setAgendamentos(prev => prev.map(agendamento => 
+        agendamento.id === agendamentoParaReagendar.id 
+          ? { ...agendamento, status: StatusAgendamento.REAGENDADO, dataHora: novaDataHora }
+          : agendamento
+      ));
+
+      toast({
+        title: 'Agendamento reagendado',
+        description: 'Nova data e hora definidas com sucesso.',
+      });
+      
+      setIsReagendarModalOpen(false);
+      setAgendamentoParaReagendar(null);
+      setNovaDataHora('');
+    } catch (error) {
+      console.error('Erro ao reagendar:', error);
+      toast({
+        title: 'Erro',
+        description: 'Não foi possível reagendar o agendamento.',
+        variant: 'destructive',
+      });
+    }
   };
 
   const getStatusCount = (status: StatusAgendamento) => {
@@ -305,29 +424,71 @@ export default function Agendamentos() {
                     </div>
                   </div>
                   
-                  <div className="flex gap-2">
-                    <Button variant="outline" size="sm" asChild>
-                      <Link to={`/agendamentos/${agendamento.id}`}>
-                        Ver Detalhes
-                      </Link>
-                    </Button>
+                  <div className="flex flex-col gap-2">
+                    {/* Linha 1: Ações de Status */}
+                    <div className="flex gap-2 flex-wrap">
+                      {agendamento.status !== StatusAgendamento.CONFIRMADO && (
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => updateAgendamentoStatus(agendamento.id, StatusAgendamento.CONFIRMADO)}
+                          className="bg-green-50 border-green-200 text-green-700 hover:bg-green-100"
+                        >
+                          <Check className="h-4 w-4 mr-1" />
+                          Confirmar
+                        </Button>
+                      )}
+                      
+                      {agendamento.status !== StatusAgendamento.REAGENDADO && (
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => abrirModalReagendamento(agendamento)}
+                          className="bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100"
+                        >
+                          <Calendar className="h-4 w-4 mr-1" />
+                          Reagendar
+                        </Button>
+                      )}
+                      
+                      {agendamento.status !== StatusAgendamento.CANCELADO && (
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => updateAgendamentoStatus(agendamento.id, StatusAgendamento.CANCELADO)}
+                          className="bg-red-50 border-red-200 text-red-700 hover:bg-red-100"
+                        >
+                          <Ban className="h-4 w-4 mr-1" />
+                          Cancelar
+                        </Button>
+                      )}
+                    </div>
                     
-                    {/* Botão de Telemedicina */}
-                    {agendamento.tipo === TipoConsulta.TELEMEDICINA && (
-                      agendamento.status === StatusAgendamento.CONFIRMADO || 
-                      agendamento.status === StatusAgendamento.AGENDADO
-                    ) && (
-                      <Button 
-                        variant="default" 
-                        size="sm" 
-                        asChild
-                        className="bg-green-600 hover:bg-green-700"
-                      >
-                        <Link to={`/telemedicina/${agendamento.id}`}>
-                          Iniciar Videochamada
+                    {/* Linha 2: Ações Secundárias */}
+                    <div className="flex gap-2 flex-wrap">
+                      <Button variant="outline" size="sm" asChild>
+                        <Link to={`/agendamentos/${agendamento.id}`}>
+                          Ver Detalhes
                         </Link>
                       </Button>
-                    )}
+                      
+                      {/* Botão de Telemedicina */}
+                      {agendamento.tipo === TipoConsulta.TELEMEDICINA && (
+                        agendamento.status === StatusAgendamento.CONFIRMADO || 
+                        agendamento.status === StatusAgendamento.AGENDADO
+                      ) && (
+                        <Button 
+                          variant="default" 
+                          size="sm" 
+                          asChild
+                          className="bg-green-600 hover:bg-green-700"
+                        >
+                          <Link to={`/telemedicina/${agendamento.id}`}>
+                            Iniciar Videochamada
+                          </Link>
+                        </Button>
+                      )}
+                    </div>
                   </div>
                 </div>
               </CardContent>
@@ -345,6 +506,54 @@ export default function Agendamentos() {
           </Card>
         )}
       </div>
+
+      {/* Modal de Reagendamento */}
+      <Dialog open={isReagendarModalOpen} onOpenChange={setIsReagendarModalOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Reagendar Agendamento</DialogTitle>
+            <DialogDescription>
+              {agendamentoParaReagendar && (
+                <>
+                  Definir nova data e hora para o agendamento de{' '}
+                  <strong>{agendamentoParaReagendar.paciente?.nome}</strong> com{' '}
+                  <strong>{agendamentoParaReagendar.medico?.nome}</strong>
+                </>
+              )}
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="nova-data-hora">Nova Data e Hora</Label>
+              <Input
+                id="nova-data-hora"
+                type="datetime-local"
+                value={novaDataHora}
+                onChange={(e) => setNovaDataHora(e.target.value)}
+                min={new Date().toISOString().slice(0, 16)}
+              />
+            </div>
+          </div>
+          
+          <DialogFooter>
+            <Button 
+              variant="outline" 
+              onClick={() => setIsReagendarModalOpen(false)}
+            >
+              Cancelar
+            </Button>
+            <Button 
+              onClick={confirmarReagendamento}
+              disabled={!novaDataHora}
+              className="bg-blue-600 hover:bg-blue-700"
+            >
+              <Calendar className="h-4 w-4 mr-2" />
+              Confirmar Reagendamento
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </DashboardLayout>
   );
 }
