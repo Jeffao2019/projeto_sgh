@@ -35,120 +35,73 @@ interface AgendamentoWithDetails extends Agendamento {
 }
 
 export default function SalaTelemedicina() {
-  const navigate = useNavigate();
-  const { id } = useParams<{ id: string }>();
-  const { toast } = useToast();
-  
-  // Estado dos dados do agendamento
-  const [agendamento, setAgendamento] = useState<AgendamentoWithDetails | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  
-  // Estado da videochamada
-  const [isVideoEnabled, setIsVideoEnabled] = useState(true);
-  const [isAudioEnabled, setIsAudioEnabled] = useState(true);
-  const [isCallActive, setIsCallActive] = useState(false);
-  const [isConnected, setIsConnected] = useState(false);
-  const [callDuration, setCallDuration] = useState(0);
-  
-  // Estado do chat
-  const [messages, setMessages] = useState<Array<{id: string, sender: string, message: string, time: string}>>([]);
-  const [newMessage, setNewMessage] = useState('');
-  
-  // Estado das notas da consulta
-  const [notas, setNotas] = useState<NotasConsulta>({
-    anamnese: '',
-    exameFisico: '',
-    diagnostico: '',
-    prescricaoUsoInterno: '',
-    prescricaoUsoExterno: '',
-    observacoes: ''
-  });
-
-interface NotasConsulta {
-  anamnese: string;
-  exameFisico: string;
-  diagnostico: string;
-  prescricaoUsoInterno: string;
-  prescricaoUsoExterno: string;
-  observacoes: string;
-}
-  
-  // Referências para os elementos de vídeo
-  const localVideoRef = useRef<HTMLVideoElement>(null);
-  const remoteVideoRef = useRef<HTMLVideoElement>(null);
+  // Wrapper com try-catch para capturar erros de renderização
+  try {
+    console.log('🔄 SalaTelemedicina: Iniciando componente');
+    
+    const navigate = useNavigate();
+    const { id } = useParams<{ id: string }>();
+    const { toast } = useToast();
+    
+    console.log('🔄 SalaTelemedicina: Hooks inicializados', { id });
+    
+    // Estados básicos
+    const [agendamento, setAgendamento] = useState<AgendamentoWithDetails | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    
+    // Estados da videochamada
+    const [isVideoEnabled, setIsVideoEnabled] = useState(true);
+    const [isAudioEnabled, setIsAudioEnabled] = useState(true);
+    const [isCallActive, setIsCallActive] = useState(false);
+    
+    // Referências para os elementos de vídeo
+    const localVideoRef = useRef<HTMLVideoElement>(null);
+    const remoteVideoRef = useRef<HTMLVideoElement>(null);
+    
+    console.log('🔄 SalaTelemedicina: Estados inicializados');
   
   // Carregar dados do agendamento
   useEffect(() => {
-    const loadAgendamento = async () => {
-      console.log('🔄 Iniciando carregamento da sala de telemedicina...');
-      console.log('📋 ID recebido:', id);
-      
-      if (!id) {
-        console.error('❌ ID do agendamento não informado na URL');
-        setError('ID do agendamento não informado');
-        setLoading(false);
-        return;
-      }
+    console.log('🔄 useEffect: Iniciando', { id });
+    
+    if (!id) {
+      console.log('🔄 useEffect: ID não fornecido');
+      setError('ID do agendamento não informado');
+      setLoading(false);
+      return;
+    }
 
+    // Função async dentro do useEffect
+    const loadData = async () => {
       try {
+        console.log('🔄 useEffect: Carregando agendamento...');
         setLoading(true);
         setError(null);
-        console.log('🔍 Buscando agendamento ID:', id);
         
-        // Tentar uma abordagem mais simples primeiro
-        const agendamentoResponse = await apiService.getAgendamentoById(id);
-        console.log('✅ Agendamento encontrado:', agendamentoResponse);
+        const response = await apiService.getAgendamentoById(id);
+        console.log('🔄 useEffect: Agendamento carregado', response);
         
-        // Dados mockados para teste
-        const agendamentoMock = {
-          ...agendamentoResponse,
-          paciente: {
-            id: '1',
-            nome: 'Paciente Teste',
-            email: 'teste@email.com',
-            telefone: '(11) 99999-9999',
-            dataNascimento: '1990-01-01'
-          },
-          medico: {
-            id: '1',
-            nome: 'Dr. Teste',
-            crm: '123456',
-            especialidade: 'Clínica Geral'
-          }
-        };
-        
-        console.log('🎯 Dados do agendamento processados:', agendamentoMock);
-        setAgendamento(agendamentoMock);
-        
-      } catch (error) {
-        console.error('❌ Erro ao carregar agendamento:', error);
-        
-        // Verificar se é erro de autenticação
-        if (error.response?.status === 401) {
-          setError('Não autenticado - redirecionando para login');
-          toast({
-            title: "Não autenticado",
-            description: "Faça login para acessar a sala de telemedicina",
-            variant: "destructive",
-          });
-          setTimeout(() => navigate('/login'), 2000);
-        } else {
-          setError(`Erro ao carregar dados: ${error.message}`);
-          toast({
-            title: "Erro",
-            description: "Não foi possível carregar os dados do agendamento",
-            variant: "destructive",
-          });
+        if (!response) {
+          throw new Error('Agendamento não encontrado');
         }
+        
+        setAgendamento(response);
+        console.log('🔄 useEffect: Agendamento definido no estado');
+        
+      } catch (err) {
+        console.error('🔄 useEffect: Erro capturado', err);
+        const errorMessage = err instanceof Error ? err.message : 'Erro desconhecido';
+        setError('Erro ao carregar agendamento: ' + errorMessage);
       } finally {
         setLoading(false);
-        console.log('🏁 Carregamento finalizado');
+        console.log('🔄 useEffect: Loading finalizado');
       }
     };
 
-    loadAgendamento();
-  }, [id, navigate, toast]);
+    // Executar a função async
+    loadData();
+  }, [id]);
   
   // Mostrar loading enquanto carrega dados
   if (loading) {
@@ -229,99 +182,39 @@ interface NotasConsulta {
     );
   }
 
-  // Simulação de inicialização da câmera
-  useEffect(() => {
-    if (isCallActive && localVideoRef.current) {
-      // Simulação de acesso à câmera
-      navigator.mediaDevices?.getUserMedia({ video: true, audio: true })
-        .then(stream => {
-          if (localVideoRef.current) {
-            localVideoRef.current.srcObject = stream;
-          }
-          setIsConnected(true);
-          toast({
-            title: "Câmera conectada",
-            description: "Sua câmera e microfone estão funcionando",
-          });
-        })
-        .catch(err => {
-          console.error('Erro ao acessar mídia:', err);
-          toast({
-            title: "Erro de mídia",
-            description: "Não foi possível acessar câmera/microfone",
-            variant: "destructive",
-          });
-        });
+  const handleStartCall = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      if (localVideoRef.current) {
+        localVideoRef.current.srcObject = stream;
+      }
+      setIsCallActive(true);
+      
+      toast({
+        title: "Videochamada iniciada",
+        description: "Conectando com o paciente...",
+      });
+    } catch (err) {
+      console.error('Erro ao acessar mídia:', err);
+      toast({
+        title: "Erro de mídia",
+        description: "Não foi possível acessar a câmera",
+        variant: "destructive",
+      });
     }
-  }, [isCallActive, toast]);
-
-  // Timer da chamada
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (isCallActive && isConnected) {
-      interval = setInterval(() => {
-        setCallDuration(prev => prev + 1);
-      }, 1000);
-    }
-    return () => clearInterval(interval);
-  }, [isCallActive, isConnected]);
-
-  const formatDuration = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-  };
-
-  const handleStartCall = () => {
-    setIsCallActive(true);
-    toast({
-      title: "Iniciando videochamada",
-      description: "Conectando com o paciente...",
-    });
   };
 
   const handleEndCall = () => {
-    setIsCallActive(false);
-    setIsConnected(false);
-    setCallDuration(0);
-    
-    // Parar streams de vídeo
     if (localVideoRef.current?.srcObject) {
       const stream = localVideoRef.current.srcObject as MediaStream;
       stream.getTracks().forEach(track => track.stop());
     }
+    setIsCallActive(false);
     
     toast({
-      title: "Videochamada finalizada",
-      description: "Consulta encerrada com sucesso",
+      title: "Videochamada encerrada",
+      description: "Consulta finalizada",
     });
-  };
-
-  const handleSendMessage = () => {
-    if (newMessage.trim()) {
-      const message = {
-        id: Date.now().toString(),
-        sender: 'Médico',
-        message: newMessage,
-        time: new Date().toLocaleTimeString()
-      };
-      setMessages(prev => [...prev, message]);
-      setNewMessage('');
-    }
-  };
-
-  const handleSaveNotes = () => {
-    toast({
-      title: "Notas salvas",
-      description: "Prontuário da teleconsulta foi salvo com sucesso",
-    });
-  };
-
-  const handleNotasChange = (field: keyof NotasConsulta, value: string) => {
-    setNotas(prev => ({
-      ...prev,
-      [field]: value
-    }));
   };
 
   return (
@@ -665,4 +558,37 @@ interface NotasConsulta {
       </div>
     </DashboardLayout>
   );
+  
+  } catch (error) {
+    console.error('🔄 SalaTelemedicina: Erro de renderização capturado', error);
+    
+    return (
+      <DashboardLayout title="Sala de Telemedicina" subtitle="Erro no componente">
+        <div className="p-8 text-center">
+          <div className="text-red-600 text-4xl mb-4">⚠️</div>
+          <h3 className="text-lg font-semibold text-red-600">Erro no Componente</h3>
+          <p className="text-muted-foreground mb-4">
+            Ocorreu um erro inesperado no componente de telemedicina.
+          </p>
+          <p className="text-sm text-gray-500 mb-4">
+            {error instanceof Error ? error.message : 'Erro desconhecido'}
+          </p>
+          <div className="space-x-4">
+            <button 
+              onClick={() => window.location.reload()}
+              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            >
+              Recarregar Página
+            </button>
+            <button 
+              onClick={() => window.location.href = '/agendamentos'}
+              className="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50"
+            >
+              Voltar aos Agendamentos
+            </button>
+          </div>
+        </div>
+      </DashboardLayout>
+    );
+  }
 }

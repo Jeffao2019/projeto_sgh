@@ -210,32 +210,119 @@ export default function SalaTelemedicinaSafe() {
         }
       }
       
-      // 2. Abrir Google Meet em nova aba
-      window.open('https://meet.google.com/new', '_blank');
+      // 2. Criar reunião e obter link
+      const meetWindow = window.open('https://meet.google.com/new', '_blank');
       
       // 3. Ativar estado da chamada
       setIsCallActive(true);
       setCallStartTime(new Date());
       setIsConnecting(false);
       
-      // 4. Simular paciente conectado e ativar vídeo do paciente
-      setTimeout(() => {
-        simulatePatientJoinMeet();
-        setPatientConnected(true);
-        setAwaitingPatient(false);
-        
-        // Ativar vídeo simulado do paciente
-        if (patientVideoRef.current) {
-          activatePatientVideo();
-        }
-      }, 3000);
+      // 4. Aguardar usuário inserir o link do Meet criado
+      const meetLink = await getMeetLinkFromUser();
       
-      alert('✅ Google Meet Real criado!\n\n📋 PRÓXIMOS PASSOS:\n1️⃣ Copie o link da reunião criada\n2️⃣ Envie para o paciente\n3️⃣ Ambas câmeras estão ativas\n4️⃣ Inicie a consulta!');
+      if (meetLink) {
+        // 5. Enviar via WhatsApp para o paciente
+        await sendMeetLinkViaWhatsApp(meetLink);
+        
+        // 6. Simular paciente conectado e ativar vídeo do paciente
+        setTimeout(() => {
+          simulatePatientJoinMeet();
+          setPatientConnected(true);
+          setAwaitingPatient(false);
+          
+          // Ativar vídeo simulado do paciente
+          if (patientVideoRef.current) {
+            activatePatientVideo();
+          }
+        }, 3000);
+        
+        alert('✅ Google Meet enviado via WhatsApp!\n\n📱 Link enviado para o paciente\n📹 Câmeras ativadas\n🎯 Aguarde o paciente entrar');
+      }
       
     } catch (error) {
       console.error('❌ Erro ao criar Google Meet real:', error);
       setIsConnecting(false);
       alert('❌ Erro ao criar Google Meet real');
+    }
+  };
+
+  const getMeetLinkFromUser = (): Promise<string | null> => {
+    return new Promise((resolve) => {
+      // Dar tempo para o usuário criar a reunião
+      setTimeout(() => {
+        const meetLink = prompt(
+          '📋 COPIE O LINK DO GOOGLE MEET CRIADO:\n\n' +
+          '1️⃣ Na nova aba do Google Meet\n' +
+          '2️⃣ Copie o link da reunião (Ex: https://meet.google.com/abc-defg-hij)\n' +
+          '3️⃣ Cole aqui para enviar ao paciente via WhatsApp:\n\n' +
+          '🎯 Link do Google Meet:'
+        );
+        
+        if (meetLink && meetLink.includes('meet.google.com')) {
+          resolve(meetLink.trim());
+        } else {
+          alert('❌ Link inválido. Usando link automático.');
+          resolve('https://meet.google.com/new');
+        }
+      }, 2000);
+    });
+  };
+
+  const sendMeetLinkViaWhatsApp = async (meetLink: string) => {
+    try {
+      const pacienteTelefone = agendamento?.paciente?.telefone || '';
+      const pacienteNome = agendamento?.paciente?.nome || 'Paciente';
+      const medicoNome = agendamento?.medico?.nome || 'Dr. Carlos';
+      const dataConsulta = new Date(agendamento?.dataHora).toLocaleString();
+      
+      // Remover caracteres especiais do telefone e adicionar código do Brasil
+      let telefoneFormatado = pacienteTelefone.replace(/\D/g, '');
+      if (telefoneFormatado.length === 11) {
+        telefoneFormatado = '55' + telefoneFormatado; // Adicionar código do Brasil
+      }
+      
+      // Criar link direto para o painel do paciente
+      const pacienteLink = `${window.location.origin}/paciente-videochamada?agendamento=${agendamento?.id}&invite=${Date.now()}&meet=${encodeURIComponent(meetLink)}`;
+      
+      // Criar mensagem para WhatsApp
+      const mensagem = encodeURIComponent(
+        `🏥 *TELECONSULTA SGH*\n\n` +
+        `👋 Olá *${pacienteNome}*!\n\n` +
+        `🩺 Sua consulta com *${medicoNome}* está marcada para:\n` +
+        `📅 ${dataConsulta}\n\n` +
+        `🎥 *ACESSE SUA VIDEOCHAMADA:*\n` +
+        `${meetLink}\n\n` +
+        `📱 *PAINEL DO PACIENTE (recomendado):*\n` +
+        `${pacienteLink}\n\n` +
+        `📋 *COMO USAR:*\n` +
+        `1️⃣ Clique no "Painel do Paciente" acima\n` +
+        `2️⃣ Teste sua câmera primeiro\n` +
+        `3️⃣ Depois clique "Entrar no Google Meet"\n` +
+        `4️⃣ Aguarde o médico entrar na reunião\n\n` +
+        `💡 *ALTERNATIVA:* Clique direto no link do Google Meet\n\n` +
+        `🏥 Sistema SGH - Telemedicina`
+      );
+      
+      // Criar URL do WhatsApp
+      const whatsappURL = `https://api.whatsapp.com/send?phone=${telefoneFormatado}&text=${mensagem}`;
+      
+      console.log('📱 Enviando via WhatsApp para:', telefoneFormatado);
+      console.log('🔗 Link:', meetLink);
+      
+      // Abrir WhatsApp Web
+      window.open(whatsappURL, '_blank');
+      
+      // Salvar link para referência
+      setPatientInviteLink(meetLink);
+      setInviteSent(true);
+      setAwaitingPatient(true);
+      
+      return true;
+    } catch (error) {
+      console.error('❌ Erro ao enviar WhatsApp:', error);
+      alert('❌ Erro ao enviar mensagem via WhatsApp');
+      return false;
     }
   };
 
@@ -552,21 +639,9 @@ export default function SalaTelemedicinaSafe() {
         marginBottom: '20px',
         backgroundColor: '#f8f9fa'
       }}>
-        <h1 style={{ color: '#28a745', marginBottom: '10px' }}>
+        <h1 style={{ color: '#28a745', marginBottom: '20px' }}>
           📹 Sala de Telemedicina
         </h1>
-        <h2>Teleconsulta #{agendamento?.id}</h2>
-        <div style={{ 
-          fontSize: '12px', 
-          color: '#6c757d', 
-          fontFamily: 'monospace',
-          background: '#e9ecef',
-          padding: '5px',
-          borderRadius: '3px',
-          marginBottom: '10px'
-        }}>
-          ID: {agendamento?.id}
-        </div>
         <p><strong>Data/Hora:</strong> {new Date(agendamento?.dataHora).toLocaleString()}</p>
         
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', margin: '20px 0' }}>
@@ -591,7 +666,7 @@ export default function SalaTelemedicinaSafe() {
       }}>
         <h3>🎥 Google Meet - Videochamada</h3>
         
-        {/* Alerta importante sobre a nova funcionalidade */}
+        {/* Alerta sobre a funcionalidade integrada com WhatsApp */}
         <div style={{
           backgroundColor: '#d4edda',
           border: '1px solid #c3e6cb',
@@ -600,15 +675,15 @@ export default function SalaTelemedicinaSafe() {
           marginBottom: '20px',
           fontSize: '14px'
         }}>
-          <h4 style={{ color: '#155724', margin: '0 0 10px 0' }}>✅ FUNCIONALIDADE INTEGRADA</h4>
+          <h4 style={{ color: '#155724', margin: '0 0 10px 0' }}>📱 INTEGRAÇÃO WHATSAPP + GOOGLE MEET</h4>
           <p style={{ margin: '5px 0', color: '#155724' }}>
-            <strong>🎯 Tudo em Um:</strong> O botão "Criar Meet Real + Câmeras" faz tudo automaticamente.
+            <strong>🎯 Automático:</strong> Cria Google Meet e envia link direto para o paciente via WhatsApp.
           </p>
           <p style={{ margin: '5px 0', color: '#155724' }}>
-            <strong>📹 Câmeras:</strong> Ativa webcam do médico e simula vídeo do paciente.
+            <strong>📹 Câmeras:</strong> Ativa webcam do médico e simula vídeo do paciente automaticamente.
           </p>
           <p style={{ margin: '5px 0', color: '#155724' }}>
-            <strong>🔗 Google Meet:</strong> Abre reunião real que sempre funciona.
+            <strong>🌐 Rede Externa:</strong> Usa WhatsApp Web para envio via internet (sem API local).
           </p>
         </div>
         
@@ -741,9 +816,9 @@ export default function SalaTelemedicinaSafe() {
               fontWeight: 'bold',
               boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
             }}
-            title="Cria reunião Google Meet real e ativa câmeras do Dr. e Paciente"
+            title="Cria reunião Google Meet real, ativa câmeras e envia via WhatsApp para o paciente"
           >
-            {isConnecting ? '🔄 Ativando Câmeras...' : isCallActive ? '🎥 Meet Real Ativo' : '🆕 Criar Meet Real + Câmeras'}
+            {isConnecting ? '🔄 Criando e Enviando...' : isCallActive ? '📱 WhatsApp Enviado' : '📱 Criar Meet + WhatsApp'}
           </button>
           
           <button 
@@ -766,6 +841,48 @@ export default function SalaTelemedicinaSafe() {
             {isCallActive ? '🔚 Encerrar Chamada' : '⏹️ Encerrar'}
           </button>
         </div>
+        
+        {/* Status do WhatsApp */}
+        {inviteSent && (
+          <div style={{ 
+            marginTop: '15px',
+            padding: '15px',
+            backgroundColor: '#e8f5e8',
+            border: '1px solid #4caf50',
+            borderRadius: '8px'
+          }}>
+            <h4 style={{ 
+              color: '#2e7d32', 
+              margin: '0 0 10px 0',
+              fontSize: '16px'
+            }}>
+              📱 WhatsApp - Status do Envio
+            </h4>
+            <div style={{ marginBottom: '10px' }}>
+              <span style={{ color: '#2e7d32', fontWeight: 'bold' }}>✅ Mensagem enviada para:</span>
+              <br />
+              <strong>{agendamento?.paciente?.nome}</strong> - {agendamento?.paciente?.telefone}
+            </div>
+            <div style={{ 
+              backgroundColor: '#f1f8e9',
+              padding: '10px',
+              borderRadius: '4px',
+              fontSize: '12px',
+              marginBottom: '10px',
+              border: '1px solid #c8e6c9'
+            }}>
+              <strong>📋 Mensagem enviada via WhatsApp Web:</strong><br />
+              🏥 Teleconsulta SGH com link do Google Meet<br />
+              📅 Data e horário da consulta<br />
+              🎥 Instruções para acessar a videochamada<br />
+              💡 Dicas de uso da câmera
+            </div>
+            <p style={{ margin: '5px 0', color: '#2e7d32', fontSize: '14px' }}>
+              <strong>📱 Rede Externa:</strong> Mensagem enviada via WhatsApp Web (internet)<br />
+              <strong>⏳ Aguardando:</strong> Paciente clicar no link e entrar na reunião
+            </p>
+          </div>
+        )}
         
         {/* Link para o Paciente */}
         {patientInviteLink && (
@@ -923,32 +1040,24 @@ export default function SalaTelemedicinaSafe() {
         )}
       </div>
 
-      <div style={{ 
-        marginTop: '20px',
-        padding: '15px',
-        backgroundColor: '#d4edda',
-        border: '1px solid #c3e6cb',
-        borderRadius: '5px'
-      }}>
-        <h4 style={{ color: '#155724', margin: '0 0 10px 0' }}>✅ Sala Carregada!</h4>
-        <p style={{ color: '#155724', margin: '0 0 5px 0' }}>
-          A sala de telemedicina foi carregada com sucesso para o agendamento:
-        </p>
-        <p style={{ 
-          color: '#155724', 
-          margin: '0',
-          fontFamily: 'monospace',
-          fontSize: '12px',
-          background: 'rgba(255,255,255,0.3)',
-          padding: '5px',
-          borderRadius: '3px'
+      {/* Painel de erro apenas se houver falha no carregamento */}
+      {error && (
+        <div style={{ 
+          marginTop: '20px',
+          padding: '15px',
+          backgroundColor: '#f8d7da',
+          border: '1px solid #f5c6cb',
+          borderRadius: '5px'
         }}>
-          ID: {agendamento?.id}
-        </p>
-        <p style={{ color: '#155724', margin: '5px 0 0 0', fontSize: '14px' }}>
-          Carregado em: {new Date().toLocaleTimeString()}
-        </p>
-      </div>
+          <h4 style={{ color: '#721c24', margin: '0 0 10px 0' }}>❌ Erro ao carregar a sala</h4>
+          <p style={{ color: '#721c24', margin: '0 0 5px 0' }}>
+            Houve um problema ao carregar a sala de telemedicina.
+          </p>
+          <p style={{ color: '#721c24', margin: '5px 0 0 0', fontSize: '14px' }}>
+            Erro: {error}
+          </p>
+        </div>
+      )}
     </div>
   );
 }

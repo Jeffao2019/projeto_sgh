@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Link Paciente</title>
+</head>
+<body>
+    <h1>🧪 Teste de Link do Paciente</h1>
+    
+    <h2>Links para testar:</h2>
+    <ul>
+        <li><a href="http://localhost:8081/paciente-videochamada?invite=test123&agendamento=123" target="_blank">
+            Link simples de teste
+        </a></li>
+        <li><a href="http://localhost:8081/paciente-videochamada?invite=invite-12345-abc&agendamento=456" target="_blank">
+            Link com formato real
+        </a></li>
+    </ul>
+    
+    <h2>Verificações:</h2>
+    <ol>
+        <li>O frontend está rodando na porta 8081?</li>
+        <li>A rota /paciente-videochamada está configurada?</li>
+        <li>O componente PacienteVideochamada existe?</li>
+        <li>Há erros no console do navegador?</li>
+    </ol>
+    
+    <h2>Passos para testar:</h2>
+    <ol>
+        <li>Certifique-se de que o frontend está rodando</li>
+        <li>Clique em um dos links acima</li>
+        <li>Deve abrir a página do paciente</li>
+        <li>Verifique o console do navegador (F12) para erros</li>
+    </ol>
+    
+    <script>
+        console.log('🔗 Testando links de paciente');
+        console.log('Base URL atual:', window.location.origin);
+        console.log('Links para testar:');
+        console.log('1. http://localhost:8081/paciente-videochamada?invite=test123&agendamento=123');
+        console.log('2. http://localhost:8081/paciente-videochamada?invite=invite-12345-abc&agendamento=456');
+    </script>
+</body>
+</html>

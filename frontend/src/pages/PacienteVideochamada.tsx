@@ -7,25 +7,52 @@ export default function PacienteVideochamada() {
   const [isConnecting, setIsConnecting] = useState<boolean>(false);
   const [connected, setConnected] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [meetLink, setMeetLink] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   
   const inviteId = searchParams.get('invite');
   const agendamentoId = searchParams.get('agendamento');
+  const meetUrl = searchParams.get('meet');
 
-  const handleJoinCall = async () => {
+  useEffect(() => {
+    if (meetUrl) {
+      setMeetLink(decodeURIComponent(meetUrl));
+    }
+  }, [meetUrl]);
+
+  const handleJoinGoogleMeet = () => {
+    if (meetLink) {
+      window.open(meetLink, '_self');
+    } else {
+      const link = prompt(
+        '🎥 LINK DO GOOGLE MEET\n\n' +
+        'Cole aqui o link do Google Meet enviado pelo seu médico:\n\n' +
+        'Exemplo: https://meet.google.com/abc-defg-hij\n\n' +
+        'Link da videochamada:'
+      );
+      
+      if (link && link.includes('meet.google.com')) {
+        setMeetLink(link);
+        window.open(link, '_self');
+      } else {
+        alert('❌ Link inválido!\n\nO link deve ser do Google Meet\nExemplo: https://meet.google.com/abc-defg-hij');
+      }
+    }
+  };
+
+  const handleTestCamera = async () => {
     try {
-      console.log('🚀 Paciente tentando se conectar...');
+      console.log('🧪 Testando câmera do paciente...');
       setIsConnecting(true);
       setError(null);
       
-      // Acessar câmera e microfone do paciente
       if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         try {
           const stream = await navigator.mediaDevices.getUserMedia({ 
             video: { 
               width: { ideal: 640 }, 
               height: { ideal: 480 },
-              facingMode: 'user' // Câmera frontal preferida
+              facingMode: 'user'
             }, 
             audio: true 
           });
@@ -33,7 +60,6 @@ export default function PacienteVideochamada() {
           console.log('📹 Câmera do paciente acessada com sucesso');
           setMediaStream(stream);
           
-          // Conectar stream ao elemento de vídeo
           if (videoRef.current) {
             videoRef.current.srcObject = stream;
             videoRef.current.play();
@@ -42,83 +68,39 @@ export default function PacienteVideochamada() {
           setConnected(true);
           setIsConnecting(false);
           
-          // Simular notificação para o médico
-          console.log('📞 Notificando médico que paciente conectou');
-          
-          alert('✅ CONECTADO À VIDEOCHAMADA!\n\n📹 Sua câmera está funcionando\n🎤 Seu áudio está ativo\n👨‍⚕️ O médico pode te ver e ouvir\n\n🩺 Aguarde o médico iniciar a consulta');
+          alert('✅ CÂMERA FUNCIONANDO!\n\n📹 Sua câmera está ativa\n🎤 Seu microfone está funcionando\n\n💡 Agora você pode entrar no Google Meet\n🎥 Clique em "Entrar no Google Meet" quando estiver pronto');
           
         } catch (mediaError) {
-          console.error('❌ Erro ao acessar câmera/microfone:', mediaError);
+          console.error('❌ Erro ao acessar câmera:', mediaError);
           setIsConnecting(false);
-          
-          let errorMessage = '❌ Não foi possível acessar sua câmera/microfone\n\n';
-          
-          if (mediaError.name === 'NotAllowedError') {
-            errorMessage += '🚫 Você negou o acesso à câmera\n\n' +
-              'Para continuar:\n' +
-              '1️⃣ Clique no ícone de câmera na barra do navegador\n' +
-              '2️⃣ Selecione "Permitir"\n' +
-              '3️⃣ Recarregue a página e tente novamente';
-          } else if (mediaError.name === 'NotFoundError') {
-            errorMessage += '📹 Nenhuma câmera encontrada\n\n' +
-              'Verifique se:\n' +
-              '• Sua câmera está conectada\n' +
-              '• Nenhum outro app está usando a câmera';
-          } else {
-            errorMessage += '🔧 Erro técnico\n\n' +
-              'Tente:\n' +
-              '• Recarregar a página\n' +
-              '• Usar outro navegador\n' +
-              '• Verificar se a câmera funciona em outros apps';
-          }
-          
-          setError(errorMessage);
-          alert(errorMessage);
-          return;
+          setError('❌ Não foi possível acessar sua câmera. Verifique as permissões.');
         }
       } else {
         setIsConnecting(false);
-        const browserError = '❌ Seu navegador não suporta videochamadas\n\n' +
-          '📱 Para funcionar, use:\n' +
-          '• Chrome (recomendado)\n' +
-          '• Firefox\n' +
-          '• Safari\n' +
-          '• Edge\n\n' +
-          '⚠️ Certifique-se de estar usando a versão mais recente';
-        setError(browserError);
-        alert(browserError);
-        return;
+        setError('❌ Seu navegador não suporta acesso à câmera');
       }
       
     } catch (error) {
-      console.error('❌ Erro inesperado:', error);
+      console.error('❌ Erro ao testar câmera:', error);
       setIsConnecting(false);
-      setError('❌ Erro inesperado. Tente novamente.');
-      alert('❌ Erro inesperado. Tente novamente.');
+      setError('❌ Erro inesperado ao tentar acessar a câmera');
     }
   };
 
   const handleEndCall = () => {
     try {
-      console.log('🔚 Paciente encerrando chamada...');
-      
-      // Parar todos os streams
       if (mediaStream) {
         mediaStream.getTracks().forEach(track => {
           track.stop();
-          console.log(`🔇 ${track.kind} track parado`);
         });
         setMediaStream(null);
       }
       
-      // Limpar elemento de vídeo
       if (videoRef.current) {
         videoRef.current.srcObject = null;
       }
       
       setConnected(false);
-      
-      alert('✅ Você saiu da videochamada\n\n🙏 Obrigado por usar nosso sistema!\n📱 Pode fechar esta janela');
       
     } catch (error) {
       console.error('❌ Erro ao sair:', error);
@@ -126,7 +108,6 @@ export default function PacienteVideochamada() {
   };
 
   useEffect(() => {
-    // Cleanup ao sair da página
     return () => {
       if (mediaStream) {
         mediaStream.getTracks().forEach(track => track.stop());
@@ -170,25 +151,48 @@ export default function PacienteVideochamada() {
         <h1 style={{ color: '#28a745', marginBottom: '10px' }}>
           🩺 Teleconsulta Médica
         </h1>
-        <p style={{ color: '#6c757d', margin: '0' }}>
-          Conecte-se com seu médico via videochamada
+        <p style={{ color: '#6c757d', margin: '5px 0' }}>
+          Sistema SGH - Videochamada com seu médico
         </p>
       </div>
 
-      {/* Vídeo do Paciente */}
+      {meetLink && (
+        <div style={{ 
+          backgroundColor: '#e3f2fd',
+          border: '2px solid #2196f3',
+          borderRadius: '8px',
+          padding: '15px',
+          marginBottom: '20px',
+          textAlign: 'center'
+        }}>
+          <h3 style={{ color: '#1976d2', margin: '0 0 10px 0' }}>
+            🎥 Google Meet Detectado
+          </h3>
+          <p style={{ color: '#1976d2', margin: '5px 0' }}>
+            Link da videochamada já configurado!
+          </p>
+        </div>
+      )}
+
       <div style={{ 
-        marginBottom: '30px',
-        textAlign: 'center'
+        backgroundColor: 'white',
+        borderRadius: '10px',
+        padding: '20px',
+        marginBottom: '20px',
+        boxShadow: '0 2px 5px rgba(0,0,0,0.1)'
       }}>
+        <h3 style={{ color: '#495057', marginBottom: '15px' }}>
+          📹 Teste sua Câmera
+        </h3>
+        
         <div style={{ 
           position: 'relative',
           backgroundColor: '#000', 
-          borderRadius: '15px',
+          aspectRatio: '4/3', 
+          borderRadius: '8px',
           overflow: 'hidden',
-          maxWidth: '400px',
-          margin: '0 auto',
-          border: connected ? '3px solid #28a745' : '2px solid #ddd',
-          boxShadow: '0 4px 15px rgba(0,0,0,0.2)'
+          marginBottom: '15px',
+          border: connected ? '3px solid #28a745' : '1px solid #ddd'
         }}>
           <video 
             ref={videoRef}
@@ -197,144 +201,145 @@ export default function PacienteVideochamada() {
             playsInline
             style={{ 
               width: '100%', 
-              height: '300px',
+              height: '100%', 
               objectFit: 'cover',
               display: mediaStream ? 'block' : 'none'
             }}
           />
           {!mediaStream && (
             <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
               width: '100%',
-              height: '300px',
+              height: '100%',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               color: 'white',
-              flexDirection: 'column'
+              flexDirection: 'column',
+              backgroundColor: '#343a40'
             }}>
-              <div style={{ fontSize: '64px', marginBottom: '15px' }}>
-                {isConnecting ? '🔄' : '📹'}
+              <div style={{ fontSize: '48px', marginBottom: '10px' }}>
+                {isConnecting ? '⏳' : '📷'}
               </div>
-              <div style={{ fontSize: '18px', fontWeight: 'bold' }}>
-                {isConnecting ? 'Conectando...' : 'Sua Câmera'}
-              </div>
-              <div style={{ fontSize: '14px', marginTop: '5px', opacity: 0.8 }}>
-                {isConnecting ? 'Acessando câmera...' : 'Clique para conectar'}
+              <div>
+                {isConnecting ? 'Ativando câmera...' : 'Clique para testar sua câmera'}
               </div>
             </div>
           )}
         </div>
-      </div>
 
-      {/* Controles */}
-      <div style={{ textAlign: 'center', marginBottom: '30px' }}>
-        {!connected ? (
-          <button 
-            onClick={handleJoinCall}
-            disabled={isConnecting}
-            style={{ 
-              padding: '15px 30px', 
-              backgroundColor: isConnecting ? '#95a5a6' : '#28a745', 
-              color: 'white', 
-              border: 'none', 
-              borderRadius: '25px',
-              cursor: isConnecting ? 'not-allowed' : 'pointer',
-              fontSize: '18px',
-              fontWeight: 'bold',
-              boxShadow: '0 4px 15px rgba(40, 167, 69, 0.3)',
-              transition: 'all 0.3s ease',
-              opacity: isConnecting ? 0.6 : 1
-            }}
-          >
-            {isConnecting ? '🔄 Conectando...' : '📹 Conectar à Videochamada'}
-          </button>
-        ) : (
-          <button 
-            onClick={handleEndCall}
-            style={{ 
-              padding: '15px 30px', 
-              backgroundColor: '#dc3545', 
-              color: 'white', 
-              border: 'none', 
-              borderRadius: '25px',
-              cursor: 'pointer',
-              fontSize: '18px',
-              fontWeight: 'bold',
-              boxShadow: '0 4px 15px rgba(220, 53, 69, 0.3)',
-              transition: 'all 0.3s ease'
-            }}
-          >
-            🔚 Sair da Chamada
-          </button>
+        <button
+          onClick={handleTestCamera}
+          disabled={isConnecting}
+          style={{ 
+            width: '100%',
+            padding: '12px', 
+            backgroundColor: connected ? '#28a745' : isConnecting ? '#6c757d' : '#007bff', 
+            color: 'white', 
+            border: 'none', 
+            borderRadius: '8px',
+            fontSize: '16px',
+            fontWeight: 'bold',
+            cursor: isConnecting ? 'not-allowed' : 'pointer',
+            marginBottom: '10px'
+          }}
+        >
+          {isConnecting ? '🔄 Ativando Câmera...' : connected ? '✅ Câmera Funcionando' : '📹 Testar Câmera'}
+        </button>
+
+        {error && (
+          <div style={{ 
+            backgroundColor: '#f8d7da',
+            border: '1px solid #f5c6cb',
+            color: '#721c24',
+            padding: '10px',
+            borderRadius: '4px',
+            fontSize: '14px',
+            marginTop: '10px'
+          }}>
+            {error}
+          </div>
         )}
       </div>
 
-      {/* Status */}
-      {connected && (
-        <div style={{ 
-          padding: '15px',
-          backgroundColor: '#d4edda',
-          border: '1px solid #c3e6cb',
-          borderRadius: '10px',
-          textAlign: 'center',
-          marginBottom: '20px'
-        }}>
-          <h4 style={{ color: '#155724', margin: '0 0 10px 0' }}>
-            ✅ Conectado à Videochamada!
-          </h4>
-          <p style={{ color: '#155724', margin: '0', fontSize: '14px' }}>
-            📹 Sua câmera está ativa • 🎤 Seu áudio está funcionando<br/>
-            👨‍⚕️ O médico pode te ver e ouvir
-          </p>
-        </div>
-      )}
-
-      {/* Erro */}
-      {error && (
-        <div style={{ 
-          padding: '15px',
-          backgroundColor: '#f8d7da',
-          border: '1px solid #f5c6cb',
-          borderRadius: '10px',
-          marginBottom: '20px'
-        }}>
-          <h4 style={{ color: '#721c24', margin: '0 0 10px 0' }}>
-            ⚠️ Problema de Conexão
-          </h4>
-          <p style={{ color: '#721c24', margin: '0', fontSize: '14px', whiteSpace: 'pre-line' }}>
-            {error}
-          </p>
-        </div>
-      )}
-
-      {/* Instruções */}
       <div style={{ 
-        padding: '20px',
-        backgroundColor: '#e3f2fd',
-        border: '1px solid #90caf9',
+        backgroundColor: 'white',
         borderRadius: '10px',
-        fontSize: '14px'
+        padding: '20px',
+        marginBottom: '20px',
+        boxShadow: '0 2px 5px rgba(0,0,0,0.1)'
       }}>
-        <h4 style={{ color: '#1565c0', margin: '0 0 15px 0' }}>
-          📋 Como usar:
-        </h4>
-        <ul style={{ color: '#1565c0', margin: '0', paddingLeft: '20px' }}>
-          <li>Clique em "Conectar à Videochamada"</li>
-          <li>Permita acesso à câmera quando solicitado</li>
-          <li>Aguarde seu médico iniciar a consulta</li>
-          <li>Mantenha boa iluminação e fique próximo ao celular</li>
-        </ul>
+        <h3 style={{ color: '#495057', marginBottom: '15px' }}>
+          🎥 Videochamada Google Meet
+        </h3>
+        
+        <button
+          onClick={handleJoinGoogleMeet}
+          style={{ 
+            width: '100%',
+            padding: '15px', 
+            backgroundColor: '#4285f4', 
+            color: 'white', 
+            border: 'none', 
+            borderRadius: '8px',
+            fontSize: '18px',
+            fontWeight: 'bold',
+            cursor: 'pointer',
+            marginBottom: '10px'
+          }}
+        >
+          🚀 Entrar no Google Meet
+        </button>
+
+        <p style={{ 
+          fontSize: '12px', 
+          color: '#6c757d', 
+          textAlign: 'center',
+          margin: '10px 0'
+        }}>
+          {meetLink ? 
+            'Link já configurado - clique para entrar diretamente' : 
+            'Você será solicitado a colar o link do Google Meet'
+          }
+        </p>
       </div>
 
-      {/* Info técnica */}
+      {connected && (
+        <div style={{ 
+          textAlign: 'center',
+          marginTop: '20px'
+        }}>
+          <button 
+            onClick={handleEndCall}
+            style={{ 
+              padding: '12px 24px', 
+              backgroundColor: '#dc3545', 
+              color: 'white', 
+              border: 'none', 
+              borderRadius: '8px',
+              fontSize: '16px',
+              fontWeight: 'bold',
+              cursor: 'pointer'
+            }}
+          >
+            🔚 Sair da Videochamada
+          </button>
+        </div>
+      )}
+
       <div style={{ 
         textAlign: 'center',
-        marginTop: '20px',
+        marginTop: '30px',
         fontSize: '12px',
-        color: '#6c757d'
+        color: '#6c757d',
+        backgroundColor: '#f8f9fa',
+        padding: '10px',
+        borderRadius: '8px'
       }}>
-        <p>Convite: {inviteId}</p>
-        <p>Agendamento: {agendamentoId}</p>
+        <p style={{ margin: '5px 0' }}>ID do Convite: {inviteId}</p>
+        <p style={{ margin: '5px 0' }}>Agendamento: {agendamentoId}</p>
       </div>
     </div>
   );
