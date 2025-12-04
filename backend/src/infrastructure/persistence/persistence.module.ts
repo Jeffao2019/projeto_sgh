@@ -10,6 +10,7 @@ import {
   UserEntity,
   AgendamentoEntity,
   ProntuarioEntity,
+  BackupConfigEntity,
 } from './entities';
 
 // Repositories
@@ -37,6 +38,7 @@ import {
       UserEntity,
       AgendamentoEntity,
       ProntuarioEntity,
+      BackupConfigEntity,
     ]),
   ],
   providers: [

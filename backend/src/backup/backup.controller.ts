@@ -5,8 +5,14 @@ import {
   Body,
   HttpException,
   HttpStatus,
+  Res,
+  Header,
+  Put,
 } from '@nestjs/common';
+import { Response } from 'express';
 import { BackupService } from './backup.service';
+import * as fs from 'fs';
+import * as path from 'path';
 
 @Controller('backup')
 export class BackupController {
@@ -96,7 +102,8 @@ export class BackupController {
    * Exporta dados de uma categoria
    */
   @Post('exportar')
-  async exportarDados(@Body() body: { categoria: string }) {
+  @Header('Content-Type', 'application/json')
+  async exportarDados(@Body() body: { categoria: string }, @Res() res: Response) {
     try {
       const { categoria } = body;
       
@@ -107,13 +114,28 @@ export class BackupController {
         );
       }
 
-      const caminho = await this.backupService.exportarDados(categoria);
+      const caminhoArquivo = await this.backupService.exportarDados(categoria);
       
-      return {
-        success: true,
-        message: `Dados da categoria ${categoria} exportados com sucesso`,
-        data: { caminho, categoria },
-      };
+      // Verificar se arquivo existe
+      if (!fs.existsSync(caminhoArquivo)) {
+        throw new HttpException(
+          'Arquivo de exportação não encontrado',
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
+
+      // Ler conteúdo do arquivo
+      const conteudoArquivo = fs.readFileSync(caminhoArquivo, 'utf8');
+      const dadosExportados = JSON.parse(conteudoArquivo);
+      
+      // Configurar headers para download
+      const nomeArquivo = path.basename(caminhoArquivo);
+      res.setHeader('Content-Disposition', `attachment; filename="${nomeArquivo}"`);
+      res.setHeader('Content-Type', 'application/json');
+      
+      // Retornar arquivo real para download
+      return res.json(dadosExportados);
+      
     } catch (error) {
       throw new HttpException(
         {
@@ -170,6 +192,61 @@ export class BackupController {
         {
           success: false,
           message: 'Erro ao verificar status',
+          error: error.message,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  /**
+   * Obtém configurações de backup
+   */
+  @Get('configuracoes')
+  async obterConfiguracoes() {
+    try {
+      console.log('🔄 [BackupController] Obtendo configurações...');
+      const config = await this.backupService.getBackupConfig();
+      console.log('✅ [BackupController] Configurações obtidas:', config);
+      
+      return {
+        success: true,
+        data: config,
+      };
+    } catch (error) {
+      console.error('❌ [BackupController] Erro ao obter configurações:', error);
+      throw new HttpException(
+        {
+          success: false,
+          message: 'Erro ao obter configurações',
+          error: error.message,
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  /**
+   * Salva configurações de backup
+   */
+  @Put('configuracoes')
+  async salvarConfiguracoes(@Body() config: any) {
+    try {
+      console.log('🔄 [BackupController] Salvando configurações:', config);
+      const configSalva = await this.backupService.salvarBackupConfig(config);
+      console.log('✅ [BackupController] Configurações salvas:', configSalva);
+      
+      return {
+        success: true,
+        message: 'Configurações salvas com sucesso',
+        data: configSalva,
+      };
+    } catch (error) {
+      console.error('❌ [BackupController] Erro ao salvar configurações:', error);
+      throw new HttpException(
+        {
+          success: false,
+          message: 'Erro ao salvar configurações',
           error: error.message,
         },
         HttpStatus.INTERNAL_SERVER_ERROR,

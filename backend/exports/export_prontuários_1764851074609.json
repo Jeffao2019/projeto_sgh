@@ -1,0 +1,1280 @@
+{
+  "categoria": "Prontuários",
+  "timestamp": "2025-12-04T12:24:34.749Z",
+  "registros": 41,
+  "formato": "JSON",
+  "usuario": "admin@sgh.com",
+  "dados": [
+    {
+      "id": "5c3d58cd-7a69-4f94-801e-1a89a082a1df",
+      "dataConsulta": "2026-01-17T14:30:00.000Z",
+      "anamnese": "Refere febre baixa (37.5°C) há 2 dias, acompanhada de mal-estar geral, cefaleia e mialgia. Iniciou uso de paracetamol com melhora parcial dos sintomas.",
+      "exameFisico": "REG, corado, hidratado. Sinais vitais: PA 110x70, FC 80, Tax 37.2°C. Orofaringe hiperemiada. Linfonodos cervicais palpáveis.",
+      "diagnostico": "Síndrome gripal",
+      "prescricao": "Paracetamol 750mg se febre. Hidratação oral abundante. Repouso domiciliar. Retorno se piora.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+      "paciente": {
+        "id": "0e807214-8ce0-41e9-8144-04443d29ac52",
+        "nome": "Lucia Fernanda Rodrigues",
+        "cpf": "16873078654",
+        "email": "lucia.fernanda.rodrigues@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "26c4c3b0-3db4-4ffe-b8ab-4efcd77ff772",
+        "dataHora": "2026-01-17T14:30:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO"
+      },
+      "criadoEm": "2025-11-26T19:45:31.765Z",
+      "atualizadoEm": "2025-11-26T19:45:31.765Z"
+    },
+    {
+      "id": "fab24dbd-d4eb-4217-bc93-24398a90f755",
+      "dataConsulta": "2026-01-15T11:45:00.000Z",
+      "anamnese": "Paciente assintomático, comparece para consulta de rotina e check-up geral. Nega queixas específicas no momento.",
+      "exameFisico": "Excelente estado geral, corado, hidratado. Sinais vitais normais. Exame físico geral sem alterações significativas.",
+      "diagnostico": "Paciente hígido - exame normal",
+      "prescricao": "Manter hábitos saudáveis. Retorno em 6 meses. Exames laboratoriais de rotina solicitados.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+      "paciente": {
+        "id": "6fdaf58d-ecd8-491e-8d64-3bc5ea94001e",
+        "nome": "Roberto Carlos Mendes",
+        "cpf": "18642786337",
+        "email": "roberto.carlos.mendes@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "855dadf0-fced-4a32-989c-5617bcd8566a",
+        "dataHora": "2026-01-15T11:45:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO"
+      },
+      "criadoEm": "2025-11-26T19:45:31.333Z",
+      "atualizadoEm": "2025-11-26T19:45:31.333Z"
+    },
+    {
+      "id": "78d0a3c1-5052-4bea-a740-18ff41814558",
+      "dataConsulta": "2026-01-15T11:30:00.000Z",
+      "anamnese": "Dor muscular intensa em membros inferiores após exercício físico intenso realizado ontem. Refere câimbras noturnas.",
+      "exameFisico": "BEG, corado. Exame dos membros inferiores com dor à palpação da musculatura posterior. Força muscular preservada.",
+      "diagnostico": "Mialgia pós-exercício",
+      "prescricao": "Repouso, aplicação de gelo local. Alongamentos leves. Anti-inflamatório se necessário.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+      "paciente": {
+        "id": "510e536f-23d1-4222-b214-a51ffc660daf",
+        "nome": "Fernando José Sousa",
+        "cpf": "37450147742",
+        "email": "fernando.jose.sousa@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "243894b0-b387-4351-83bc-3d326c82052e",
+        "dataHora": "2026-01-15T11:30:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO"
+      },
+      "criadoEm": "2025-11-26T19:45:30.923Z",
+      "atualizadoEm": "2025-11-26T19:45:30.923Z"
+    },
+    {
+      "id": "317dd688-b859-4f01-aab8-9bf0243870a8",
+      "dataConsulta": "2026-01-14T11:45:00.000Z",
+      "anamnese": "Refere febre baixa (37.5°C) há 2 dias, acompanhada de mal-estar geral, cefaleia e mialgia. Iniciou uso de paracetamol com melhora parcial dos sintomas.",
+      "exameFisico": "REG, corado, hidratado. Sinais vitais: PA 110x70, FC 80, Tax 37.2°C. Orofaringe hiperemiada. Linfonodos cervicais palpáveis.",
+      "diagnostico": "Síndrome gripal",
+      "prescricao": "Paracetamol 750mg se febre. Hidratação oral abundante. Repouso domiciliar. Retorno se piora.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+      "paciente": {
+        "id": "9a109b9a-b3c0-4531-8106-28b7f95dc348",
+        "nome": "Gabriela Santos Pereira",
+        "cpf": "83160732266",
+        "email": "gabriela.santos.pereira@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "3577b08c-7bc8-4233-8569-bdf265951b40",
+        "dataHora": "2026-01-14T11:45:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO"
+      },
+      "criadoEm": "2025-11-26T19:45:30.503Z",
+      "atualizadoEm": "2025-11-26T19:45:30.503Z"
+    },
+    {
+      "id": "7ecbfe09-a0f5-4071-a20d-65c9b45f1779",
+      "dataConsulta": "2026-01-12T11:15:00.000Z",
+      "anamnese": "Dor precordial tipo pontada há 2 dias, principalmente ao respirar fundo. Nega dispneia de repouso, palpitações ou síncope.",
+      "exameFisico": "BEG, corado, hidratado. PA: 115x75, FC: 70. Ausculta cardíaca com bulhas normofonéticas. Dor à palpação do gradil costal.",
+      "diagnostico": "Dor torácica atípica",
+      "prescricao": "Orientação para repouso. Retorno em 48h se persistência dos sintomas. Evitar esforços físicos.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+      "paciente": {
+        "id": "d47d5240-146b-43a7-a977-348b7ecf89c8",
+        "nome": "Ana Paula Costa",
+        "cpf": "23227016885",
+        "email": "ana.paula.costa@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "04c150dc-a5d6-4c85-a034-fea7f6f638b8",
+        "dataHora": "2026-01-12T11:15:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO"
+      },
+      "criadoEm": "2025-11-26T19:45:30.068Z",
+      "atualizadoEm": "2025-11-26T19:45:30.068Z"
+    },
+    {
+      "id": "4d6986e8-a217-418d-9534-a31ebb041cb2",
+      "dataConsulta": "2026-01-11T12:30:00.000Z",
+      "anamnese": "Dor lombar baixa há 1 semana, com irradiação para membro inferior direito. Piora com movimentos e melhora parcialmente com repouso.",
+      "exameFisico": "BEG, em posição antálgica. Exame da coluna lombar com limitação da flexão. Sinal de Lasègue positivo à direita.",
+      "diagnostico": "Lombalgia mecânica",
+      "prescricao": "Ibuprofeno 600mg de 8/8h por 7 dias com alimento. Repouso relativo. Encaminhamento para fisioterapia.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+      "paciente": {
+        "id": "f2419e92-1847-453c-98e6-971d501c24ff",
+        "nome": "Maria Silva Santos",
+        "cpf": "80400788497",
+        "email": "maria.silva.santos@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "8368f539-1d05-4617-b8a0-3956a6211e6a",
+        "dataHora": "2026-01-11T12:30:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO"
+      },
+      "criadoEm": "2025-11-26T19:45:29.614Z",
+      "atualizadoEm": "2025-11-26T19:45:29.614Z"
+    },
+    {
+      "id": "d9f740f8-57f2-484a-8d79-dd3c5c19ac50",
+      "dataConsulta": "2026-01-10T17:15:00.000Z",
+      "anamnese": "Dor e rigidez nos joelhos bilateralmente, principalmente pela manhã. Melhora com movimentação e atividade física leve.",
+      "exameFisico": "BEG, corado. Exame dos joelhos com discreto edema e crepitação à mobilização. Amplitude de movimento preservada.",
+      "diagnostico": "Artrose de joelhos",
+      "prescricao": "Anti-inflamatório tópico. Glucosamina 1,5g/dia. Exercícios de fortalecimento orientados.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+      "paciente": {
+        "id": "d47d5240-146b-43a7-a977-348b7ecf89c8",
+        "nome": "Ana Paula Costa",
+        "cpf": "23227016885",
+        "email": "ana.paula.costa@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "acf557b8-3e31-416b-9b55-423584fb5185",
+        "dataHora": "2026-01-10T17:15:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO"
+      },
+      "criadoEm": "2025-11-26T19:45:29.179Z",
+      "atualizadoEm": "2025-11-26T19:45:29.179Z"
+    },
+    {
+      "id": "2d117522-8e1e-4641-8087-6e8e67e4e4a5",
+      "dataConsulta": "2026-01-10T12:00:00.000Z",
+      "anamnese": "Episódios de tontura rotatória há 3 dias, principalmente ao levantar da cama. Acompanhado de náuseas leves, sem vômitos.",
+      "exameFisico": "REG, corado, hidratado. PA: 100x60, FC: 60. Exame neurológico com nistagmo horizontal. Romberg positivo.",
+      "diagnostico": "Vertigem posicional paroxística benigna",
+      "prescricao": "Orientações sobre manobras de reposicionamento. Betaistina 24mg de 12/12h por 7 dias.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+      "paciente": {
+        "id": "3fc48ef7-8b7a-4648-8e8b-642d242c5da7",
+        "nome": "Marcos Antonio Silva",
+        "cpf": "60340804106",
+        "email": "marcos.antonio.silva@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "33159cb2-2654-4655-8a0f-90782bebc97e",
+        "dataHora": "2026-01-10T12:00:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO"
+      },
+      "criadoEm": "2025-11-26T19:45:28.766Z",
+      "atualizadoEm": "2025-11-26T19:45:28.766Z"
+    },
+    {
+      "id": "800325f6-24f7-4a99-80c1-f2f0c780dc18",
+      "dataConsulta": "2026-01-09T14:15:00.000Z",
+      "anamnese": "Dor muscular intensa em membros inferiores após exercício físico intenso realizado ontem. Refere câimbras noturnas.",
+      "exameFisico": "BEG, corado. Exame dos membros inferiores com dor à palpação da musculatura posterior. Força muscular preservada.",
+      "diagnostico": "Mialgia pós-exercício",
+      "prescricao": "Repouso, aplicação de gelo local. Alongamentos leves. Anti-inflamatório se necessário.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+      "paciente": {
+        "id": "7d05d351-8273-480d-a512-8585c77bba09",
+        "nome": "Ricardo Martins Costa",
+        "cpf": "24787032119",
+        "email": "ricardo.martins.costa@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "a6484fb3-aace-4cdc-a13e-7c7337777376",
+        "dataHora": "2026-01-09T14:15:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO"
+      },
+      "criadoEm": "2025-11-26T19:45:28.378Z",
+      "atualizadoEm": "2025-11-26T19:45:28.378Z"
+    },
+    {
+      "id": "31148d85-7428-49f9-9c29-0f2e27988f9f",
+      "dataConsulta": "2026-01-06T17:30:00.000Z",
+      "anamnese": "Espirros frequentes, coriza e prurido ocular há 1 semana. Piora em ambientes empoeirados.",
+      "exameFisico": "REG, corado. Conjuntivas hiperemiadas. Rinoscopia com mucosa edemaciada. Ausculta pulmonar com sibilos esparsos.",
+      "diagnostico": "Rinite alérgica",
+      "prescricao": "Loratadina 10mg/dia. Spray nasal com corticoide. Evitar alérgenos. Retorno em 4 semanas.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+      "paciente": {
+        "id": "0e807214-8ce0-41e9-8144-04443d29ac52",
+        "nome": "Lucia Fernanda Rodrigues",
+        "cpf": "16873078654",
+        "email": "lucia.fernanda.rodrigues@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "3a8b0507-05c3-450e-b20c-6929aadb4f7b",
+        "dataHora": "2026-01-06T17:30:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO"
+      },
+      "criadoEm": "2025-11-26T19:45:27.957Z",
+      "atualizadoEm": "2025-11-26T19:45:27.957Z"
+    },
+    {
+      "id": "9aadab7a-81d5-4c3a-b646-00f0b9286162",
+      "dataConsulta": "2026-01-05T13:45:00.000Z",
+      "anamnese": "Dor precordial tipo pontada há 2 dias, principalmente ao respirar fundo. Nega dispneia de repouso, palpitações ou síncope.",
+      "exameFisico": "BEG, corado, hidratado. PA: 115x75, FC: 70. Ausculta cardíaca com bulhas normofonéticas. Dor à palpação do gradil costal.",
+      "diagnostico": "Dor torácica atípica",
+      "prescricao": "Orientação para repouso. Retorno em 48h se persistência dos sintomas. Evitar esforços físicos.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+      "paciente": {
+        "id": "9a109b9a-b3c0-4531-8106-28b7f95dc348",
+        "nome": "Gabriela Santos Pereira",
+        "cpf": "83160732266",
+        "email": "gabriela.santos.pereira@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "5d85b988-a636-4c6d-9006-d23a32956080",
+        "dataHora": "2026-01-05T13:45:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO"
+      },
+      "criadoEm": "2025-11-26T19:45:27.539Z",
+      "atualizadoEm": "2025-11-26T19:45:27.539Z"
+    },
+    {
+      "id": "6059ad4e-1f61-4f85-af36-8b2c0e1ae1fb",
+      "dataConsulta": "2026-01-01T14:15:00.000Z",
+      "anamnese": "Dor muscular intensa em membros inferiores após exercício físico intenso realizado ontem. Refere câimbras noturnas.",
+      "exameFisico": "BEG, corado. Exame dos membros inferiores com dor à palpação da musculatura posterior. Força muscular preservada.",
+      "diagnostico": "Mialgia pós-exercício",
+      "prescricao": "Repouso, aplicação de gelo local. Alongamentos leves. Anti-inflamatório se necessário.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+      "paciente": {
+        "id": "2c13683c-c9f7-4e84-9cd2-df31bb61eefa",
+        "nome": "Pedro Henrique Lima",
+        "cpf": "74708824211",
+        "email": "pedro.henrique.lima@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "d83e13fc-9e81-44ab-b4de-545010682413",
+        "dataHora": "2026-01-01T14:15:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO"
+      },
+      "criadoEm": "2025-11-26T19:45:27.137Z",
+      "atualizadoEm": "2025-11-26T19:45:27.137Z"
+    },
+    {
+      "id": "3c0796f0-1f57-4d5b-8eca-9042944041ae",
+      "dataConsulta": "2025-12-30T11:30:00.000Z",
+      "anamnese": "Diabético tipo 2, refere polidipsia e poliúria nas últimas semanas. Glicemia capilar atual: 190 mg/dL.",
+      "exameFisico": "REG, corado, hidratado, obeso (IMC 31). Glicemia capilar: 190 mg/dL. Exame dos pés sem lesões.",
+      "diagnostico": "Diabetes mellitus tipo 2 descompensado",
+      "prescricao": "Orientações sobre dieta hipoglicídica. Ajuste da metformina para 850mg 12/12h. Retorno em 30 dias.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+      "paciente": {
+        "id": "3fc48ef7-8b7a-4648-8e8b-642d242c5da7",
+        "nome": "Marcos Antonio Silva",
+        "cpf": "60340804106",
+        "email": "marcos.antonio.silva@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "2f735164-1f7b-4efe-90a1-e5e4abe7c931",
+        "dataHora": "2025-12-30T11:30:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO"
+      },
+      "criadoEm": "2025-11-26T19:45:26.705Z",
+      "atualizadoEm": "2025-11-26T19:45:26.705Z"
+    },
+    {
+      "id": "8b029e00-b35b-4dfa-97f0-d31b9ac6ab99",
+      "dataConsulta": "2025-12-27T15:00:00.000Z",
+      "anamnese": "Apresenta tosse seca persistente há 5 dias, inicialmente noturna, agora durante todo o dia. Refere leve falta de ar aos esforços e nega febre.",
+      "exameFisico": "REG, discretamente dispneico. PA: 125x80, FC: 88, FR: 22. Ausculta pulmonar com roncos difusos bilateralmente.",
+      "diagnostico": "Bronquite aguda",
+      "prescricao": "Salbutamol spray: 2 jatos se falta de ar. Expectorante xarope. Hidratação. Evitar irritantes.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+      "paciente": {
+        "id": "7d05d351-8273-480d-a512-8585c77bba09",
+        "nome": "Ricardo Martins Costa",
+        "cpf": "24787032119",
+        "email": "ricardo.martins.costa@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "49ec0a40-f953-4209-89ad-92ce88986132",
+        "dataHora": "2025-12-27T15:00:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO"
+      },
+      "criadoEm": "2025-11-26T19:45:26.287Z",
+      "atualizadoEm": "2025-11-26T19:45:26.287Z"
+    },
+    {
+      "id": "a8ef5c1c-cfb2-4b44-868d-def4acb59b7a",
+      "dataConsulta": "2025-12-26T15:15:00.000Z",
+      "anamnese": "Paciente relata dor de cabeça persistente há 3 dias, de intensidade moderada, sem fatores de melhora ou piora específicos. Nega febre, náuseas ou alterações visuais.",
+      "exameFisico": "Paciente em bom estado geral, corado, hidratado, anictérico. PA: 120x80 mmHg, FC: 72 bpm, FR: 16 irpm, Tax: 36.5°C. Ausculta cardiopulmonar normal.",
+      "diagnostico": "Cefaleia tensional",
+      "prescricao": "Paracetamol 750mg, 1 cp de 8/8h por 5 dias se dor. Orientações sobre higiene do sono e controle do estresse.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+      "paciente": {
+        "id": "7b0c56bf-1e79-4c03-b70f-754be3146c21",
+        "nome": "Carla Beatriz Nunes",
+        "cpf": "08746771573",
+        "email": "carla.beatriz.nunes@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "1634ba53-7ad5-49ad-94c3-ba421a0dba53",
+        "dataHora": "2025-12-26T15:15:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO"
+      },
+      "criadoEm": "2025-11-26T19:45:25.860Z",
+      "atualizadoEm": "2025-11-26T19:45:25.860Z"
+    },
+    {
+      "id": "513d1da0-4f6f-4cce-9feb-d3d93f116b9f",
+      "dataConsulta": "2025-12-25T12:45:00.000Z",
+      "anamnese": "Coriza, espirros e obstrução nasal há 2 dias. Refere contato próximo com familiar resfriado.",
+      "exameFisico": "REG, corado, hidratado. Rinoscopia com mucosa hiperemiada e secreção serosa. Orofaringe normal.",
+      "diagnostico": "Rinofaringite viral",
+      "prescricao": "Sintomáticos. Lavagem nasal com soro fisiológico. Repouso. Isolamento enquanto sintomático.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+      "paciente": {
+        "id": "9f5a6f3b-fb56-494b-83b0-4d9a9fb69855",
+        "nome": "João Carlos Oliveira",
+        "cpf": "23080720245",
+        "email": "joao.carlos.oliveira@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "58c0c80b-54a6-4004-a8a9-91fd3596e5fa",
+        "dataHora": "2025-12-25T12:45:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO"
+      },
+      "criadoEm": "2025-11-26T19:45:25.457Z",
+      "atualizadoEm": "2025-11-26T19:45:25.457Z"
+    },
+    {
+      "id": "4ed90114-fcc9-45f7-a64f-4a6d6baed4bd",
+      "dataConsulta": "2025-12-22T14:00:00.000Z",
+      "anamnese": "Refere febre baixa (37.5°C) há 2 dias, acompanhada de mal-estar geral, cefaleia e mialgia. Iniciou uso de paracetamol com melhora parcial dos sintomas.",
+      "exameFisico": "REG, corado, hidratado. Sinais vitais: PA 110x70, FC 80, Tax 37.2°C. Orofaringe hiperemiada. Linfonodos cervicais palpáveis.",
+      "diagnostico": "Síndrome gripal",
+      "prescricao": "Paracetamol 750mg se febre. Hidratação oral abundante. Repouso domiciliar. Retorno se piora.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+      "paciente": {
+        "id": "510e536f-23d1-4222-b214-a51ffc660daf",
+        "nome": "Fernando José Sousa",
+        "cpf": "37450147742",
+        "email": "fernando.jose.sousa@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "6de29d3e-d8db-4ed0-86da-16e76041043f",
+        "dataHora": "2025-12-22T14:00:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO"
+      },
+      "criadoEm": "2025-11-26T19:45:25.002Z",
+      "atualizadoEm": "2025-11-26T19:45:25.002Z"
+    },
+    {
+      "id": "126ec260-c83a-4e4d-9ded-8adb3b936bec",
+      "dataConsulta": "2025-12-17T18:00:00.000Z",
+      "anamnese": "Insônia há 2 semanas, com dificuldade para iniciar o sono. Refere preocupações relacionadas ao trabalho e ansiedade.",
+      "exameFisico": "BEG, ansioso, corado, hidratado. Sinais vitais normais. Exame físico sem alterações. Paciente refere tensão muscular.",
+      "diagnostico": "Insônia primária com ansiedade",
+      "prescricao": "Orientações sobre higiene do sono. Melatonina 3mg ao deitar. Técnicas de relaxamento.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+      "paciente": {
+        "id": "9f5a6f3b-fb56-494b-83b0-4d9a9fb69855",
+        "nome": "João Carlos Oliveira",
+        "cpf": "23080720245",
+        "email": "joao.carlos.oliveira@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "e7865a63-e8c4-42af-89bb-2e97870a6178",
+        "dataHora": "2025-12-17T18:00:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO"
+      },
+      "criadoEm": "2025-11-26T19:45:24.549Z",
+      "atualizadoEm": "2025-11-26T19:45:24.549Z"
+    },
+    {
+      "id": "f2b270b1-1a68-4f21-b594-46bedc040467",
+      "dataConsulta": "2025-12-13T16:15:00.000Z",
+      "anamnese": "Dor precordial tipo pontada há 2 dias, principalmente ao respirar fundo. Nega dispneia de repouso, palpitações ou síncope.",
+      "exameFisico": "BEG, corado, hidratado. PA: 115x75, FC: 70. Ausculta cardíaca com bulhas normofonéticas. Dor à palpação do gradil costal.",
+      "diagnostico": "Dor torácica atípica",
+      "prescricao": "Orientação para repouso. Retorno em 48h se persistência dos sintomas. Evitar esforços físicos.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+      "paciente": {
+        "id": "6fdaf58d-ecd8-491e-8d64-3bc5ea94001e",
+        "nome": "Roberto Carlos Mendes",
+        "cpf": "18642786337",
+        "email": "roberto.carlos.mendes@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "e47d9245-68a3-441e-be4a-d32f6ef8c9da",
+        "dataHora": "2025-12-13T16:15:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO"
+      },
+      "criadoEm": "2025-11-26T19:45:24.091Z",
+      "atualizadoEm": "2025-11-26T19:45:24.091Z"
+    },
+    {
+      "id": "5b867469-a68d-445d-af69-0583be8f17ed",
+      "dataConsulta": "2025-12-12T15:30:00.000Z",
+      "anamnese": "Paciente assintomático, comparece para consulta de rotina e check-up geral. Nega queixas específicas no momento.",
+      "exameFisico": "Excelente estado geral, corado, hidratado. Sinais vitais normais. Exame físico geral sem alterações significativas.",
+      "diagnostico": "Paciente hígido - exame normal",
+      "prescricao": "Manter hábitos saudáveis. Retorno em 6 meses. Exames laboratoriais de rotina solicitados.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+      "paciente": {
+        "id": "f2419e92-1847-453c-98e6-971d501c24ff",
+        "nome": "Maria Silva Santos",
+        "cpf": "80400788497",
+        "email": "maria.silva.santos@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "c544c638-115c-4d99-abf2-4d9cc4842f30",
+        "dataHora": "2025-12-12T15:30:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO"
+      },
+      "criadoEm": "2025-11-26T19:45:23.639Z",
+      "atualizadoEm": "2025-11-26T19:45:23.639Z"
+    },
+    {
+      "id": "0e09d2c7-c6ba-40ff-b484-a183cac48846",
+      "dataConsulta": "2025-12-10T18:30:00.000Z",
+      "anamnese": "Queixa-se de dor epigástrica em queimação, principalmente após refeições, há 1 semana. Nega vômitos, diarreia ou alterações significativas do apetite.",
+      "exameFisico": "BEG, corado, hidratado. PA: 130x85, FC: 68. Abdome doloroso à palpação em epigástrio, sem sinais de irritação peritoneal.",
+      "diagnostico": "Dispepsia funcional",
+      "prescricao": "Omeprazol 20mg, 1 cp em jejum por 14 dias. Orientações dietéticas: evitar frituras e condimentos.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+      "paciente": {
+        "id": "bb29333e-1a79-4e0b-b2fb-1635b7f2a82b",
+        "nome": "Claudia Regina Alves",
+        "cpf": "40560042850",
+        "email": "claudia.regina.alves@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "c7a3d820-b40a-4cc5-83fd-d11ff8fb81a5",
+        "dataHora": "2025-12-10T18:30:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO"
+      },
+      "criadoEm": "2025-11-26T19:45:23.203Z",
+      "atualizadoEm": "2025-11-26T19:45:23.203Z"
+    },
+    {
+      "id": "10272b40-320b-4279-9a2e-beb2976746fb",
+      "dataConsulta": "2025-12-05T18:15:00.000Z",
+      "anamnese": "Queixa-se de dor epigástrica em queimação, principalmente após refeições, há 1 semana. Nega vômitos, diarreia ou alterações significativas do apetite.",
+      "exameFisico": "BEG, corado, hidratado. PA: 130x85, FC: 68. Abdome doloroso à palpação em epigástrio, sem sinais de irritação peritoneal.",
+      "diagnostico": "Dispepsia funcional",
+      "prescricao": "Omeprazol 20mg, 1 cp em jejum por 14 dias. Orientações dietéticas: evitar frituras e condimentos.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+      "paciente": {
+        "id": "bb29333e-1a79-4e0b-b2fb-1635b7f2a82b",
+        "nome": "Claudia Regina Alves",
+        "cpf": "40560042850",
+        "email": "claudia.regina.alves@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "b9717671-c5b2-47b9-8d7f-2dd4ebb75714",
+        "dataHora": "2025-12-05T18:15:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO"
+      },
+      "criadoEm": "2025-11-26T19:45:22.762Z",
+      "atualizadoEm": "2025-11-26T19:45:22.762Z"
+    },
+    {
+      "id": "ec0b2ab8-e753-44d8-ac97-88040073d1a7",
+      "dataConsulta": "2025-12-03T18:15:00.000Z",
+      "anamnese": "Coriza, espirros e obstrução nasal há 2 dias. Refere contato próximo com familiar resfriado.",
+      "exameFisico": "REG, corado, hidratado. Rinoscopia com mucosa hiperemiada e secreção serosa. Orofaringe normal.",
+      "diagnostico": "Rinofaringite viral",
+      "prescricao": "Sintomáticos. Lavagem nasal com soro fisiológico. Repouso. Isolamento enquanto sintomático.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+      "paciente": {
+        "id": "2c13683c-c9f7-4e84-9cd2-df31bb61eefa",
+        "nome": "Pedro Henrique Lima",
+        "cpf": "74708824211",
+        "email": "pedro.henrique.lima@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "f6955043-6c6c-4f29-93f4-c56028b5c5f8",
+        "dataHora": "2025-12-03T18:15:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO"
+      },
+      "criadoEm": "2025-11-26T19:45:22.340Z",
+      "atualizadoEm": "2025-11-26T19:45:22.340Z"
+    },
+    {
+      "id": "d81dad30-811f-488f-8f44-fe1b7afb2cba",
+      "dataConsulta": "2025-11-27T18:15:00.000Z",
+      "anamnese": "Apresenta tosse seca persistente há 5 dias, inicialmente noturna, agora durante todo o dia. Refere leve falta de ar aos esforços e nega febre.",
+      "exameFisico": "REG, discretamente dispneico. PA: 125x80, FC: 88, FR: 22. Ausculta pulmonar com roncos difusos bilateralmente.",
+      "diagnostico": "Bronquite aguda",
+      "prescricao": "Salbutamol spray: 2 jatos se falta de ar. Expectorante xarope. Hidratação. Evitar irritantes.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+      "paciente": {
+        "id": "7b0c56bf-1e79-4c03-b70f-754be3146c21",
+        "nome": "Carla Beatriz Nunes",
+        "cpf": "08746771573",
+        "email": "carla.beatriz.nunes@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "13430d4e-01ec-43bf-ab6c-7a2de03032bf",
+        "dataHora": "2025-11-27T18:15:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO"
+      },
+      "criadoEm": "2025-11-26T19:45:21.898Z",
+      "atualizadoEm": "2025-11-26T19:45:21.898Z"
+    },
+    {
+      "id": "4bda921e-85cf-46d8-b8f1-fa397bc0b362",
+      "dataConsulta": "2025-11-26T18:32:31.039Z",
+      "anamnese": "Teleconsulta: Paciente relata sintomas de forma remota. Conexão estável durante toda a consulta.",
+      "exameFisico": "Exame visual remoto: Paciente orientado, sem sinais visuais de desconforto. Limitações do exame físico por teleconsulta documentadas.",
+      "diagnostico": "Diagnóstico baseado em anamnese e exame visual remoto",
+      "prescricao": "",
+      "prescricaoUsoInterno": "Prescrição digital: Paracetamol 500mg - 1 comprimido se dor",
+      "prescricaoUsoExterno": "Orientações de autocuidado via telemedicina",
+      "observacoes": "Consulta realizada via telemedicina. Qualidade de áudio e vídeo adequada. Paciente orientado sobre limitações e próximos passos.",
+      "paciente": {
+        "id": "9f5a6f3b-fb56-494b-83b0-4d9a9fb69855",
+        "nome": "João Carlos Oliveira",
+        "cpf": "23080720245",
+        "email": "joao.carlos.oliveira@email.com"
+      },
+      "medico": {
+        "id": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "nome": "Dr. João Santos",
+        "email": "dr.joao@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "6eecd5eb-38cb-42c4-b8f7-3dacb507f473",
+        "dataHora": "2025-11-27T16:00:00.000Z",
+        "tipo": "TELEMEDICINA",
+        "status": "AGENDADO"
+      },
+      "criadoEm": "2025-11-26T21:32:31.294Z",
+      "atualizadoEm": "2025-11-26T21:32:31.294Z"
+    },
+    {
+      "id": "6cbe763d-5182-459e-a3af-3b2de6e5560d",
+      "dataConsulta": "2025-11-26T18:29:08.314Z",
+      "anamnese": "Teleconsulta: Paciente relata sintomas de forma remota. Conexão estável durante toda a consulta.",
+      "exameFisico": "Exame visual remoto: Paciente orientado, sem sinais visuais de desconforto. Limitações do exame físico por teleconsulta documentadas.",
+      "diagnostico": "Diagnóstico baseado em anamnese e exame visual remoto",
+      "prescricao": "",
+      "prescricaoUsoInterno": "Prescrição digital: Paracetamol 500mg - 1 comprimido se dor",
+      "prescricaoUsoExterno": "Orientações de autocuidado via telemedicina",
+      "observacoes": "Consulta realizada via telemedicina. Qualidade de áudio e vídeo adequada. Paciente orientado sobre limitações e próximos passos.",
+      "paciente": {
+        "id": "3fc48ef7-8b7a-4648-8e8b-642d242c5da7",
+        "nome": "Marcos Antonio Silva",
+        "cpf": "60340804106",
+        "email": "marcos.antonio.silva@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "85400032-fa21-453f-a577-bb3428ffc88e",
+        "dataHora": "2025-10-10T14:15:00.000Z",
+        "tipo": "TELEMEDICINA",
+        "status": "CONFIRMADO"
+      },
+      "criadoEm": "2025-11-26T21:29:08.587Z",
+      "atualizadoEm": "2025-11-26T21:29:08.587Z"
+    },
+    {
+      "id": "bbd69726-4683-4e39-bb23-435c94688820",
+      "dataConsulta": "2025-10-31T19:45:00.000Z",
+      "anamnese": "Paciente assintomático, procura consulta preventiva de rotina. Nega queixas específicas.",
+      "exameFisico": "BEG, corado, hidratado. PA: 115/75 mmHg, FC: 70 bpm. Exame físico geral normal, sem alterações significativas.",
+      "diagnostico": "Paciente hígido - consulta preventiva",
+      "prescricao": "Manter hábitos saudáveis, atividade física regular. Retorno anual ou se necessário.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Prontuário criado para consulta histórica de 31/10/2025 - Consulta de outubro 2025",
+      "paciente": {
+        "id": "f2419e92-1847-453c-98e6-971d501c24ff",
+        "nome": "Maria Silva Santos",
+        "cpf": "80400788497",
+        "email": "maria.silva.santos@email.com"
+      },
+      "medico": {
+        "id": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "nome": "Dr. João Santos",
+        "email": "dr.joao@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "f9720958-f960-41f0-9247-d65e5e022d40",
+        "dataHora": "2025-10-31T19:45:00.000Z",
+        "tipo": "TELEMEDICINA",
+        "status": "CONFIRMADO"
+      },
+      "criadoEm": "2025-11-26T19:56:59.370Z",
+      "atualizadoEm": "2025-11-26T19:56:59.370Z"
+    },
+    {
+      "id": "3e263544-58c9-4e71-8b9b-98819e6fe2ca",
+      "dataConsulta": "2025-10-29T17:15:00.000Z",
+      "anamnese": "Dispnéia progressiva aos esforços há 1 mês, evoluindo com edema em membros inferiores. Nega dor torácica.",
+      "exameFisico": "REG, corado, hidratado. PA: 130/85 mmHg, FC: 95 bpm. Estertores crepitantes em bases pulmonares, edema +2/+4 em MMII.",
+      "diagnostico": "Insuficiência cardíaca congestiva NYHA II",
+      "prescricao": "Furosemida 40mg 1x/dia pela manhã, Carvedilol 3,25mg 2x/dia. Restrição de sal para 2g/dia. Retorno em 15 dias.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Prontuário criado para consulta histórica de 29/10/2025 - Consulta de outubro 2025",
+      "paciente": {
+        "id": "0e807214-8ce0-41e9-8144-04443d29ac52",
+        "nome": "Lucia Fernanda Rodrigues",
+        "cpf": "16873078654",
+        "email": "lucia.fernanda.rodrigues@email.com"
+      },
+      "medico": {
+        "id": "eda927f1-a263-403c-a59f-dad467640216",
+        "nome": "Dr. Ana Oliveira",
+        "email": "dr.ana@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "0a046e40-066c-4d7d-bd2e-c418dffce25a",
+        "dataHora": "2025-10-29T17:15:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "CONFIRMADO"
+      },
+      "criadoEm": "2025-11-26T19:56:58.859Z",
+      "atualizadoEm": "2025-11-26T19:56:58.859Z"
+    },
+    {
+      "id": "3928454d-2fb7-4e80-bd6a-0df97d5faeea",
+      "dataConsulta": "2025-10-28T14:00:00.000Z",
+      "anamnese": "Dor epigástrica há 3 dias, acompanhada de náuseas e vômitos ocasionais. Nega febre. Relata uso frequente de AINEs.",
+      "exameFisico": "BEG, corado, hidratado. PA: 120/80 mmHg, FC: 78 bpm. Abdomen doloroso à palpação em epigástrio, sem sinais de irritação peritoneal.",
+      "diagnostico": "Gastrite aguda medicamentosa",
+      "prescricao": "Omeprazol 40mg 1x/dia em jejum por 30 dias. Dieta leve, evitar AINEs. Retorno se necessário.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Prontuário criado para consulta histórica de 28/10/2025 - Consulta de outubro 2025",
+      "paciente": {
+        "id": "9f5a6f3b-fb56-494b-83b0-4d9a9fb69855",
+        "nome": "João Carlos Oliveira",
+        "cpf": "23080720245",
+        "email": "joao.carlos.oliveira@email.com"
+      },
+      "medico": {
+        "id": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "nome": "Dr. João Santos",
+        "email": "dr.joao@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "ba8d9440-cb4b-42ac-afbb-36100bafafbf",
+        "dataHora": "2025-10-28T14:00:00.000Z",
+        "tipo": "RETORNO",
+        "status": "CONFIRMADO"
+      },
+      "criadoEm": "2025-11-26T19:56:58.377Z",
+      "atualizadoEm": "2025-11-26T19:56:58.377Z"
+    },
+    {
+      "id": "414c3c39-07c0-43da-9491-ba45cb9e10d7",
+      "dataConsulta": "2025-10-24T12:30:00.000Z",
+      "anamnese": "Quadro de cefaléia occipital há 1 mês, associada a tonturas matinais. Paciente hipertenso irregular com medicações.",
+      "exameFisico": "BEG, corado, hidratado. PA: 160/100 mmHg, FC: 92 bpm. Exame neurológico normal, fundoscopia com cruzamentos arteriovenosos.",
+      "diagnostico": "Hipertensão arterial moderada descompensada",
+      "prescricao": "Enalapril 10mg 12/12h, Amlodipina 5mg 1x/dia pela manhã. Controle pressórico domiciliar. Retorno em 15 dias.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Prontuário criado para consulta histórica de 24/10/2025 - Consulta de outubro 2025",
+      "paciente": {
+        "id": "510e536f-23d1-4222-b214-a51ffc660daf",
+        "nome": "Fernando José Sousa",
+        "cpf": "37450147742",
+        "email": "fernando.jose.sousa@email.com"
+      },
+      "medico": {
+        "id": "eda927f1-a263-403c-a59f-dad467640216",
+        "nome": "Dr. Ana Oliveira",
+        "email": "dr.ana@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "f78a8743-de04-48ce-b5b4-21e8b815fbae",
+        "dataHora": "2025-10-24T12:30:00.000Z",
+        "tipo": "CONSULTA_ESPECIALISTA",
+        "status": "CONFIRMADO"
+      },
+      "criadoEm": "2025-11-26T19:56:57.875Z",
+      "atualizadoEm": "2025-11-26T19:56:57.875Z"
+    },
+    {
+      "id": "ade56386-cf26-470e-90fb-14fd2dd8d780",
+      "dataConsulta": "2025-10-23T16:30:00.000Z",
+      "anamnese": "Paciente relata episódios de dor precordial aos esforços há 2 semanas, acompanhada de dispnéia. Nega síncope. HAS controlada com medicação.",
+      "exameFisico": "BEG, corado, hidratado. PA: 140/90 mmHg, FC: 85 bpm. Ausculta cardíaca com sopro sistólico discreto em foco aórtico. Pulsos periféricos palpáveis.",
+      "diagnostico": "Hipertensão arterial leve, suspeita de estenose aórtica",
+      "prescricao": "Losartana 50mg 1x/dia pela manhã. Solicitar ecocardiograma. Retorno em 30 dias.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Prontuário criado para consulta histórica de 23/10/2025 - Consulta de outubro 2025",
+      "paciente": {
+        "id": "bb29333e-1a79-4e0b-b2fb-1635b7f2a82b",
+        "nome": "Claudia Regina Alves",
+        "cpf": "40560042850",
+        "email": "claudia.regina.alves@email.com"
+      },
+      "medico": {
+        "id": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "nome": "Dr. João Santos",
+        "email": "dr.joao@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "7955ab03-c9eb-4fee-af8e-0364944d2ce2",
+        "dataHora": "2025-10-23T16:30:00.000Z",
+        "tipo": "TELEMEDICINA",
+        "status": "CONFIRMADO"
+      },
+      "criadoEm": "2025-11-26T19:56:57.413Z",
+      "atualizadoEm": "2025-11-26T19:56:57.413Z"
+    },
+    {
+      "id": "44c0d009-01ad-4b0d-ac02-9714a0587ba4",
+      "dataConsulta": "2025-10-22T11:15:00.000Z",
+      "anamnese": "Paciente assintomático, procura consulta preventiva de rotina. Nega queixas específicas.",
+      "exameFisico": "BEG, corado, hidratado. PA: 115/75 mmHg, FC: 70 bpm. Exame físico geral normal, sem alterações significativas.",
+      "diagnostico": "Paciente hígido - consulta preventiva",
+      "prescricao": "Manter hábitos saudáveis, atividade física regular. Retorno anual ou se necessário.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Prontuário criado para consulta histórica de 22/10/2025 - Consulta de outubro 2025",
+      "paciente": {
+        "id": "7b0c56bf-1e79-4c03-b70f-754be3146c21",
+        "nome": "Carla Beatriz Nunes",
+        "cpf": "08746771573",
+        "email": "carla.beatriz.nunes@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "f8952c6b-79d7-44e5-aa82-9b518eb75960",
+        "dataHora": "2025-10-22T11:15:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "CONFIRMADO"
+      },
+      "criadoEm": "2025-11-26T19:56:56.954Z",
+      "atualizadoEm": "2025-11-26T19:56:56.954Z"
+    },
+    {
+      "id": "da61f7e3-d570-4953-a316-beb2914b6c46",
+      "dataConsulta": "2025-10-18T19:30:00.000Z",
+      "anamnese": "Dispnéia progressiva aos esforços há 1 mês, evoluindo com edema em membros inferiores. Nega dor torácica.",
+      "exameFisico": "REG, corado, hidratado. PA: 130/85 mmHg, FC: 95 bpm. Estertores crepitantes em bases pulmonares, edema +2/+4 em MMII.",
+      "diagnostico": "Insuficiência cardíaca congestiva NYHA II",
+      "prescricao": "Furosemida 40mg 1x/dia pela manhã, Carvedilol 3,25mg 2x/dia. Restrição de sal para 2g/dia. Retorno em 15 dias.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Prontuário criado para consulta histórica de 18/10/2025 - Consulta de outubro 2025",
+      "paciente": {
+        "id": "d47d5240-146b-43a7-a977-348b7ecf89c8",
+        "nome": "Ana Paula Costa",
+        "cpf": "23227016885",
+        "email": "ana.paula.costa@email.com"
+      },
+      "medico": {
+        "id": "eda927f1-a263-403c-a59f-dad467640216",
+        "nome": "Dr. Ana Oliveira",
+        "email": "dr.ana@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "109be7ba-4776-4859-8140-83dcbd12d836",
+        "dataHora": "2025-10-18T19:30:00.000Z",
+        "tipo": "RETORNO",
+        "status": "CONFIRMADO"
+      },
+      "criadoEm": "2025-11-26T19:56:56.430Z",
+      "atualizadoEm": "2025-11-26T19:56:56.430Z"
+    },
+    {
+      "id": "0a314acc-4800-4a42-9e6b-f192c41674bc",
+      "dataConsulta": "2025-10-11T17:00:00.000Z",
+      "anamnese": "Dor epigástrica há 3 dias, acompanhada de náuseas e vômitos ocasionais. Nega febre. Relata uso frequente de AINEs.",
+      "exameFisico": "BEG, corado, hidratado. PA: 120/80 mmHg, FC: 78 bpm. Abdomen doloroso à palpação em epigástrio, sem sinais de irritação peritoneal.",
+      "diagnostico": "Gastrite aguda medicamentosa",
+      "prescricao": "Omeprazol 40mg 1x/dia em jejum por 30 dias. Dieta leve, evitar AINEs. Retorno se necessário.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Prontuário criado para consulta histórica de 11/10/2025 - Consulta de outubro 2025",
+      "paciente": {
+        "id": "f2419e92-1847-453c-98e6-971d501c24ff",
+        "nome": "Maria Silva Santos",
+        "cpf": "80400788497",
+        "email": "maria.silva.santos@email.com"
+      },
+      "medico": {
+        "id": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "nome": "Dr. João Santos",
+        "email": "dr.joao@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "aac6289a-ff8a-483a-a845-ee6f4f5b199f",
+        "dataHora": "2025-10-11T17:00:00.000Z",
+        "tipo": "RETORNO",
+        "status": "CONFIRMADO"
+      },
+      "criadoEm": "2025-11-26T19:56:55.936Z",
+      "atualizadoEm": "2025-11-26T19:56:55.936Z"
+    },
+    {
+      "id": "65fdcfaf-371b-43b4-a9cb-0a8e5cef5b67",
+      "dataConsulta": "2025-10-09T11:30:00.000Z",
+      "anamnese": "Quadro de cefaléia occipital há 1 mês, associada a tonturas matinais. Paciente hipertenso irregular com medicações.",
+      "exameFisico": "BEG, corado, hidratado. PA: 160/100 mmHg, FC: 92 bpm. Exame neurológico normal, fundoscopia com cruzamentos arteriovenosos.",
+      "diagnostico": "Hipertensão arterial moderada descompensada",
+      "prescricao": "Enalapril 10mg 12/12h, Amlodipina 5mg 1x/dia pela manhã. Controle pressórico domiciliar. Retorno em 15 dias.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Prontuário criado para consulta histórica de 09/10/2025 - Consulta de outubro 2025",
+      "paciente": {
+        "id": "0e807214-8ce0-41e9-8144-04443d29ac52",
+        "nome": "Lucia Fernanda Rodrigues",
+        "cpf": "16873078654",
+        "email": "lucia.fernanda.rodrigues@email.com"
+      },
+      "medico": {
+        "id": "eda927f1-a263-403c-a59f-dad467640216",
+        "nome": "Dr. Ana Oliveira",
+        "email": "dr.ana@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "ec653016-f185-416e-bfe1-4a1349e37272",
+        "dataHora": "2025-10-09T11:30:00.000Z",
+        "tipo": "CONSULTA_ESPECIALISTA",
+        "status": "CONFIRMADO"
+      },
+      "criadoEm": "2025-11-26T19:56:55.385Z",
+      "atualizadoEm": "2025-11-26T19:56:55.385Z"
+    },
+    {
+      "id": "9fd42f85-461f-4cd4-bdb8-f4fe3ac794c7",
+      "dataConsulta": "2025-10-08T18:45:00.000Z",
+      "anamnese": "Paciente relata episódios de dor precordial aos esforços há 2 semanas, acompanhada de dispnéia. Nega síncope. HAS controlada com medicação.",
+      "exameFisico": "BEG, corado, hidratado. PA: 140/90 mmHg, FC: 85 bpm. Ausculta cardíaca com sopro sistólico discreto em foco aórtico. Pulsos periféricos palpáveis.",
+      "diagnostico": "Hipertensão arterial leve, suspeita de estenose aórtica",
+      "prescricao": "Losartana 50mg 1x/dia pela manhã. Solicitar ecocardiograma. Retorno em 30 dias.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Prontuário criado para consulta histórica de 08/10/2025 - Consulta de outubro 2025",
+      "paciente": {
+        "id": "9f5a6f3b-fb56-494b-83b0-4d9a9fb69855",
+        "nome": "João Carlos Oliveira",
+        "cpf": "23080720245",
+        "email": "joao.carlos.oliveira@email.com"
+      },
+      "medico": {
+        "id": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "nome": "Dr. João Santos",
+        "email": "dr.joao@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "86f124c6-9cbe-48d3-aaf3-737917075053",
+        "dataHora": "2025-10-08T18:45:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "CONFIRMADO"
+      },
+      "criadoEm": "2025-11-26T19:56:54.843Z",
+      "atualizadoEm": "2025-11-26T19:56:54.843Z"
+    },
+    {
+      "id": "018a26d5-b5ac-4129-843d-e21bb9def450",
+      "dataConsulta": "2025-10-04T13:30:00.000Z",
+      "anamnese": "Paciente assintomático, procura consulta preventiva de rotina. Nega queixas específicas.",
+      "exameFisico": "BEG, corado, hidratado. PA: 115/75 mmHg, FC: 70 bpm. Exame físico geral normal, sem alterações significativas.",
+      "diagnostico": "Paciente hígido - consulta preventiva",
+      "prescricao": "Manter hábitos saudáveis, atividade física regular. Retorno anual ou se necessário.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Prontuário criado para consulta histórica de 04/10/2025 - Consulta de outubro 2025",
+      "paciente": {
+        "id": "9a109b9a-b3c0-4531-8106-28b7f95dc348",
+        "nome": "Gabriela Santos Pereira",
+        "cpf": "83160732266",
+        "email": "gabriela.santos.pereira@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "2fa27ef6-69cc-423a-972e-74daf6d3d8ea",
+        "dataHora": "2025-10-04T13:30:00.000Z",
+        "tipo": "RETORNO",
+        "status": "CONFIRMADO"
+      },
+      "criadoEm": "2025-11-26T19:56:54.303Z",
+      "atualizadoEm": "2025-11-26T19:56:54.303Z"
+    },
+    {
+      "id": "fc1dd6db-854f-4241-996d-ba6551118e78",
+      "dataConsulta": "2025-10-03T19:00:00.000Z",
+      "anamnese": "Dispnéia progressiva aos esforços há 1 mês, evoluindo com edema em membros inferiores. Nega dor torácica.",
+      "exameFisico": "REG, corado, hidratado. PA: 130/85 mmHg, FC: 95 bpm. Estertores crepitantes em bases pulmonares, edema +2/+4 em MMII.",
+      "diagnostico": "Insuficiência cardíaca congestiva NYHA II",
+      "prescricao": "Furosemida 40mg 1x/dia pela manhã, Carvedilol 3,25mg 2x/dia. Restrição de sal para 2g/dia. Retorno em 15 dias.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Prontuário criado para consulta histórica de 03/10/2025 - Consulta de outubro 2025",
+      "paciente": {
+        "id": "510e536f-23d1-4222-b214-a51ffc660daf",
+        "nome": "Fernando José Sousa",
+        "cpf": "37450147742",
+        "email": "fernando.jose.sousa@email.com"
+      },
+      "medico": {
+        "id": "eda927f1-a263-403c-a59f-dad467640216",
+        "nome": "Dr. Ana Oliveira",
+        "email": "dr.ana@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "aa03ade3-ed9f-4660-a3ee-bbe7409b096c",
+        "dataHora": "2025-10-03T19:00:00.000Z",
+        "tipo": "EXAME",
+        "status": "CONFIRMADO"
+      },
+      "criadoEm": "2025-11-26T19:56:53.807Z",
+      "atualizadoEm": "2025-11-26T19:56:53.807Z"
+    },
+    {
+      "id": "6bf98b9b-448e-43b1-830d-07c7fd8fde08",
+      "dataConsulta": "2025-10-03T12:15:00.000Z",
+      "anamnese": "Dor epigástrica há 3 dias, acompanhada de náuseas e vômitos ocasionais. Nega febre. Relata uso frequente de AINEs.",
+      "exameFisico": "BEG, corado, hidratado. PA: 120/80 mmHg, FC: 78 bpm. Abdomen doloroso à palpação em epigástrio, sem sinais de irritação peritoneal.",
+      "diagnostico": "Gastrite aguda medicamentosa",
+      "prescricao": "Omeprazol 40mg 1x/dia em jejum por 30 dias. Dieta leve, evitar AINEs. Retorno se necessário.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Prontuário criado para consulta histórica de 03/10/2025 - Consulta de outubro 2025",
+      "paciente": {
+        "id": "bb29333e-1a79-4e0b-b2fb-1635b7f2a82b",
+        "nome": "Claudia Regina Alves",
+        "cpf": "40560042850",
+        "email": "claudia.regina.alves@email.com"
+      },
+      "medico": {
+        "id": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "nome": "Dr. João Santos",
+        "email": "dr.joao@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "da9d7796-4651-495e-91ff-cff50415b0fc",
+        "dataHora": "2025-10-03T12:15:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "CONFIRMADO"
+      },
+      "criadoEm": "2025-11-26T19:56:53.318Z",
+      "atualizadoEm": "2025-11-26T19:56:53.318Z"
+    },
+    {
+      "id": "4989f9d3-266b-42bc-96fd-bc4904318d48",
+      "dataConsulta": "2025-10-02T17:30:00.000Z",
+      "anamnese": "Quadro de cefaléia occipital há 1 mês, associada a tonturas matinais. Paciente hipertenso irregular com medicações.",
+      "exameFisico": "BEG, corado, hidratado. PA: 160/100 mmHg, FC: 92 bpm. Exame neurológico normal, fundoscopia com cruzamentos arteriovenosos.",
+      "diagnostico": "Hipertensão arterial moderada descompensada",
+      "prescricao": "Enalapril 10mg 12/12h, Amlodipina 5mg 1x/dia pela manhã. Controle pressórico domiciliar. Retorno em 15 dias.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Prontuário criado para consulta histórica de 02/10/2025 - Consulta de outubro 2025",
+      "paciente": {
+        "id": "7b0c56bf-1e79-4c03-b70f-754be3146c21",
+        "nome": "Carla Beatriz Nunes",
+        "cpf": "08746771573",
+        "email": "carla.beatriz.nunes@email.com"
+      },
+      "medico": {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "018a2508-4e8b-4342-ba10-c1202c5803db",
+        "dataHora": "2025-10-02T17:30:00.000Z",
+        "tipo": "CONSULTA_ESPECIALISTA",
+        "status": "CONFIRMADO"
+      },
+      "criadoEm": "2025-11-26T19:56:52.850Z",
+      "atualizadoEm": "2025-11-26T19:56:52.850Z"
+    },
+    {
+      "id": "814932db-6977-4043-bf8e-c64547dc2c20",
+      "dataConsulta": "2025-10-02T11:00:00.000Z",
+      "anamnese": "Paciente relata episódios de dor precordial aos esforços há 2 semanas, acompanhada de dispnéia. Nega síncope. HAS controlada com medicação.",
+      "exameFisico": "BEG, corado, hidratado. PA: 140/90 mmHg, FC: 85 bpm. Ausculta cardíaca com sopro sistólico discreto em foco aórtico. Pulsos periféricos palpáveis.",
+      "diagnostico": "Hipertensão arterial leve, suspeita de estenose aórtica",
+      "prescricao": "Losartana 50mg 1x/dia pela manhã. Solicitar ecocardiograma. Retorno em 30 dias.",
+      "prescricaoUsoInterno": "",
+      "prescricaoUsoExterno": "",
+      "observacoes": "Prontuário criado para consulta histórica de 02/10/2025 - Consulta de outubro 2025",
+      "paciente": {
+        "id": "d47d5240-146b-43a7-a977-348b7ecf89c8",
+        "nome": "Ana Paula Costa",
+        "cpf": "23227016885",
+        "email": "ana.paula.costa@email.com"
+      },
+      "medico": {
+        "id": "eda927f1-a263-403c-a59f-dad467640216",
+        "nome": "Dr. Ana Oliveira",
+        "email": "dr.ana@sgh.com",
+        "papel": "MEDICO"
+      },
+      "agendamento": {
+        "id": "0baa547a-507a-4289-8383-edf4eecc8d01",
+        "dataHora": "2025-10-02T11:00:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "CONFIRMADO"
+      },
+      "criadoEm": "2025-11-26T19:56:52.385Z",
+      "atualizadoEm": "2025-11-26T19:56:52.385Z"
+    }
+  ]
+}

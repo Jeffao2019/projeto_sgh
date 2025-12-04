@@ -1,6 +1,6 @@
 // Configuração base da API
 export const API_CONFIG = {
-  BASE_URL: "http://localhost:3008",
+  BASE_URL: "http://localhost:3010",
   ENDPOINTS: {
     AUTH: {
       REGISTER: "/auth/register",
@@ -41,6 +41,15 @@ export const API_CONFIG = {
       BY_AGENDAMENTO: (agendamentoId: string) =>
         `/prontuarios/agendamento/${agendamentoId}`,
       BY_ID: (id: string) => `/prontuarios/${id}`,
+    },
+    BACKUP: {
+      CONFIGURACOES: "/backup/configuracoes",
+      EXPORTAR: "/backup/exportar",
+      MANUAL: "/backup/manual",
+      STATUS: "/backup/status",
+      LISTA: "/backup/lista",
+      ESTATISTICAS: "/backup/estatisticas",
+      LIMPAR_CACHE: "/backup/limpar-cache",
     },
   },
 };

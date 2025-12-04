@@ -1,0 +1,261 @@
+{
+  "categoria": "Pacientes",
+  "timestamp": "2025-12-04T12:59:38.263Z",
+  "registros": 12,
+  "formato": "JSON",
+  "usuario": "admin@sgh.com",
+  "dados": [
+    {
+      "id": "d47d5240-146b-43a7-a977-348b7ecf89c8",
+      "nome": "Ana Paula Costa",
+      "cpf": "23227016885",
+      "email": "ana.paula.costa@email.com",
+      "telefone": "(11) 97654-7595",
+      "dataNascimento": "1972-07-01",
+      "endereco": {
+        "cep": "01305-000",
+        "logradouro": "Rua Augusta",
+        "numero": "789",
+        "complemento": "",
+        "bairro": "Consolação",
+        "cidade": "São Paulo",
+        "estado": "SP"
+      },
+      "convenio": null,
+      "numeroConvenio": null,
+      "criadoEm": "2025-11-26T16:42:05.269Z",
+      "atualizadoEm": "2025-11-26T16:42:05.269Z"
+    },
+    {
+      "id": "7b0c56bf-1e79-4c03-b70f-754be3146c21",
+      "nome": "Carla Beatriz Nunes",
+      "cpf": "08746771573",
+      "email": "carla.beatriz.nunes@email.com",
+      "telefone": "(11) 95432-3466",
+      "dataNascimento": "1988-06-30",
+      "endereco": {
+        "cep": "01308-000",
+        "logradouro": "Rua da Bela Vista",
+        "numero": "543",
+        "complemento": "",
+        "bairro": "Bela Vista",
+        "cidade": "São Paulo",
+        "estado": "SP"
+      },
+      "convenio": null,
+      "numeroConvenio": null,
+      "criadoEm": "2025-11-26T16:42:08.412Z",
+      "atualizadoEm": "2025-11-26T16:42:08.412Z"
+    },
+    {
+      "id": "bb29333e-1a79-4e0b-b2fb-1635b7f2a82b",
+      "nome": "Claudia Regina Alves",
+      "cpf": "40560042850",
+      "email": "claudia.regina.alves@email.com",
+      "telefone": "(11) 99876-7905",
+      "dataNascimento": "1991-06-25",
+      "endereco": {
+        "cep": "05402-000",
+        "logradouro": "Av. Rebouças",
+        "numero": "432",
+        "complemento": "",
+        "bairro": "Pinheiros",
+        "cidade": "São Paulo",
+        "estado": "SP"
+      },
+      "convenio": null,
+      "numeroConvenio": null,
+      "criadoEm": "2025-11-26T16:42:07.388Z",
+      "atualizadoEm": "2025-11-26T16:42:07.388Z"
+    },
+    {
+      "id": "510e536f-23d1-4222-b214-a51ffc660daf",
+      "nome": "Fernando José Sousa",
+      "cpf": "37450147742",
+      "email": "fernando.jose.sousa@email.com",
+      "telefone": "(11) 95432-1155",
+      "dataNascimento": "1968-07-11",
+      "endereco": {
+        "cep": "05405-000",
+        "logradouro": "Rua Teodoro Sampaio",
+        "numero": "876",
+        "complemento": "",
+        "bairro": "Pinheiros",
+        "cidade": "São Paulo",
+        "estado": "SP"
+      },
+      "convenio": null,
+      "numeroConvenio": null,
+      "criadoEm": "2025-11-26T16:42:07.883Z",
+      "atualizadoEm": "2025-11-26T16:42:07.883Z"
+    },
+    {
+      "id": "9a109b9a-b3c0-4531-8106-28b7f95dc348",
+      "nome": "Gabriela Santos Pereira",
+      "cpf": "83160732266",
+      "email": "gabriela.santos.pereira@email.com",
+      "telefone": "(11) 96543-2581",
+      "dataNascimento": "1999-03-16",
+      "endereco": {
+        "cep": "04552-000",
+        "logradouro": "Av. Faria Lima",
+        "numero": "765",
+        "complemento": "",
+        "bairro": "Itaim Bibi",
+        "cidade": "São Paulo",
+        "estado": "SP"
+      },
+      "convenio": null,
+      "numeroConvenio": null,
+      "criadoEm": "2025-11-26T16:42:09.458Z",
+      "atualizadoEm": "2025-11-26T16:42:09.458Z"
+    },
+    {
+      "id": "9f5a6f3b-fb56-494b-83b0-4d9a9fb69855",
+      "nome": "João Carlos Oliveira",
+      "cpf": "23080720245",
+      "email": "joao.carlos.oliveira@email.com",
+      "telefone": "(11) 97654-2461",
+      "dataNascimento": "1965-03-10",
+      "endereco": {
+        "cep": "01310-100",
+        "logradouro": "Av. Paulista",
+        "numero": "456",
+        "complemento": "",
+        "bairro": "Bela Vista",
+        "cidade": "São Paulo",
+        "estado": "SP"
+      },
+      "convenio": null,
+      "numeroConvenio": null,
+      "criadoEm": "2025-11-26T16:42:04.738Z",
+      "atualizadoEm": "2025-11-26T16:42:04.738Z"
+    },
+    {
+      "id": "0e807214-8ce0-41e9-8144-04443d29ac52",
+      "nome": "Lucia Fernanda Rodrigues",
+      "cpf": "16873078654",
+      "email": "lucia.fernanda.rodrigues@email.com",
+      "telefone": "(11) 98765-7869",
+      "dataNascimento": "1971-09-27",
+      "endereco": {
+        "cep": "01426-000",
+        "logradouro": "Rua Oscar Freire",
+        "numero": "654",
+        "complemento": "",
+        "bairro": "Jardins",
+        "cidade": "São Paulo",
+        "estado": "SP"
+      },
+      "convenio": null,
+      "numeroConvenio": null,
+      "criadoEm": "2025-11-26T16:42:06.348Z",
+      "atualizadoEm": "2025-11-26T16:42:06.348Z"
+    },
+    {
+      "id": "3fc48ef7-8b7a-4648-8e8b-642d242c5da7",
+      "nome": "Marcos Antonio Silva",
+      "cpf": "60340804106",
+      "email": "marcos.antonio.silva@email.com",
+      "telefone": "(11) 96543-4745",
+      "dataNascimento": "1985-07-01",
+      "endereco": {
+        "cep": "05615-000",
+        "logradouro": "Rua dos Três Irmãos",
+        "numero": "210",
+        "complemento": "",
+        "bairro": "Vila Madalena",
+        "cidade": "São Paulo",
+        "estado": "SP"
+      },
+      "convenio": null,
+      "numeroConvenio": null,
+      "criadoEm": "2025-11-26T16:42:08.931Z",
+      "atualizadoEm": "2025-11-26T16:42:08.931Z"
+    },
+    {
+      "id": "f2419e92-1847-453c-98e6-971d501c24ff",
+      "nome": "Maria Silva Santos",
+      "cpf": "80400788497",
+      "email": "maria.silva.santos@email.com",
+      "telefone": "(11) 96543-4566",
+      "dataNascimento": "1991-01-03",
+      "endereco": {
+        "cep": "01234-567",
+        "logradouro": "Rua das Flores",
+        "numero": "123",
+        "complemento": "",
+        "bairro": "Centro",
+        "cidade": "São Paulo",
+        "estado": "SP"
+      },
+      "convenio": null,
+      "numeroConvenio": null,
+      "criadoEm": "2025-11-26T16:42:04.196Z",
+      "atualizadoEm": "2025-11-26T16:42:04.196Z"
+    },
+    {
+      "id": "2c13683c-c9f7-4e84-9cd2-df31bb61eefa",
+      "nome": "Pedro Henrique Lima",
+      "cpf": "74708824211",
+      "email": "pedro.henrique.lima@email.com",
+      "telefone": "(11) 97654-3103",
+      "dataNascimento": "1986-03-13",
+      "endereco": {
+        "cep": "01301-000",
+        "logradouro": "Rua da Consolação",
+        "numero": "321",
+        "complemento": "",
+        "bairro": "Consolação",
+        "cidade": "São Paulo",
+        "estado": "SP"
+      },
+      "convenio": null,
+      "numeroConvenio": null,
+      "criadoEm": "2025-11-26T16:42:05.831Z",
+      "atualizadoEm": "2025-11-26T16:42:05.831Z"
+    },
+    {
+      "id": "7d05d351-8273-480d-a512-8585c77bba09",
+      "nome": "Ricardo Martins Costa",
+      "cpf": "24787032119",
+      "email": "ricardo.martins.costa@email.com",
+      "telefone": "(11) 96543-4692",
+      "dataNascimento": "1975-02-20",
+      "endereco": {
+        "cep": "04101-000",
+        "logradouro": "Rua Vergueiro",
+        "numero": "1234",
+        "complemento": "",
+        "bairro": "Vila Mariana",
+        "cidade": "São Paulo",
+        "estado": "SP"
+      },
+      "convenio": null,
+      "numeroConvenio": null,
+      "criadoEm": "2025-11-26T16:42:09.972Z",
+      "atualizadoEm": "2025-11-26T16:42:09.972Z"
+    },
+    {
+      "id": "6fdaf58d-ecd8-491e-8d64-3bc5ea94001e",
+      "nome": "Roberto Carlos Mendes",
+      "cpf": "18642786337",
+      "email": "roberto.carlos.mendes@email.com",
+      "telefone": "(11) 95432-6302",
+      "dataNascimento": "1968-09-07",
+      "endereco": {
+        "cep": "01414-000",
+        "logradouro": "Rua Haddock Lobo",
+        "numero": "987",
+        "complemento": "",
+        "bairro": "Jardins",
+        "cidade": "São Paulo",
+        "estado": "SP"
+      },
+      "convenio": null,
+      "numeroConvenio": null,
+      "criadoEm": "2025-11-26T16:42:06.863Z",
+      "atualizadoEm": "2025-11-26T16:42:06.863Z"
+    }
+  ]
+}

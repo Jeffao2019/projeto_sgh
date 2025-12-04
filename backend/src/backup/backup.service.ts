@@ -1,7 +1,7 @@
 import { Injectable, Logger, Inject } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { InjectDataSource } from '@nestjs/typeorm';
-import { DataSource } from 'typeorm';
+import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
+import { DataSource, Repository } from 'typeorm';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as crypto from 'crypto';
@@ -9,12 +9,13 @@ import { PacienteRepository } from '../domain/repositories/paciente.repository';
 import { AgendamentoRepository } from '../domain/repositories/agendamento.repository';
 import { ProntuarioRepository } from '../domain/repositories/prontuario.repository';
 import { UserRepository } from '../domain/repositories/user.repository';
+import { BackupConfigEntity } from '../infrastructure/persistence/entities/backup-config.entity';
 import { 
   PACIENTE_REPOSITORY, 
   AGENDAMENTO_REPOSITORY, 
   PRONTUARIO_REPOSITORY, 
   USER_REPOSITORY 
-} from '../infrastructure/repositories/repository.tokens';
+} from '../infrastructure/tokens/injection.tokens';
 
 export interface BackupConfig {
   automatico: boolean;
@@ -49,6 +50,8 @@ export class BackupService {
     @Inject(AGENDAMENTO_REPOSITORY) private readonly agendamentoRepository: AgendamentoRepository,
     @Inject(PRONTUARIO_REPOSITORY) private readonly prontuarioRepository: ProntuarioRepository,
     @Inject(USER_REPOSITORY) private readonly userRepository: UserRepository,
+    @InjectRepository(BackupConfigEntity)
+    private readonly backupConfigRepository: Repository<BackupConfigEntity>,
   ) {}
 
   /**
@@ -132,17 +135,37 @@ export class BackupService {
         this.userRepository.findAll()
       ]);
 
+      // Backup completo com todos os dados reais
       const backupData = {
-        timestamp: new Date().toISOString(),
-        versao: '1.0.0',
-        dados: {
-          Pacientes: pacientes.length,
-          Agendamentos: agendamentos.length,
-          Prontuários: prontuarios.length,
-          Usuários: usuarios.length
+        metadata: {
+          timestamp: new Date().toISOString(),
+          versao: '1.0.0',
+          tipo: 'backup_completo',
+          backupId: backupId,
+          status: 'completo'
         },
-        tamanho: '2.3 GB',
-        status: 'completo'
+        estatisticas: {
+          totalPacientes: pacientes.length,
+          totalAgendamentos: agendamentos.length,
+          totalProntuarios: prontuarios.length,
+          totalUsuarios: usuarios.length,
+          tamanhoEstimado: '2.3 GB'
+        },
+        dados_completos: {
+          pacientes: pacientes,
+          agendamentos: agendamentos,
+          prontuarios: prontuarios,
+          usuarios: usuarios.map(user => ({
+            id: user.id,
+            nome: user.nome,
+            email: user.email,
+            role: user.role,
+            createdAt: user.createdAt,
+            // Não incluir senha por segurança
+            telefone: user.telefone,
+            isActive: user.isActive
+          }))
+        }
       };
 
       fs.writeFileSync(backupPath, JSON.stringify(backupData, null, 2));
@@ -154,17 +177,28 @@ export class BackupService {
       
       // Fallback para backup simulado
       const backupData = {
-        timestamp: new Date().toISOString(),
-        versao: '1.0.0',
-        dados: {
-          Pacientes: 12,
-          Agendamentos: 70,
-          Prontuários: 41,
-          Usuários: 5
+        metadata: {
+          timestamp: new Date().toISOString(),
+          versao: '1.0.0',
+          tipo: 'backup_fallback',
+          backupId: backupId,
+          status: 'erro',
+          erro: 'Backup simulado devido a erro: ' + error.message
         },
-        tamanho: '2.3 GB',
-        status: 'completo',
-        erro: 'Backup simulado devido a erro: ' + error.message
+        estatisticas: {
+          totalPacientes: 12,
+          totalAgendamentos: 70,
+          totalProntuarios: 41,
+          totalUsuarios: 5,
+          tamanhoEstimado: '2.3 GB'
+        },
+        dados_completos: {
+          pacientes: [],
+          agendamentos: [],
+          prontuarios: [],
+          usuarios: []
+        },
+        observacao: 'Este é um backup de fallback. Os dados reais não puderam ser obtidos.'
       };
 
       fs.writeFileSync(backupPath, JSON.stringify(backupData, null, 2));
@@ -235,16 +269,86 @@ export class BackupService {
   /**
    * Obtém configurações de backup
    */
-  private async getBackupConfig(): Promise<BackupConfig> {
-    return {
-      automatico: true,
-      frequencia: 'diario',
-      horario: '02:00',
-      retencao: 30,
-      local: 'local',
-      compressao: true,
-      criptografia: true
-    };
+  async getBackupConfig(): Promise<BackupConfig> {
+    try {
+      const config = await this.backupConfigRepository.findOne({
+        where: {},
+        order: { id: 'DESC' }
+      });
+
+      if (config) {
+        return {
+          automatico: config.automatico,
+          frequencia: config.frequencia,
+          horario: config.horario,
+          retencao: config.retencao,
+          local: config.local,
+          compressao: config.compressao,
+          criptografia: config.criptografia
+        };
+      }
+
+      // Configuração padrão caso não exista
+      return {
+        automatico: true,
+        frequencia: 'diario',
+        horario: '02:00',
+        retencao: 30,
+        local: 'local',
+        compressao: true,
+        criptografia: true
+      };
+    } catch (error) {
+      this.logger.error('Erro ao obter configuração de backup:', error);
+      // Retorna configuração padrão em caso de erro
+      return {
+        automatico: true,
+        frequencia: 'diario',
+        horario: '02:00',
+        retencao: 30,
+        local: 'local',
+        compressao: true,
+        criptografia: true
+      };
+    }
+  }
+
+  /**
+   * Salva configurações de backup
+   */
+  async salvarBackupConfig(config: Partial<BackupConfig>): Promise<BackupConfig> {
+    try {
+      // Remove configuração anterior (se existir)
+      await this.backupConfigRepository.clear();
+
+      // Cria nova configuração
+      const novaConfig = this.backupConfigRepository.create({
+        automatico: config.automatico ?? true,
+        frequencia: config.frequencia ?? 'diario',
+        horario: config.horario ?? '02:00',
+        retencao: config.retencao ?? 30,
+        local: config.local ?? 'local',
+        compressao: config.compressao ?? true,
+        criptografia: config.criptografia ?? true
+      });
+
+      const configSalva = await this.backupConfigRepository.save(novaConfig);
+
+      this.logger.log('Configuração de backup salva com sucesso');
+
+      return {
+        automatico: configSalva.automatico,
+        frequencia: configSalva.frequencia,
+        horario: configSalva.horario,
+        retencao: configSalva.retencao,
+        local: configSalva.local,
+        compressao: configSalva.compressao,
+        criptografia: configSalva.criptografia
+      };
+    } catch (error) {
+      this.logger.error('Erro ao salvar configuração de backup:', error);
+      throw error;
+    }
   }
 
   /**

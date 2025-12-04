@@ -1,0 +1,8 @@
+{
+  "categoria": "logs do sistema",
+  "timestamp": "2025-12-04T12:20:42.799Z",
+  "registros": 0,
+  "formato": "JSON",
+  "usuario": "admin@sgh.com",
+  "erro": "Categoria 'logs do sistema' não reconhecida"
+}

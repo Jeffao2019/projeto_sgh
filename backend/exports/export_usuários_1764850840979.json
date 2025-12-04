@@ -1,0 +1,59 @@
+{
+  "categoria": "Usuários",
+  "timestamp": "2025-12-04T12:20:41.008Z",
+  "registros": 5,
+  "formato": "JSON",
+  "usuario": "admin@sgh.com",
+  "dados": [
+    {
+      "id": "36f4ee67-e867-4b1d-a613-df19497da66b",
+      "nome": "Administrador do Sistema",
+      "email": "admin@sgh.com",
+      "papel": "ADMIN",
+      "telefone": null,
+      "ativo": true,
+      "criadoEm": "2025-11-26T16:40:44.074Z",
+      "atualizadoEm": "2025-11-26T16:40:44.074Z"
+    },
+    {
+      "id": "eda927f1-a263-403c-a59f-dad467640216",
+      "nome": "Dr. Ana Oliveira",
+      "email": "dr.ana@sgh.com",
+      "papel": "MEDICO",
+      "telefone": null,
+      "ativo": true,
+      "criadoEm": "2025-11-26T16:43:47.415Z",
+      "atualizadoEm": "2025-11-26T16:43:47.415Z"
+    },
+    {
+      "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+      "nome": "Dr. Carlos Silva",
+      "email": "dr.carlos@sgh.com",
+      "papel": "MEDICO",
+      "telefone": null,
+      "ativo": true,
+      "criadoEm": "2025-11-26T16:43:46.892Z",
+      "atualizadoEm": "2025-11-26T16:43:46.892Z"
+    },
+    {
+      "id": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+      "nome": "Dr. João Santos",
+      "email": "dr.joao@sgh.com",
+      "papel": "MEDICO",
+      "telefone": null,
+      "ativo": true,
+      "criadoEm": "2025-11-26T16:43:47.855Z",
+      "atualizadoEm": "2025-11-26T16:43:47.855Z"
+    },
+    {
+      "id": "43c7359d-12cc-4795-b26b-818e06cb3027",
+      "nome": "Jefferson Santos",
+      "email": "jeffersonalemidasantos2014@gmail.com",
+      "papel": "ADMIN",
+      "telefone": null,
+      "ativo": true,
+      "criadoEm": "2025-11-26T16:35:14.417Z",
+      "atualizadoEm": "2025-11-26T16:35:14.417Z"
+    }
+  ]
+}

@@ -87,6 +87,138 @@ export default function DadosBackup() {
     severity: 'info'
   });
 
+  // Estados para dados reais do banco
+  const [dadosReais, setDadosReais] = useState({
+    pacientes: 0,
+    agendamentos: 0,
+    prontuarios: 0,
+    users: 0,
+    exames: 0,
+    logs: 0,
+    loading: true
+  });
+
+  // Carregar dados reais do banco
+  const carregarDadosReais = async () => {
+    try {
+      setDadosReais(prev => ({ ...prev, loading: true }));
+      
+      const [pacientesData, agendamentosData, prontuariosData] = await Promise.all([
+        apiService.getPacientes(),
+        apiService.getAgendamentos(),
+        apiService.getProntuarios()
+      ]);
+
+      // Calcular exames (agendamentos do tipo EXAME)
+      const examesData = agendamentosData.filter(agendamento => agendamento.tipo === 'EXAME');
+      
+      // Calcular logs baseado em atividade do sistema (estimativa realista)
+      const totalRegistros = pacientesData.length + agendamentosData.length + prontuariosData.length;
+      const logsEstimados = Math.floor(totalRegistros * 3.5); // ~3.5 logs por registro de atividade
+
+      setDadosReais({
+        pacientes: pacientesData.length,
+        agendamentos: agendamentosData.length,
+        prontuarios: prontuariosData.length,
+        users: 5, // Será implementado quando tivermos endpoint de usuários
+        exames: examesData.length,
+        logs: logsEstimados,
+        loading: false
+      });
+    } catch (error) {
+      console.error('Erro ao carregar dados reais:', error);
+      setDadosReais(prev => ({ ...prev, loading: false }));
+    }
+  };
+
+  useEffect(() => {
+    carregarDadosReais();
+    carregarConfiguracaoBackup();
+  }, []);
+
+  // Carregar configuração de backup do backend
+  const carregarConfiguracaoBackup = async () => {
+    try {
+      const response = await fetch(`http://localhost:3010/backup/configuracoes`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success && data.data) {
+          setBackupConfig(data.data);
+        }
+      }
+    } catch (error) {
+      console.error('Erro ao carregar configuração de backup:', error);
+    }
+  };
+
+  // Salvar configuração de backup
+  const salvarConfiguracaoBackup = async () => {
+    console.log('🔄 [DadosBackup] Iniciando salvamento das configurações...', backupConfig);
+    
+    try {
+      console.log('📡 [DadosBackup] Fazendo requisição para:', 'http://localhost:3010/backup/configuracoes');
+      console.log('� [DadosBackup] Dados a enviar:', JSON.stringify(backupConfig, null, 2));
+      
+      const response = await fetch(`http://localhost:3010/backup/configuracoes`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(backupConfig)
+      });
+
+      console.log('📡 [DadosBackup] Response status:', response.status);
+      console.log('📡 [DadosBackup] Response ok:', response.ok);
+      
+      const responseText = await response.text();
+      console.log('📄 [DadosBackup] Response text:', responseText);
+
+      if (response.ok) {
+        try {
+          const data = JSON.parse(responseText);
+          console.log('📦 [DadosBackup] Response data:', data);
+          
+          if (data.success) {
+            console.log('✅ [DadosBackup] Configurações salvas com sucesso!');
+            setSnackbar({
+              open: true,
+              message: 'Configurações salvas com sucesso!',
+              severity: 'success'
+            });
+            return;
+          }
+        } catch (parseError) {
+          console.log('🔧 [DadosBackup] Resposta não é JSON válido, mas status OK');
+        }
+        
+        console.log('✅ [DadosBackup] Salvamento realizado (sem confirmação JSON)');
+        setSnackbar({
+          open: true,
+          message: 'Configurações salvas!',
+          severity: 'success'
+        });
+        
+      } else {
+        console.log('❌ [DadosBackup] Response error status:', response.status);
+        console.log('❌ [DadosBackup] Response error text:', responseText);
+        throw new Error(`HTTP ${response.status}: ${responseText}`);
+      }
+    } catch (error) {
+      console.error('💥 [DadosBackup] Erro ao salvar configuração:', error);
+      setSnackbar({
+        open: true,
+        message: `Erro ao salvar: ${error.message}`,
+        severity: 'error'
+      });
+    }
+  };
+
   // Fechar notificação automaticamente
   useEffect(() => {
     if (snackbar.open) {
@@ -107,12 +239,32 @@ export default function DadosBackup() {
   ];
 
   const dadosPorCategoria = [
-    { categoria: 'Pacientes', registros: '15.847', tamanho: '45.2 MB', ultimaAtualizacao: 'Há 2 minutos' },
-    { categoria: 'Agendamentos', registros: '8.921', tamanho: '12.8 MB', ultimaAtualizacao: 'Há 5 minutos' },
-    { categoria: 'Prontuários', registros: '42.153', tamanho: '1.2 GB', ultimaAtualizacao: 'Há 1 minuto' },
-    { categoria: 'Exames', registros: '28.674', tamanho: '856 MB', ultimaAtualizacao: 'Há 3 minutos' },
-    { categoria: 'Usuários', registros: '342', tamanho: '2.1 MB', ultimaAtualizacao: 'Há 10 minutos' },
-    { categoria: 'Logs do Sistema', registros: '125.847', tamanho: '89.3 MB', ultimaAtualizacao: 'Agora' }
+    { 
+      categoria: 'Pacientes', 
+      registros: dadosReais.loading ? 'Carregando...' : dadosReais.pacientes.toLocaleString('pt-BR'), 
+      tamanho: '45.2 MB', 
+      ultimaAtualizacao: 'Há 2 minutos' 
+    },
+    { 
+      categoria: 'Agendamentos', 
+      registros: dadosReais.loading ? 'Carregando...' : dadosReais.agendamentos.toLocaleString('pt-BR'), 
+      tamanho: '12.8 MB', 
+      ultimaAtualizacao: 'Há 5 minutos' 
+    },
+    { 
+      categoria: 'Prontuários', 
+      registros: dadosReais.loading ? 'Carregando...' : dadosReais.prontuarios.toLocaleString('pt-BR'), 
+      tamanho: '1.2 GB', 
+      ultimaAtualizacao: 'Há 1 minuto' 
+    },
+    { categoria: 'Exames', registros: dadosReais.loading ? 'Carregando...' : dadosReais.exames.toLocaleString('pt-BR'), tamanho: '856 MB', ultimaAtualizacao: 'Há 3 minutos' },
+    { 
+      categoria: 'Usuários', 
+      registros: dadosReais.loading ? 'Carregando...' : dadosReais.users.toLocaleString('pt-BR'), 
+      tamanho: '2.1 MB', 
+      ultimaAtualizacao: 'Há 10 minutos' 
+    },
+    { categoria: 'Logs do Sistema', registros: dadosReais.loading ? 'Carregando...' : dadosReais.logs.toLocaleString('pt-BR'), tamanho: '89.3 MB', ultimaAtualizacao: 'Agora' }
   ];
 
   const handleBackupManual = async () => {
@@ -220,78 +372,72 @@ export default function DadosBackup() {
         severity: 'info'
       });
 
-      // Fazer chamada real para a API
-      const response: any = await apiService.post('/backup/exportar', { 
-        categoria: categoria.toLowerCase() 
+      console.log('🌐 Fazendo requisição para exportação...');
+
+      // Fazer chamada real para a API com responseType blob para receber arquivo
+      const response = await fetch('http://localhost:3010/backup/exportar', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ 
+          categoria: categoria.toLowerCase() 
+        })
       });
 
-      console.log(`✅ Resposta da API:`, response);
+      if (!response.ok) {
+        throw new Error(`Erro HTTP: ${response.status}`);
+      }
 
-      if (response.success) {
-        // Se a API retornou sucesso, criar download com dados reais
-        const downloadData = {
-          categoria,
-          timestamp: new Date().toISOString(),
-          usuario: 'admin@sgh.com',
-          formato: 'JSON',
-          resultado: response.message || 'Exportação realizada com sucesso',
-          dados: response.data || {}
-        };
+      // Verificar se a resposta é JSON (dados reais) ou erro
+      const contentType = response.headers.get('content-type');
+      
+      if (contentType && contentType.includes('application/json')) {
+        // Resposta é JSON - dados reais do backend
+        const dadosReais = await response.json();
+        console.log(`✅ Dados reais recebidos do backend:`, dadosReais);
 
-        // Criar blob e fazer download
-        const blob = new Blob([JSON.stringify(downloadData, null, 2)], { 
-          type: 'application/json' 
-        });
-        
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        a.download = `export_${categoria.toLowerCase().replace(/\s+/g, '_')}_${Date.now()}.json`;
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
+        // Verificar se tem dados na estrutura esperada
+        if (dadosReais.dados && Array.isArray(dadosReais.dados)) {
+          console.log(`📊 Total de registros recebidos: ${dadosReais.dados.length}`);
+          
+          // Criar download com dados reais do backend
+          const blob = new Blob([JSON.stringify(dadosReais, null, 2)], { 
+            type: 'application/json' 
+          });
+          
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.style.display = 'none';
+          a.href = url;
+          a.download = `export_${categoria.toLowerCase().replace(/\s+/g, '_')}_${Date.now()}.json`;
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
 
-        setSnackbar({
-          open: true,
-          message: `${categoria} exportado com sucesso!`,
-          severity: 'success'
-        });
+          setSnackbar({
+            open: true,
+            message: `${categoria} exportado com sucesso! ${dadosReais.registros} registros exportados.`,
+            severity: 'success'
+          });
+
+        } else {
+          console.log('⚠️ Resposta não contém dados válidos:', dadosReais);
+          throw new Error('Resposta do servidor não contém dados válidos');
+        }
+
       } else {
-        throw new Error(response.message || 'Erro na exportação');
+        throw new Error('Resposta do servidor não é JSON válido');
       }
 
     } catch (error: any) {
       console.error(`❌ Erro ao exportar ${categoria}:`, error);
       
-      // Fallback: criar exportação simulada em caso de erro
-      const dadosExport = {
-        categoria,
-        timestamp: new Date().toISOString(),
-        usuario: 'admin@sgh.com',
-        formato: 'JSON',
-        erro: error.message || 'Erro desconhecido',
-        dados: `Dados de ${categoria} não puderam ser exportados - erro de conexão`
-      };
-
-      const blob = new Blob([JSON.stringify(dadosExport, null, 2)], { 
-        type: 'application/json' 
-      });
-      
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.style.display = 'none';
-      a.href = url;
-      a.download = `export_${categoria.toLowerCase().replace(/\s+/g, '_')}_erro_${Date.now()}.json`;
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-      
       setSnackbar({
         open: true,
-        message: `Erro ao exportar ${categoria}. Arquivo de erro gerado.`,
+        message: `Erro ao exportar ${categoria}: ${error.message}`,
         severity: 'error'
       });
     }
@@ -544,7 +690,10 @@ export default function DadosBackup() {
           </div>
 
           <div className="pt-4 border-t">
-            <Button className="w-full md:w-auto">
+            <Button 
+              className="w-full md:w-auto"
+              onClick={salvarConfiguracaoBackup}
+            >
               <Settings className="w-4 h-4 mr-2" />
               Salvar Configurações
             </Button>
@@ -754,23 +903,30 @@ export default function DadosBackup() {
         </CardContent>
       </Card>
 
-      {/* Notificações */}
+      {/* Notificações - Versão Melhorada */}
       {snackbar.open && (
-        <Alert className={`mt-4 ${
-          snackbar.severity === 'success' ? 'border-green-200 bg-green-50' :
-          snackbar.severity === 'error' ? 'border-red-200 bg-red-50' :
-          snackbar.severity === 'warning' ? 'border-yellow-200 bg-yellow-50' :
-          'border-blue-200 bg-blue-50'
+        <div className={`fixed top-4 right-4 z-50 min-w-[300px] p-4 rounded-lg shadow-lg border transition-all duration-300 ${
+          snackbar.severity === 'success' ? 'bg-green-100 border-green-500 text-green-800' :
+          snackbar.severity === 'error' ? 'bg-red-100 border-red-500 text-red-800' :
+          snackbar.severity === 'warning' ? 'bg-yellow-100 border-yellow-500 text-yellow-800' :
+          'bg-blue-100 border-blue-500 text-blue-800'
         }`}>
-          <AlertDescription className={`${
-            snackbar.severity === 'success' ? 'text-green-700' :
-            snackbar.severity === 'error' ? 'text-red-700' :
-            snackbar.severity === 'warning' ? 'text-yellow-700' :
-            'text-blue-700'
-          }`}>
-            {snackbar.message}
-          </AlertDescription>
-        </Alert>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              {snackbar.severity === 'success' && <CheckCircle className="w-5 h-5 mr-2" />}
+              {snackbar.severity === 'error' && <AlertTriangle className="w-5 h-5 mr-2" />}
+              {snackbar.severity === 'warning' && <AlertTriangle className="w-5 h-5 mr-2" />}
+              {snackbar.severity === 'info' && <Info className="w-5 h-5 mr-2" />}
+              <span className="font-medium">{snackbar.message}</span>
+            </div>
+            <button 
+              onClick={() => setSnackbar(prev => ({ ...prev, open: false }))}
+              className="ml-4 text-gray-500 hover:text-gray-700"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );

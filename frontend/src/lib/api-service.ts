@@ -303,6 +303,40 @@ class ApiService {
   async deleteAgendamento(id: string) {
     return this.delete<void>(API_CONFIG.ENDPOINTS.AGENDAMENTOS.BY_ID(id));
   }
+
+  // === BACKUP ===
+
+  async obterConfiguracaoBackup() {
+    return this.get<any>(API_CONFIG.ENDPOINTS.BACKUP.CONFIGURACOES);
+  }
+
+  async salvarConfiguracaoBackup(config: any) {
+    return this.put<any>(API_CONFIG.ENDPOINTS.BACKUP.CONFIGURACOES, config);
+  }
+
+  async executarBackupManual() {
+    return this.post<any>(API_CONFIG.ENDPOINTS.BACKUP.MANUAL);
+  }
+
+  async obterStatusBackup() {
+    return this.get<any>(API_CONFIG.ENDPOINTS.BACKUP.STATUS);
+  }
+
+  async listarBackups() {
+    return this.get<any>(API_CONFIG.ENDPOINTS.BACKUP.LISTA);
+  }
+
+  async obterEstatisticasBackup() {
+    return this.get<any>(API_CONFIG.ENDPOINTS.BACKUP.ESTATISTICAS);
+  }
+
+  async exportarDados(categoria: string) {
+    return this.post<any>(API_CONFIG.ENDPOINTS.BACKUP.EXPORTAR, { categoria });
+  }
+
+  async limparCacheBackup() {
+    return this.post<any>(API_CONFIG.ENDPOINTS.BACKUP.LIMPAR_CACHE);
+  }
 }
 
 // Instância única do serviço

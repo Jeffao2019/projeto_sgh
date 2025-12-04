@@ -1,0 +1,75 @@
+{
+  "metadata": {
+    "timestamp": "2025-12-04T13:37:28.789Z",
+    "versao": "1.0.0",
+    "tipo": "backup_completo",
+    "backupId": "backup_2025-12-04T13-37-28-784Z_sxpjvf",
+    "status": "completo"
+  },
+  "estatisticas": {
+    "totalPacientes": 12,
+    "totalAgendamentos": 70,
+    "totalProntuarios": 41,
+    "totalUsuarios": 5,
+    "tamanhoEstimado": "2.3 GB"
+  },
+  "dados_completos": {
+    "pacientes": [
+      {
+        "id": "example-patient-1",
+        "nome": "João Silva Santos",
+        "email": "joao.silva@email.com",
+        "telefone": "(11) 99999-9999",
+        "cpf": "12345678901",
+        "dataNascimento": "1985-06-15",
+        "endereco": {
+          "logradouro": "Rua das Flores, 123",
+          "bairro": "Centro",
+          "cidade": "São Paulo",
+          "estado": "SP",
+          "cep": "01234-567"
+        },
+        "criadoEm": "2024-01-15T10:30:00.000Z"
+      }
+    ],
+    "agendamentos": [
+      {
+        "id": "example-agendamento-1",
+        "pacienteId": "example-patient-1",
+        "medicoId": "example-medico-1",
+        "data": "2024-12-05T09:00:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "CONFIRMADO",
+        "observacoes": "Consulta de rotina"
+      }
+    ],
+    "prontuarios": [
+      {
+        "id": "example-prontuario-1",
+        "pacienteId": "example-patient-1",
+        "agendamentoId": "example-agendamento-1",
+        "queixaPrincipal": "Dor de cabeça frequente",
+        "historiaDoencaAtual": "Paciente relata dor de cabeça há 2 semanas",
+        "exameFisico": "Paciente consciente, orientado, sem alterações",
+        "hipoteseDiagnostica": "Cefaleia tensional",
+        "conduta": "Prescrição de analgésico",
+        "dataConsulta": "2024-12-05T09:00:00.000Z"
+      }
+    ],
+    "usuarios": [
+      {
+        "id": "example-user-1",
+        "nome": "Dr. Carlos Medico",
+        "email": "carlos@sgh.com",
+        "role": "MEDICO",
+        "telefone": "(11) 98888-8888",
+        "isActive": true,
+        "createdAt": "2024-01-01T08:00:00.000Z"
+      }
+    ]
+  },
+  "integridade": {
+    "hash_dados": "d8e0f508ccd43f0c0a54aa871726aec0",
+    "timestamp_verificacao": "2025-12-04T13:37:28.790Z"
+  }
+}
