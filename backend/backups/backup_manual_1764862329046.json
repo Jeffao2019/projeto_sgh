@@ -1,0 +1,3073 @@
+{
+  "metadata": {
+    "timestamp": "2025-12-04T15:32:09.262Z",
+    "versao": "1.0.0",
+    "tipo": "backup_completo",
+    "backupId": "backup_2025-12-04T15-32-09-044Z_tm8g3w",
+    "status": "completo"
+  },
+  "estatisticas": {
+    "totalPacientes": 12,
+    "totalAgendamentos": 70,
+    "totalProntuarios": 41,
+    "totalUsuarios": 5,
+    "tamanhoEstimado": "2.3 GB"
+  },
+  "dados_completos": {
+    "pacientes": [
+      {
+        "id": "d47d5240-146b-43a7-a977-348b7ecf89c8",
+        "nome": "Ana Paula Costa",
+        "cpf": "23227016885",
+        "email": "ana.paula.costa@email.com",
+        "telefone": "(11) 97654-7595",
+        "dataNascimento": "1972-07-01",
+        "endereco": {
+          "cep": "01305-000",
+          "logradouro": "Rua Augusta",
+          "numero": "789",
+          "complemento": "",
+          "bairro": "Consolação",
+          "cidade": "São Paulo",
+          "estado": "SP"
+        },
+        "convenio": null,
+        "numeroConvenio": null,
+        "createdAt": "2025-11-26T16:42:05.269Z",
+        "updatedAt": "2025-11-26T16:42:05.269Z",
+        "isActive": true
+      },
+      {
+        "id": "7b0c56bf-1e79-4c03-b70f-754be3146c21",
+        "nome": "Carla Beatriz Nunes",
+        "cpf": "08746771573",
+        "email": "carla.beatriz.nunes@email.com",
+        "telefone": "(11) 95432-3466",
+        "dataNascimento": "1988-06-30",
+        "endereco": {
+          "cep": "01308-000",
+          "logradouro": "Rua da Bela Vista",
+          "numero": "543",
+          "complemento": "",
+          "bairro": "Bela Vista",
+          "cidade": "São Paulo",
+          "estado": "SP"
+        },
+        "convenio": null,
+        "numeroConvenio": null,
+        "createdAt": "2025-11-26T16:42:08.412Z",
+        "updatedAt": "2025-11-26T16:42:08.412Z",
+        "isActive": true
+      },
+      {
+        "id": "bb29333e-1a79-4e0b-b2fb-1635b7f2a82b",
+        "nome": "Claudia Regina Alves",
+        "cpf": "40560042850",
+        "email": "claudia.regina.alves@email.com",
+        "telefone": "(11) 99876-7905",
+        "dataNascimento": "1991-06-25",
+        "endereco": {
+          "cep": "05402-000",
+          "logradouro": "Av. Rebouças",
+          "numero": "432",
+          "complemento": "",
+          "bairro": "Pinheiros",
+          "cidade": "São Paulo",
+          "estado": "SP"
+        },
+        "convenio": null,
+        "numeroConvenio": null,
+        "createdAt": "2025-11-26T16:42:07.388Z",
+        "updatedAt": "2025-11-26T16:42:07.388Z",
+        "isActive": true
+      },
+      {
+        "id": "510e536f-23d1-4222-b214-a51ffc660daf",
+        "nome": "Fernando José Sousa",
+        "cpf": "37450147742",
+        "email": "fernando.jose.sousa@email.com",
+        "telefone": "(11) 95432-1155",
+        "dataNascimento": "1968-07-11",
+        "endereco": {
+          "cep": "05405-000",
+          "logradouro": "Rua Teodoro Sampaio",
+          "numero": "876",
+          "complemento": "",
+          "bairro": "Pinheiros",
+          "cidade": "São Paulo",
+          "estado": "SP"
+        },
+        "convenio": null,
+        "numeroConvenio": null,
+        "createdAt": "2025-11-26T16:42:07.883Z",
+        "updatedAt": "2025-11-26T16:42:07.883Z",
+        "isActive": true
+      },
+      {
+        "id": "9a109b9a-b3c0-4531-8106-28b7f95dc348",
+        "nome": "Gabriela Santos Pereira",
+        "cpf": "83160732266",
+        "email": "gabriela.santos.pereira@email.com",
+        "telefone": "(11) 96543-2581",
+        "dataNascimento": "1999-03-16",
+        "endereco": {
+          "cep": "04552-000",
+          "logradouro": "Av. Faria Lima",
+          "numero": "765",
+          "complemento": "",
+          "bairro": "Itaim Bibi",
+          "cidade": "São Paulo",
+          "estado": "SP"
+        },
+        "convenio": null,
+        "numeroConvenio": null,
+        "createdAt": "2025-11-26T16:42:09.458Z",
+        "updatedAt": "2025-11-26T16:42:09.458Z",
+        "isActive": true
+      },
+      {
+        "id": "9f5a6f3b-fb56-494b-83b0-4d9a9fb69855",
+        "nome": "João Carlos Oliveira",
+        "cpf": "23080720245",
+        "email": "joao.carlos.oliveira@email.com",
+        "telefone": "(11) 97654-2461",
+        "dataNascimento": "1965-03-10",
+        "endereco": {
+          "cep": "01310-100",
+          "logradouro": "Av. Paulista",
+          "numero": "456",
+          "complemento": "",
+          "bairro": "Bela Vista",
+          "cidade": "São Paulo",
+          "estado": "SP"
+        },
+        "convenio": null,
+        "numeroConvenio": null,
+        "createdAt": "2025-11-26T16:42:04.738Z",
+        "updatedAt": "2025-11-26T16:42:04.738Z",
+        "isActive": true
+      },
+      {
+        "id": "0e807214-8ce0-41e9-8144-04443d29ac52",
+        "nome": "Lucia Fernanda Rodrigues",
+        "cpf": "16873078654",
+        "email": "lucia.fernanda.rodrigues@email.com",
+        "telefone": "(11) 98765-7869",
+        "dataNascimento": "1971-09-27",
+        "endereco": {
+          "cep": "01426-000",
+          "logradouro": "Rua Oscar Freire",
+          "numero": "654",
+          "complemento": "",
+          "bairro": "Jardins",
+          "cidade": "São Paulo",
+          "estado": "SP"
+        },
+        "convenio": null,
+        "numeroConvenio": null,
+        "createdAt": "2025-11-26T16:42:06.348Z",
+        "updatedAt": "2025-11-26T16:42:06.348Z",
+        "isActive": true
+      },
+      {
+        "id": "3fc48ef7-8b7a-4648-8e8b-642d242c5da7",
+        "nome": "Marcos Antonio Silva",
+        "cpf": "60340804106",
+        "email": "marcos.antonio.silva@email.com",
+        "telefone": "(11) 96543-4745",
+        "dataNascimento": "1985-07-01",
+        "endereco": {
+          "cep": "05615-000",
+          "logradouro": "Rua dos Três Irmãos",
+          "numero": "210",
+          "complemento": "",
+          "bairro": "Vila Madalena",
+          "cidade": "São Paulo",
+          "estado": "SP"
+        },
+        "convenio": null,
+        "numeroConvenio": null,
+        "createdAt": "2025-11-26T16:42:08.931Z",
+        "updatedAt": "2025-11-26T16:42:08.931Z",
+        "isActive": true
+      },
+      {
+        "id": "f2419e92-1847-453c-98e6-971d501c24ff",
+        "nome": "Maria Silva Santos",
+        "cpf": "80400788497",
+        "email": "maria.silva.santos@email.com",
+        "telefone": "(11) 96543-4566",
+        "dataNascimento": "1991-01-03",
+        "endereco": {
+          "cep": "01234-567",
+          "logradouro": "Rua das Flores",
+          "numero": "123",
+          "complemento": "",
+          "bairro": "Centro",
+          "cidade": "São Paulo",
+          "estado": "SP"
+        },
+        "convenio": null,
+        "numeroConvenio": null,
+        "createdAt": "2025-11-26T16:42:04.196Z",
+        "updatedAt": "2025-11-26T16:42:04.196Z",
+        "isActive": true
+      },
+      {
+        "id": "2c13683c-c9f7-4e84-9cd2-df31bb61eefa",
+        "nome": "Pedro Henrique Lima",
+        "cpf": "74708824211",
+        "email": "pedro.henrique.lima@email.com",
+        "telefone": "(11) 97654-3103",
+        "dataNascimento": "1986-03-13",
+        "endereco": {
+          "cep": "01301-000",
+          "logradouro": "Rua da Consolação",
+          "numero": "321",
+          "complemento": "",
+          "bairro": "Consolação",
+          "cidade": "São Paulo",
+          "estado": "SP"
+        },
+        "convenio": null,
+        "numeroConvenio": null,
+        "createdAt": "2025-11-26T16:42:05.831Z",
+        "updatedAt": "2025-11-26T16:42:05.831Z",
+        "isActive": true
+      },
+      {
+        "id": "7d05d351-8273-480d-a512-8585c77bba09",
+        "nome": "Ricardo Martins Costa",
+        "cpf": "24787032119",
+        "email": "ricardo.martins.costa@email.com",
+        "telefone": "(11) 96543-4692",
+        "dataNascimento": "1975-02-20",
+        "endereco": {
+          "cep": "04101-000",
+          "logradouro": "Rua Vergueiro",
+          "numero": "1234",
+          "complemento": "",
+          "bairro": "Vila Mariana",
+          "cidade": "São Paulo",
+          "estado": "SP"
+        },
+        "convenio": null,
+        "numeroConvenio": null,
+        "createdAt": "2025-11-26T16:42:09.972Z",
+        "updatedAt": "2025-11-26T16:42:09.972Z",
+        "isActive": true
+      },
+      {
+        "id": "6fdaf58d-ecd8-491e-8d64-3bc5ea94001e",
+        "nome": "Roberto Carlos Mendes",
+        "cpf": "18642786337",
+        "email": "roberto.carlos.mendes@email.com",
+        "telefone": "(11) 95432-6302",
+        "dataNascimento": "1968-09-07",
+        "endereco": {
+          "cep": "01414-000",
+          "logradouro": "Rua Haddock Lobo",
+          "numero": "987",
+          "complemento": "",
+          "bairro": "Jardins",
+          "cidade": "São Paulo",
+          "estado": "SP"
+        },
+        "convenio": null,
+        "numeroConvenio": null,
+        "createdAt": "2025-11-26T16:42:06.863Z",
+        "updatedAt": "2025-11-26T16:42:06.863Z",
+        "isActive": true
+      }
+    ],
+    "agendamentos": [
+      {
+        "id": "0baa547a-507a-4289-8383-edf4eecc8d01",
+        "pacienteId": "d47d5240-146b-43a7-a977-348b7ecf89c8",
+        "medicoId": "eda927f1-a263-403c-a59f-dad467640216",
+        "dataHora": "2025-10-02T11:00:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "CONFIRMADO",
+        "observacoes": "Consulta de rotina cardiológica",
+        "createdAt": "2025-11-26T19:54:44.544Z",
+        "updatedAt": "2025-11-26T19:54:44.544Z"
+      },
+      {
+        "id": "018a2508-4e8b-4342-ba10-c1202c5803db",
+        "pacienteId": "7b0c56bf-1e79-4c03-b70f-754be3146c21",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-10-02T17:30:00.000Z",
+        "tipo": "CONSULTA_ESPECIALISTA",
+        "status": "CONFIRMADO",
+        "observacoes": "Acompanhamento pós-cirúrgico",
+        "createdAt": "2025-11-26T19:54:44.549Z",
+        "updatedAt": "2025-11-26T19:54:44.549Z"
+      },
+      {
+        "id": "da9d7796-4651-495e-91ff-cff50415b0fc",
+        "pacienteId": "bb29333e-1a79-4e0b-b2fb-1635b7f2a82b",
+        "medicoId": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "dataHora": "2025-10-03T12:15:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "CONFIRMADO",
+        "observacoes": "Consulta clínica geral",
+        "createdAt": "2025-11-26T19:54:44.553Z",
+        "updatedAt": "2025-11-26T19:54:44.553Z"
+      },
+      {
+        "id": "aa03ade3-ed9f-4660-a3ee-bbe7409b096c",
+        "pacienteId": "510e536f-23d1-4222-b214-a51ffc660daf",
+        "medicoId": "eda927f1-a263-403c-a59f-dad467640216",
+        "dataHora": "2025-10-03T19:00:00.000Z",
+        "tipo": "EXAME",
+        "status": "CONFIRMADO",
+        "observacoes": "Exame cardiológico preventivo",
+        "createdAt": "2025-11-26T19:54:44.557Z",
+        "updatedAt": "2025-11-26T19:54:44.557Z"
+      },
+      {
+        "id": "2fa27ef6-69cc-423a-972e-74daf6d3d8ea",
+        "pacienteId": "9a109b9a-b3c0-4531-8106-28b7f95dc348",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-10-04T13:30:00.000Z",
+        "tipo": "RETORNO",
+        "status": "CONFIRMADO",
+        "observacoes": "Revisão de medicamentos",
+        "createdAt": "2025-11-26T19:54:44.561Z",
+        "updatedAt": "2025-11-26T19:54:44.561Z"
+      },
+      {
+        "id": "86f124c6-9cbe-48d3-aaf3-737917075053",
+        "pacienteId": "9f5a6f3b-fb56-494b-83b0-4d9a9fb69855",
+        "medicoId": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "dataHora": "2025-10-08T18:45:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "CONFIRMADO",
+        "observacoes": "Consulta de acompanhamento",
+        "createdAt": "2025-11-26T19:54:44.564Z",
+        "updatedAt": "2025-11-26T19:54:44.564Z"
+      },
+      {
+        "id": "ec653016-f185-416e-bfe1-4a1349e37272",
+        "pacienteId": "0e807214-8ce0-41e9-8144-04443d29ac52",
+        "medicoId": "eda927f1-a263-403c-a59f-dad467640216",
+        "dataHora": "2025-10-09T11:30:00.000Z",
+        "tipo": "CONSULTA_ESPECIALISTA",
+        "status": "CONFIRMADO",
+        "observacoes": "Avaliação clínica completa",
+        "createdAt": "2025-11-26T19:54:44.568Z",
+        "updatedAt": "2025-11-26T19:54:44.568Z"
+      },
+      {
+        "id": "85400032-fa21-453f-a577-bb3428ffc88e",
+        "pacienteId": "3fc48ef7-8b7a-4648-8e8b-642d242c5da7",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-10-10T14:15:00.000Z",
+        "tipo": "TELEMEDICINA",
+        "status": "CONFIRMADO",
+        "observacoes": "Consulta via telemedicina - cancelada",
+        "createdAt": "2025-11-26T19:54:44.571Z",
+        "updatedAt": "2025-11-26T19:58:17.680Z"
+      },
+      {
+        "id": "aac6289a-ff8a-483a-a845-ee6f4f5b199f",
+        "pacienteId": "f2419e92-1847-453c-98e6-971d501c24ff",
+        "medicoId": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "dataHora": "2025-10-11T17:00:00.000Z",
+        "tipo": "RETORNO",
+        "status": "CONFIRMADO",
+        "observacoes": "Retorno programado",
+        "createdAt": "2025-11-26T19:54:44.574Z",
+        "updatedAt": "2025-11-26T19:54:44.574Z"
+      },
+      {
+        "id": "244354df-9c36-4f95-b665-13bb9467b14d",
+        "pacienteId": "2c13683c-c9f7-4e84-9cd2-df31bb61eefa",
+        "medicoId": "eda927f1-a263-403c-a59f-dad467640216",
+        "dataHora": "2025-10-15T12:00:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "CANCELADO",
+        "observacoes": "Cancelado pelo paciente",
+        "createdAt": "2025-11-26T19:54:44.578Z",
+        "updatedAt": "2025-11-26T19:54:44.578Z"
+      },
+      {
+        "id": "34feb8a0-5f95-4a44-bc3c-1bfb32a69419",
+        "pacienteId": "7d05d351-8273-480d-a512-8585c77bba09",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-10-16T17:00:00.000Z",
+        "tipo": "EXAME",
+        "status": "CANCELADO",
+        "observacoes": "Reagendamento solicitado",
+        "createdAt": "2025-11-26T19:54:44.581Z",
+        "updatedAt": "2025-11-26T19:54:44.581Z"
+      },
+      {
+        "id": "31414d5d-44bd-4f80-b39b-e944c73f787a",
+        "pacienteId": "6fdaf58d-ecd8-491e-8d64-3bc5ea94001e",
+        "medicoId": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "dataHora": "2025-10-17T13:45:00.000Z",
+        "tipo": "CONSULTA_ESPECIALISTA",
+        "status": "CANCELADO",
+        "observacoes": "Indisponibilidade médica",
+        "createdAt": "2025-11-26T19:54:44.584Z",
+        "updatedAt": "2025-11-26T19:54:44.584Z"
+      },
+      {
+        "id": "109be7ba-4776-4859-8140-83dcbd12d836",
+        "pacienteId": "d47d5240-146b-43a7-a977-348b7ecf89c8",
+        "medicoId": "eda927f1-a263-403c-a59f-dad467640216",
+        "dataHora": "2025-10-18T19:30:00.000Z",
+        "tipo": "RETORNO",
+        "status": "CONFIRMADO",
+        "observacoes": "Retorno de acompanhamento",
+        "createdAt": "2025-11-26T19:54:44.588Z",
+        "updatedAt": "2025-11-26T19:54:44.588Z"
+      },
+      {
+        "id": "f8952c6b-79d7-44e5-aa82-9b518eb75960",
+        "pacienteId": "7b0c56bf-1e79-4c03-b70f-754be3146c21",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-10-22T11:15:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "CONFIRMADO",
+        "observacoes": "Consulta clínica",
+        "createdAt": "2025-11-26T19:54:44.591Z",
+        "updatedAt": "2025-11-26T19:54:44.591Z"
+      },
+      {
+        "id": "7955ab03-c9eb-4fee-af8e-0364944d2ce2",
+        "pacienteId": "bb29333e-1a79-4e0b-b2fb-1635b7f2a82b",
+        "medicoId": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "dataHora": "2025-10-23T16:30:00.000Z",
+        "tipo": "TELEMEDICINA",
+        "status": "CONFIRMADO",
+        "observacoes": "Teleconsulta",
+        "createdAt": "2025-11-26T19:54:44.594Z",
+        "updatedAt": "2025-11-26T19:54:44.594Z"
+      },
+      {
+        "id": "f78a8743-de04-48ce-b5b4-21e8b815fbae",
+        "pacienteId": "510e536f-23d1-4222-b214-a51ffc660daf",
+        "medicoId": "eda927f1-a263-403c-a59f-dad467640216",
+        "dataHora": "2025-10-24T12:30:00.000Z",
+        "tipo": "CONSULTA_ESPECIALISTA",
+        "status": "CONFIRMADO",
+        "observacoes": "Consulta cardiológica",
+        "createdAt": "2025-11-26T19:54:44.597Z",
+        "updatedAt": "2025-11-26T19:54:44.597Z"
+      },
+      {
+        "id": "a2b557be-0b18-4796-8811-378456ec5518",
+        "pacienteId": "9a109b9a-b3c0-4531-8106-28b7f95dc348",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-10-25T18:00:00.000Z",
+        "tipo": "EXAME",
+        "status": "CANCELADO",
+        "observacoes": "Cancelado por falta",
+        "createdAt": "2025-11-26T19:54:44.601Z",
+        "updatedAt": "2025-11-26T19:54:44.601Z"
+      },
+      {
+        "id": "ba8d9440-cb4b-42ac-afbb-36100bafafbf",
+        "pacienteId": "9f5a6f3b-fb56-494b-83b0-4d9a9fb69855",
+        "medicoId": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "dataHora": "2025-10-28T14:00:00.000Z",
+        "tipo": "RETORNO",
+        "status": "CONFIRMADO",
+        "observacoes": "Avaliação final",
+        "createdAt": "2025-11-26T19:54:44.604Z",
+        "updatedAt": "2025-11-26T19:54:44.604Z"
+      },
+      {
+        "id": "0a046e40-066c-4d7d-bd2e-c418dffce25a",
+        "pacienteId": "0e807214-8ce0-41e9-8144-04443d29ac52",
+        "medicoId": "eda927f1-a263-403c-a59f-dad467640216",
+        "dataHora": "2025-10-29T17:15:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "CONFIRMADO",
+        "observacoes": "Consulta de encerramento",
+        "createdAt": "2025-11-26T19:54:44.607Z",
+        "updatedAt": "2025-11-26T19:54:44.607Z"
+      },
+      {
+        "id": "d0c549e5-e96b-482d-8d91-525c004cb0e1",
+        "pacienteId": "3fc48ef7-8b7a-4648-8e8b-642d242c5da7",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-10-30T13:00:00.000Z",
+        "tipo": "CONSULTA_ESPECIALISTA",
+        "status": "CANCELADO",
+        "observacoes": "Cancelamento de última hora",
+        "createdAt": "2025-11-26T19:54:44.611Z",
+        "updatedAt": "2025-11-26T19:54:44.611Z"
+      },
+      {
+        "id": "f9720958-f960-41f0-9247-d65e5e022d40",
+        "pacienteId": "f2419e92-1847-453c-98e6-971d501c24ff",
+        "medicoId": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "dataHora": "2025-10-31T19:45:00.000Z",
+        "tipo": "TELEMEDICINA",
+        "status": "CONFIRMADO",
+        "observacoes": "Teleconsulta final outubro",
+        "createdAt": "2025-11-26T19:54:44.614Z",
+        "updatedAt": "2025-11-26T19:54:44.614Z"
+      },
+      {
+        "id": "fdbc5bf6-b7fb-498d-b5b0-6b628d60b106",
+        "pacienteId": "d47d5240-146b-43a7-a977-348b7ecf89c8",
+        "medicoId": "eda927f1-a263-403c-a59f-dad467640216",
+        "dataHora": "2025-11-27T08:00:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta de rotina matinal",
+        "createdAt": "2025-11-26T20:01:55.932Z",
+        "updatedAt": "2025-11-26T20:01:55.932Z"
+      },
+      {
+        "id": "80aa7dee-a6b5-414b-a5c7-2b3497897e85",
+        "pacienteId": "7b0c56bf-1e79-4c03-b70f-754be3146c21",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-11-27T09:00:00.000Z",
+        "tipo": "CONSULTA_ESPECIALISTA",
+        "status": "AGENDADO",
+        "observacoes": "Consulta cardiológica",
+        "createdAt": "2025-11-26T20:01:56.179Z",
+        "updatedAt": "2025-11-26T20:01:56.179Z"
+      },
+      {
+        "id": "03d50348-29a5-4007-b3e3-cef20eec19c9",
+        "pacienteId": "bb29333e-1a79-4e0b-b2fb-1635b7f2a82b",
+        "medicoId": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "dataHora": "2025-11-27T10:00:00.000Z",
+        "tipo": "RETORNO",
+        "status": "AGENDADO",
+        "observacoes": "Retorno de acompanhamento",
+        "createdAt": "2025-11-26T20:01:56.470Z",
+        "updatedAt": "2025-11-26T20:01:56.470Z"
+      },
+      {
+        "id": "5d8cacf5-ca71-4a41-8b8b-076fb8401129",
+        "pacienteId": "510e536f-23d1-4222-b214-a51ffc660daf",
+        "medicoId": "eda927f1-a263-403c-a59f-dad467640216",
+        "dataHora": "2025-11-27T14:00:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta vespertina",
+        "createdAt": "2025-11-26T20:01:56.758Z",
+        "updatedAt": "2025-11-26T20:01:56.758Z"
+      },
+      {
+        "id": "1e0e2a6a-01c7-40ed-a4fa-37b42b9aebda",
+        "pacienteId": "7b0c56bf-1e79-4c03-b70f-754be3146c21",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-11-27T14:00:00.000Z",
+        "tipo": "RETORNO",
+        "status": "AGENDADO",
+        "observacoes": "verificar o tratamento",
+        "createdAt": "2025-11-26T20:09:12.440Z",
+        "updatedAt": "2025-11-26T20:09:12.440Z"
+      },
+      {
+        "id": "51166a88-21ec-4c77-be1e-8fa25e70fb9f",
+        "pacienteId": "9a109b9a-b3c0-4531-8106-28b7f95dc348",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-11-27T15:00:00.000Z",
+        "tipo": "EXAME",
+        "status": "AGENDADO",
+        "observacoes": "Exame de rotina",
+        "createdAt": "2025-11-26T20:01:57.012Z",
+        "updatedAt": "2025-11-26T20:01:57.012Z"
+      },
+      {
+        "id": "6eecd5eb-38cb-42c4-b8f7-3dacb507f473",
+        "pacienteId": "9f5a6f3b-fb56-494b-83b0-4d9a9fb69855",
+        "medicoId": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "dataHora": "2025-11-27T16:00:00.000Z",
+        "tipo": "TELEMEDICINA",
+        "status": "AGENDADO",
+        "observacoes": "Teleconsulta agendada",
+        "createdAt": "2025-11-26T20:01:57.257Z",
+        "updatedAt": "2025-11-26T20:01:57.257Z"
+      },
+      {
+        "id": "13430d4e-01ec-43bf-ab6c-7a2de03032bf",
+        "pacienteId": "7b0c56bf-1e79-4c03-b70f-754be3146c21",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-11-27T18:15:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta 1 - agendamento automático para teste",
+        "createdAt": "2025-11-26T19:44:30.016Z",
+        "updatedAt": "2025-11-26T19:44:30.016Z"
+      },
+      {
+        "id": "39433ed0-999d-4b76-876e-933b54dcf16d",
+        "pacienteId": "d47d5240-146b-43a7-a977-348b7ecf89c8",
+        "medicoId": "eda927f1-a263-403c-a59f-dad467640216",
+        "dataHora": "2025-11-27T18:20:06.383Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "CONFIRMADO",
+        "observacoes": "Teste de validação - agendamento criado automaticamente",
+        "createdAt": "2025-11-26T21:20:06.512Z",
+        "updatedAt": "2025-11-26T18:20:06.709Z"
+      },
+      {
+        "id": "ee97a3ac-ef8a-4c1b-92c3-0edc2db8c234",
+        "pacienteId": "d47d5240-146b-43a7-a977-348b7ecf89c8",
+        "medicoId": "eda927f1-a263-403c-a59f-dad467640216",
+        "dataHora": "2025-11-27T18:24:20.923Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "CONFIRMADO",
+        "observacoes": "Teste de validação - agendamento criado automaticamente",
+        "createdAt": "2025-11-26T21:24:21.039Z",
+        "updatedAt": "2025-11-26T18:24:21.231Z"
+      },
+      {
+        "id": "097e7565-1165-45e9-8033-8d65a0699ab8",
+        "pacienteId": "0e807214-8ce0-41e9-8144-04443d29ac52",
+        "medicoId": "eda927f1-a263-403c-a59f-dad467640216",
+        "dataHora": "2025-11-28T08:30:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta quinta-feira manhã",
+        "createdAt": "2025-11-26T20:01:57.519Z",
+        "updatedAt": "2025-11-26T20:01:57.519Z"
+      },
+      {
+        "id": "f03b9501-5d37-454b-85c1-bef6c9a6b373",
+        "pacienteId": "3fc48ef7-8b7a-4648-8e8b-642d242c5da7",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-11-28T09:30:00.000Z",
+        "tipo": "CONSULTA_ESPECIALISTA",
+        "status": "AGENDADO",
+        "observacoes": "Avaliação especializada",
+        "createdAt": "2025-11-26T20:01:57.766Z",
+        "updatedAt": "2025-11-26T20:01:57.766Z"
+      },
+      {
+        "id": "8f929282-105a-4b18-8f6a-ad00617cb627",
+        "pacienteId": "f2419e92-1847-453c-98e6-971d501c24ff",
+        "medicoId": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "dataHora": "2025-11-28T10:30:00.000Z",
+        "tipo": "RETORNO",
+        "status": "AGENDADO",
+        "observacoes": "Retorno pós-exame",
+        "createdAt": "2025-11-26T20:01:58.000Z",
+        "updatedAt": "2025-11-26T20:01:58.000Z"
+      },
+      {
+        "id": "a91ea4e8-e35d-4c52-8485-c49e979fe653",
+        "pacienteId": "2c13683c-c9f7-4e84-9cd2-df31bb61eefa",
+        "medicoId": "eda927f1-a263-403c-a59f-dad467640216",
+        "dataHora": "2025-11-28T14:30:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta tarde quinta",
+        "createdAt": "2025-11-26T20:01:58.258Z",
+        "updatedAt": "2025-11-26T20:01:58.258Z"
+      },
+      {
+        "id": "323c22b0-33df-4b48-ae1b-983c66042430",
+        "pacienteId": "7d05d351-8273-480d-a512-8585c77bba09",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-11-28T15:30:00.000Z",
+        "tipo": "EXAME",
+        "status": "AGENDADO",
+        "observacoes": "Exame médico quinta",
+        "createdAt": "2025-11-26T20:01:58.542Z",
+        "updatedAt": "2025-11-26T20:01:58.542Z"
+      },
+      {
+        "id": "7dc4f7f5-d9b7-43bb-965c-a3b79de782ce",
+        "pacienteId": "6fdaf58d-ecd8-491e-8d64-3bc5ea94001e",
+        "medicoId": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "dataHora": "2025-11-29T08:00:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta sexta manhã",
+        "createdAt": "2025-11-26T20:01:58.789Z",
+        "updatedAt": "2025-11-26T20:01:58.789Z"
+      },
+      {
+        "id": "bc83088f-7597-4f90-a869-998d0d78dadf",
+        "pacienteId": "d47d5240-146b-43a7-a977-348b7ecf89c8",
+        "medicoId": "eda927f1-a263-403c-a59f-dad467640216",
+        "dataHora": "2025-11-29T09:00:00.000Z",
+        "tipo": "RETORNO",
+        "status": "AGENDADO",
+        "observacoes": "Retorno sexta",
+        "createdAt": "2025-11-26T20:01:59.053Z",
+        "updatedAt": "2025-11-26T20:01:59.053Z"
+      },
+      {
+        "id": "9573e2e6-886e-467d-ad42-42d37cdf1f5b",
+        "pacienteId": "7b0c56bf-1e79-4c03-b70f-754be3146c21",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-11-29T10:00:00.000Z",
+        "tipo": "CONSULTA_ESPECIALISTA",
+        "status": "AGENDADO",
+        "observacoes": "Consulta especializada sexta",
+        "createdAt": "2025-11-26T20:01:59.306Z",
+        "updatedAt": "2025-11-26T20:01:59.306Z"
+      },
+      {
+        "id": "0080c8a6-e3cd-4285-b500-09a99cb975e7",
+        "pacienteId": "bb29333e-1a79-4e0b-b2fb-1635b7f2a82b",
+        "medicoId": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "dataHora": "2025-11-29T14:00:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Última consulta da semana",
+        "createdAt": "2025-11-26T20:01:59.542Z",
+        "updatedAt": "2025-11-26T20:01:59.542Z"
+      },
+      {
+        "id": "34b632a4-4e42-4ba8-bfdc-d049001c8d41",
+        "pacienteId": "510e536f-23d1-4222-b214-a51ffc660daf",
+        "medicoId": "eda927f1-a263-403c-a59f-dad467640216",
+        "dataHora": "2025-12-02T08:00:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Primeira consulta dezembro",
+        "createdAt": "2025-11-26T20:01:59.807Z",
+        "updatedAt": "2025-11-26T20:01:59.807Z"
+      },
+      {
+        "id": "08a5a3a0-1255-468f-a265-1c0d05c42cdf",
+        "pacienteId": "9a109b9a-b3c0-4531-8106-28b7f95dc348",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-12-02T09:00:00.000Z",
+        "tipo": "CONSULTA_ESPECIALISTA",
+        "status": "AGENDADO",
+        "observacoes": "Consulta cardiológica dezembro",
+        "createdAt": "2025-11-26T20:02:00.046Z",
+        "updatedAt": "2025-11-26T20:02:00.046Z"
+      },
+      {
+        "id": "7dc7134f-7c11-4bf9-b933-b6570a63d1e5",
+        "pacienteId": "9f5a6f3b-fb56-494b-83b0-4d9a9fb69855",
+        "medicoId": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "dataHora": "2025-12-02T10:00:00.000Z",
+        "tipo": "RETORNO",
+        "status": "AGENDADO",
+        "observacoes": "Retorno início dezembro",
+        "createdAt": "2025-11-26T20:02:00.336Z",
+        "updatedAt": "2025-11-26T20:02:00.336Z"
+      },
+      {
+        "id": "89a9a5e9-9a9b-4639-8bd4-72b2771c6b4f",
+        "pacienteId": "0e807214-8ce0-41e9-8144-04443d29ac52",
+        "medicoId": "eda927f1-a263-403c-a59f-dad467640216",
+        "dataHora": "2025-12-02T14:00:00.000Z",
+        "tipo": "EXAME",
+        "status": "AGENDADO",
+        "observacoes": "Exame dezembro",
+        "createdAt": "2025-11-26T20:02:00.632Z",
+        "updatedAt": "2025-11-26T20:02:00.632Z"
+      },
+      {
+        "id": "9c8ee70e-ed86-4dad-aa34-37a0d08e5470",
+        "pacienteId": "3fc48ef7-8b7a-4648-8e8b-642d242c5da7",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-12-02T15:00:00.000Z",
+        "tipo": "TELEMEDICINA",
+        "status": "AGENDADO",
+        "observacoes": "Teleconsulta dezembro",
+        "createdAt": "2025-11-26T20:02:00.922Z",
+        "updatedAt": "2025-11-26T20:02:00.922Z"
+      },
+      {
+        "id": "f6955043-6c6c-4f29-93f4-c56028b5c5f8",
+        "pacienteId": "2c13683c-c9f7-4e84-9cd2-df31bb61eefa",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-12-03T18:15:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta 1 - agendamento automático para teste",
+        "createdAt": "2025-11-26T19:44:34.702Z",
+        "updatedAt": "2025-11-26T19:44:34.702Z"
+      },
+      {
+        "id": "8f186776-e79e-42db-88bd-d49f8c021755",
+        "pacienteId": "d47d5240-146b-43a7-a977-348b7ecf89c8",
+        "medicoId": "eda927f1-a263-403c-a59f-dad467640216",
+        "dataHora": "2025-12-03T18:29:08.159Z",
+        "tipo": "TELEMEDICINA",
+        "status": "AGENDADO",
+        "observacoes": "Teleconsulta de validação - consulta de seguimento via telemedicina",
+        "createdAt": "2025-11-26T21:29:08.271Z",
+        "updatedAt": "2025-11-26T21:29:08.271Z"
+      },
+      {
+        "id": "20c63e35-db54-4a23-a055-275dfbf3f8f2",
+        "pacienteId": "d47d5240-146b-43a7-a977-348b7ecf89c8",
+        "medicoId": "eda927f1-a263-403c-a59f-dad467640216",
+        "dataHora": "2025-12-03T18:32:30.886Z",
+        "tipo": "TELEMEDICINA",
+        "status": "AGENDADO",
+        "observacoes": "Teleconsulta de validação - consulta de seguimento via telemedicina",
+        "createdAt": "2025-11-26T21:32:30.992Z",
+        "updatedAt": "2025-11-26T21:32:30.992Z"
+      },
+      {
+        "id": "b9717671-c5b2-47b9-8d7f-2dd4ebb75714",
+        "pacienteId": "bb29333e-1a79-4e0b-b2fb-1635b7f2a82b",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-12-05T18:15:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta 2 - agendamento automático para teste",
+        "createdAt": "2025-11-26T19:44:30.904Z",
+        "updatedAt": "2025-11-26T19:44:30.904Z"
+      },
+      {
+        "id": "c7a3d820-b40a-4cc5-83fd-d11ff8fb81a5",
+        "pacienteId": "bb29333e-1a79-4e0b-b2fb-1635b7f2a82b",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-12-10T18:30:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta 1 - agendamento automático para teste",
+        "createdAt": "2025-11-26T19:44:30.603Z",
+        "updatedAt": "2025-11-26T19:44:30.603Z"
+      },
+      {
+        "id": "c544c638-115c-4d99-abf2-4d9cc4842f30",
+        "pacienteId": "f2419e92-1847-453c-98e6-971d501c24ff",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-12-12T15:30:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta 2 - agendamento automático para teste",
+        "createdAt": "2025-11-26T19:44:34.408Z",
+        "updatedAt": "2025-11-26T19:44:34.408Z"
+      },
+      {
+        "id": "e47d9245-68a3-441e-be4a-d32f6ef8c9da",
+        "pacienteId": "6fdaf58d-ecd8-491e-8d64-3bc5ea94001e",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-12-13T16:15:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta 2 - agendamento automático para teste",
+        "createdAt": "2025-11-26T19:44:36.182Z",
+        "updatedAt": "2025-11-26T19:44:36.182Z"
+      },
+      {
+        "id": "e7865a63-e8c4-42af-89bb-2e97870a6178",
+        "pacienteId": "9f5a6f3b-fb56-494b-83b0-4d9a9fb69855",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-12-17T18:00:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta 2 - agendamento automático para teste",
+        "createdAt": "2025-11-26T19:44:32.691Z",
+        "updatedAt": "2025-11-26T19:44:32.691Z"
+      },
+      {
+        "id": "6de29d3e-d8db-4ed0-86da-16e76041043f",
+        "pacienteId": "510e536f-23d1-4222-b214-a51ffc660daf",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-12-22T14:00:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta 1 - agendamento automático para teste",
+        "createdAt": "2025-11-26T19:44:31.187Z",
+        "updatedAt": "2025-11-26T19:44:31.187Z"
+      },
+      {
+        "id": "58c0c80b-54a6-4004-a8a9-91fd3596e5fa",
+        "pacienteId": "9f5a6f3b-fb56-494b-83b0-4d9a9fb69855",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-12-25T12:45:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta 1 - agendamento automático para teste",
+        "createdAt": "2025-11-26T19:44:32.392Z",
+        "updatedAt": "2025-11-26T19:44:32.392Z"
+      },
+      {
+        "id": "1634ba53-7ad5-49ad-94c3-ba421a0dba53",
+        "pacienteId": "7b0c56bf-1e79-4c03-b70f-754be3146c21",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-12-26T15:15:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta 2 - agendamento automático para teste",
+        "createdAt": "2025-11-26T19:44:30.314Z",
+        "updatedAt": "2025-11-26T19:44:30.314Z"
+      },
+      {
+        "id": "49ec0a40-f953-4209-89ad-92ce88986132",
+        "pacienteId": "7d05d351-8273-480d-a512-8585c77bba09",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-12-27T15:00:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta 1 - agendamento automático para teste",
+        "createdAt": "2025-11-26T19:44:35.292Z",
+        "updatedAt": "2025-11-26T19:44:35.292Z"
+      },
+      {
+        "id": "2f735164-1f7b-4efe-90a1-e5e4abe7c931",
+        "pacienteId": "3fc48ef7-8b7a-4648-8e8b-642d242c5da7",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2025-12-30T11:30:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta 2 - agendamento automático para teste",
+        "createdAt": "2025-11-26T19:44:33.854Z",
+        "updatedAt": "2025-11-26T19:44:33.854Z"
+      },
+      {
+        "id": "d83e13fc-9e81-44ab-b4de-545010682413",
+        "pacienteId": "2c13683c-c9f7-4e84-9cd2-df31bb61eefa",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2026-01-01T14:15:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta 2 - agendamento automático para teste",
+        "createdAt": "2025-11-26T19:44:35.002Z",
+        "updatedAt": "2025-11-26T19:44:35.002Z"
+      },
+      {
+        "id": "5d85b988-a636-4c6d-9006-d23a32956080",
+        "pacienteId": "9a109b9a-b3c0-4531-8106-28b7f95dc348",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2026-01-05T13:45:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta 1 - agendamento automático para teste",
+        "createdAt": "2025-11-26T19:44:31.776Z",
+        "updatedAt": "2025-11-26T19:44:31.776Z"
+      },
+      {
+        "id": "3a8b0507-05c3-450e-b20c-6929aadb4f7b",
+        "pacienteId": "0e807214-8ce0-41e9-8144-04443d29ac52",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2026-01-06T17:30:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta 1 - agendamento automático para teste",
+        "createdAt": "2025-11-26T19:44:32.985Z",
+        "updatedAt": "2025-11-26T19:44:32.985Z"
+      },
+      {
+        "id": "a6484fb3-aace-4cdc-a13e-7c7337777376",
+        "pacienteId": "7d05d351-8273-480d-a512-8585c77bba09",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2026-01-09T14:15:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta 2 - agendamento automático para teste",
+        "createdAt": "2025-11-26T19:44:35.590Z",
+        "updatedAt": "2025-11-26T19:44:35.590Z"
+      },
+      {
+        "id": "33159cb2-2654-4655-8a0f-90782bebc97e",
+        "pacienteId": "3fc48ef7-8b7a-4648-8e8b-642d242c5da7",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2026-01-10T12:00:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta 1 - agendamento automático para teste",
+        "createdAt": "2025-11-26T19:44:33.572Z",
+        "updatedAt": "2025-11-26T19:44:33.572Z"
+      },
+      {
+        "id": "acf557b8-3e31-416b-9b55-423584fb5185",
+        "pacienteId": "d47d5240-146b-43a7-a977-348b7ecf89c8",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2026-01-10T17:15:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta 2 - agendamento automático para teste",
+        "createdAt": "2025-11-26T19:44:29.710Z",
+        "updatedAt": "2025-11-26T19:44:29.710Z"
+      },
+      {
+        "id": "8368f539-1d05-4617-b8a0-3956a6211e6a",
+        "pacienteId": "f2419e92-1847-453c-98e6-971d501c24ff",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2026-01-11T12:30:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta 1 - agendamento automático para teste",
+        "createdAt": "2025-11-26T19:44:34.134Z",
+        "updatedAt": "2025-11-26T19:44:34.134Z"
+      },
+      {
+        "id": "04c150dc-a5d6-4c85-a034-fea7f6f638b8",
+        "pacienteId": "d47d5240-146b-43a7-a977-348b7ecf89c8",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2026-01-12T11:15:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta 1 - agendamento automático para teste",
+        "createdAt": "2025-11-26T19:44:29.376Z",
+        "updatedAt": "2025-11-26T19:44:29.376Z"
+      },
+      {
+        "id": "3577b08c-7bc8-4233-8569-bdf265951b40",
+        "pacienteId": "9a109b9a-b3c0-4531-8106-28b7f95dc348",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2026-01-14T11:45:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta 2 - agendamento automático para teste",
+        "createdAt": "2025-11-26T19:44:32.081Z",
+        "updatedAt": "2025-11-26T19:44:32.081Z"
+      },
+      {
+        "id": "243894b0-b387-4351-83bc-3d326c82052e",
+        "pacienteId": "510e536f-23d1-4222-b214-a51ffc660daf",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2026-01-15T11:30:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta 2 - agendamento automático para teste",
+        "createdAt": "2025-11-26T19:44:31.484Z",
+        "updatedAt": "2025-11-26T19:44:31.484Z"
+      },
+      {
+        "id": "855dadf0-fced-4a32-989c-5617bcd8566a",
+        "pacienteId": "6fdaf58d-ecd8-491e-8d64-3bc5ea94001e",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2026-01-15T11:45:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta 1 - agendamento automático para teste",
+        "createdAt": "2025-11-26T19:44:35.884Z",
+        "updatedAt": "2025-11-26T19:44:35.884Z"
+      },
+      {
+        "id": "26c4c3b0-3db4-4ffe-b8ab-4efcd77ff772",
+        "pacienteId": "0e807214-8ce0-41e9-8144-04443d29ac52",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "dataHora": "2026-01-17T14:30:00.000Z",
+        "tipo": "CONSULTA_GERAL",
+        "status": "AGENDADO",
+        "observacoes": "Consulta 2 - agendamento automático para teste",
+        "createdAt": "2025-11-26T19:44:33.276Z",
+        "updatedAt": "2025-11-26T19:44:33.276Z"
+      }
+    ],
+    "prontuarios": [
+      {
+        "id": "5c3d58cd-7a69-4f94-801e-1a89a082a1df",
+        "pacienteId": "0e807214-8ce0-41e9-8144-04443d29ac52",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "26c4c3b0-3db4-4ffe-b8ab-4efcd77ff772",
+        "dataConsulta": "2026-01-17T14:30:00.000Z",
+        "anamnese": "Refere febre baixa (37.5°C) há 2 dias, acompanhada de mal-estar geral, cefaleia e mialgia. Iniciou uso de paracetamol com melhora parcial dos sintomas.",
+        "exameFisico": "REG, corado, hidratado. Sinais vitais: PA 110x70, FC 80, Tax 37.2°C. Orofaringe hiperemiada. Linfonodos cervicais palpáveis.",
+        "diagnostico": "Síndrome gripal",
+        "prescricao": "Paracetamol 750mg se febre. Hidratação oral abundante. Repouso domiciliar. Retorno se piora.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+        "createdAt": "2025-11-26T19:45:31.765Z",
+        "updatedAt": "2025-11-26T19:45:31.765Z",
+        "paciente": {
+          "id": "0e807214-8ce0-41e9-8144-04443d29ac52",
+          "nome": "Lucia Fernanda Rodrigues",
+          "cpf": "16873078654",
+          "email": "lucia.fernanda.rodrigues@email.com",
+          "telefone": "(11) 98765-7869",
+          "dataNascimento": "1971-09-27",
+          "endereco": {
+            "cep": "01426-000",
+            "bairro": "Jardins",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "654",
+            "logradouro": "Rua Oscar Freire",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "26c4c3b0-3db4-4ffe-b8ab-4efcd77ff772",
+          "dataHora": "2026-01-17T14:30:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "AGENDADO",
+          "observacoes": "Consulta 2 - agendamento automático para teste"
+        }
+      },
+      {
+        "id": "fab24dbd-d4eb-4217-bc93-24398a90f755",
+        "pacienteId": "6fdaf58d-ecd8-491e-8d64-3bc5ea94001e",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "855dadf0-fced-4a32-989c-5617bcd8566a",
+        "dataConsulta": "2026-01-15T11:45:00.000Z",
+        "anamnese": "Paciente assintomático, comparece para consulta de rotina e check-up geral. Nega queixas específicas no momento.",
+        "exameFisico": "Excelente estado geral, corado, hidratado. Sinais vitais normais. Exame físico geral sem alterações significativas.",
+        "diagnostico": "Paciente hígido - exame normal",
+        "prescricao": "Manter hábitos saudáveis. Retorno em 6 meses. Exames laboratoriais de rotina solicitados.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+        "createdAt": "2025-11-26T19:45:31.333Z",
+        "updatedAt": "2025-11-26T19:45:31.333Z",
+        "paciente": {
+          "id": "6fdaf58d-ecd8-491e-8d64-3bc5ea94001e",
+          "nome": "Roberto Carlos Mendes",
+          "cpf": "18642786337",
+          "email": "roberto.carlos.mendes@email.com",
+          "telefone": "(11) 95432-6302",
+          "dataNascimento": "1968-09-07",
+          "endereco": {
+            "cep": "01414-000",
+            "bairro": "Jardins",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "987",
+            "logradouro": "Rua Haddock Lobo",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "855dadf0-fced-4a32-989c-5617bcd8566a",
+          "dataHora": "2026-01-15T11:45:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "AGENDADO",
+          "observacoes": "Consulta 1 - agendamento automático para teste"
+        }
+      },
+      {
+        "id": "78d0a3c1-5052-4bea-a740-18ff41814558",
+        "pacienteId": "510e536f-23d1-4222-b214-a51ffc660daf",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "243894b0-b387-4351-83bc-3d326c82052e",
+        "dataConsulta": "2026-01-15T11:30:00.000Z",
+        "anamnese": "Dor muscular intensa em membros inferiores após exercício físico intenso realizado ontem. Refere câimbras noturnas.",
+        "exameFisico": "BEG, corado. Exame dos membros inferiores com dor à palpação da musculatura posterior. Força muscular preservada.",
+        "diagnostico": "Mialgia pós-exercício",
+        "prescricao": "Repouso, aplicação de gelo local. Alongamentos leves. Anti-inflamatório se necessário.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+        "createdAt": "2025-11-26T19:45:30.923Z",
+        "updatedAt": "2025-11-26T19:45:30.923Z",
+        "paciente": {
+          "id": "510e536f-23d1-4222-b214-a51ffc660daf",
+          "nome": "Fernando José Sousa",
+          "cpf": "37450147742",
+          "email": "fernando.jose.sousa@email.com",
+          "telefone": "(11) 95432-1155",
+          "dataNascimento": "1968-07-11",
+          "endereco": {
+            "cep": "05405-000",
+            "bairro": "Pinheiros",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "876",
+            "logradouro": "Rua Teodoro Sampaio",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "243894b0-b387-4351-83bc-3d326c82052e",
+          "dataHora": "2026-01-15T11:30:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "AGENDADO",
+          "observacoes": "Consulta 2 - agendamento automático para teste"
+        }
+      },
+      {
+        "id": "317dd688-b859-4f01-aab8-9bf0243870a8",
+        "pacienteId": "9a109b9a-b3c0-4531-8106-28b7f95dc348",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "3577b08c-7bc8-4233-8569-bdf265951b40",
+        "dataConsulta": "2026-01-14T11:45:00.000Z",
+        "anamnese": "Refere febre baixa (37.5°C) há 2 dias, acompanhada de mal-estar geral, cefaleia e mialgia. Iniciou uso de paracetamol com melhora parcial dos sintomas.",
+        "exameFisico": "REG, corado, hidratado. Sinais vitais: PA 110x70, FC 80, Tax 37.2°C. Orofaringe hiperemiada. Linfonodos cervicais palpáveis.",
+        "diagnostico": "Síndrome gripal",
+        "prescricao": "Paracetamol 750mg se febre. Hidratação oral abundante. Repouso domiciliar. Retorno se piora.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+        "createdAt": "2025-11-26T19:45:30.503Z",
+        "updatedAt": "2025-11-26T19:45:30.503Z",
+        "paciente": {
+          "id": "9a109b9a-b3c0-4531-8106-28b7f95dc348",
+          "nome": "Gabriela Santos Pereira",
+          "cpf": "83160732266",
+          "email": "gabriela.santos.pereira@email.com",
+          "telefone": "(11) 96543-2581",
+          "dataNascimento": "1999-03-16",
+          "endereco": {
+            "cep": "04552-000",
+            "bairro": "Itaim Bibi",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "765",
+            "logradouro": "Av. Faria Lima",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "3577b08c-7bc8-4233-8569-bdf265951b40",
+          "dataHora": "2026-01-14T11:45:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "AGENDADO",
+          "observacoes": "Consulta 2 - agendamento automático para teste"
+        }
+      },
+      {
+        "id": "7ecbfe09-a0f5-4071-a20d-65c9b45f1779",
+        "pacienteId": "d47d5240-146b-43a7-a977-348b7ecf89c8",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "04c150dc-a5d6-4c85-a034-fea7f6f638b8",
+        "dataConsulta": "2026-01-12T11:15:00.000Z",
+        "anamnese": "Dor precordial tipo pontada há 2 dias, principalmente ao respirar fundo. Nega dispneia de repouso, palpitações ou síncope.",
+        "exameFisico": "BEG, corado, hidratado. PA: 115x75, FC: 70. Ausculta cardíaca com bulhas normofonéticas. Dor à palpação do gradil costal.",
+        "diagnostico": "Dor torácica atípica",
+        "prescricao": "Orientação para repouso. Retorno em 48h se persistência dos sintomas. Evitar esforços físicos.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+        "createdAt": "2025-11-26T19:45:30.068Z",
+        "updatedAt": "2025-11-26T19:45:30.068Z",
+        "paciente": {
+          "id": "d47d5240-146b-43a7-a977-348b7ecf89c8",
+          "nome": "Ana Paula Costa",
+          "cpf": "23227016885",
+          "email": "ana.paula.costa@email.com",
+          "telefone": "(11) 97654-7595",
+          "dataNascimento": "1972-07-01",
+          "endereco": {
+            "cep": "01305-000",
+            "bairro": "Consolação",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "789",
+            "logradouro": "Rua Augusta",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "04c150dc-a5d6-4c85-a034-fea7f6f638b8",
+          "dataHora": "2026-01-12T11:15:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "AGENDADO",
+          "observacoes": "Consulta 1 - agendamento automático para teste"
+        }
+      },
+      {
+        "id": "4d6986e8-a217-418d-9534-a31ebb041cb2",
+        "pacienteId": "f2419e92-1847-453c-98e6-971d501c24ff",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "8368f539-1d05-4617-b8a0-3956a6211e6a",
+        "dataConsulta": "2026-01-11T12:30:00.000Z",
+        "anamnese": "Dor lombar baixa há 1 semana, com irradiação para membro inferior direito. Piora com movimentos e melhora parcialmente com repouso.",
+        "exameFisico": "BEG, em posição antálgica. Exame da coluna lombar com limitação da flexão. Sinal de Lasègue positivo à direita.",
+        "diagnostico": "Lombalgia mecânica",
+        "prescricao": "Ibuprofeno 600mg de 8/8h por 7 dias com alimento. Repouso relativo. Encaminhamento para fisioterapia.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+        "createdAt": "2025-11-26T19:45:29.614Z",
+        "updatedAt": "2025-11-26T19:45:29.614Z",
+        "paciente": {
+          "id": "f2419e92-1847-453c-98e6-971d501c24ff",
+          "nome": "Maria Silva Santos",
+          "cpf": "80400788497",
+          "email": "maria.silva.santos@email.com",
+          "telefone": "(11) 96543-4566",
+          "dataNascimento": "1991-01-03",
+          "endereco": {
+            "cep": "01234-567",
+            "bairro": "Centro",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "123",
+            "logradouro": "Rua das Flores",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "8368f539-1d05-4617-b8a0-3956a6211e6a",
+          "dataHora": "2026-01-11T12:30:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "AGENDADO",
+          "observacoes": "Consulta 1 - agendamento automático para teste"
+        }
+      },
+      {
+        "id": "d9f740f8-57f2-484a-8d79-dd3c5c19ac50",
+        "pacienteId": "d47d5240-146b-43a7-a977-348b7ecf89c8",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "acf557b8-3e31-416b-9b55-423584fb5185",
+        "dataConsulta": "2026-01-10T17:15:00.000Z",
+        "anamnese": "Dor e rigidez nos joelhos bilateralmente, principalmente pela manhã. Melhora com movimentação e atividade física leve.",
+        "exameFisico": "BEG, corado. Exame dos joelhos com discreto edema e crepitação à mobilização. Amplitude de movimento preservada.",
+        "diagnostico": "Artrose de joelhos",
+        "prescricao": "Anti-inflamatório tópico. Glucosamina 1,5g/dia. Exercícios de fortalecimento orientados.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+        "createdAt": "2025-11-26T19:45:29.179Z",
+        "updatedAt": "2025-11-26T19:45:29.179Z",
+        "paciente": {
+          "id": "d47d5240-146b-43a7-a977-348b7ecf89c8",
+          "nome": "Ana Paula Costa",
+          "cpf": "23227016885",
+          "email": "ana.paula.costa@email.com",
+          "telefone": "(11) 97654-7595",
+          "dataNascimento": "1972-07-01",
+          "endereco": {
+            "cep": "01305-000",
+            "bairro": "Consolação",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "789",
+            "logradouro": "Rua Augusta",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "acf557b8-3e31-416b-9b55-423584fb5185",
+          "dataHora": "2026-01-10T17:15:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "AGENDADO",
+          "observacoes": "Consulta 2 - agendamento automático para teste"
+        }
+      },
+      {
+        "id": "2d117522-8e1e-4641-8087-6e8e67e4e4a5",
+        "pacienteId": "3fc48ef7-8b7a-4648-8e8b-642d242c5da7",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "33159cb2-2654-4655-8a0f-90782bebc97e",
+        "dataConsulta": "2026-01-10T12:00:00.000Z",
+        "anamnese": "Episódios de tontura rotatória há 3 dias, principalmente ao levantar da cama. Acompanhado de náuseas leves, sem vômitos.",
+        "exameFisico": "REG, corado, hidratado. PA: 100x60, FC: 60. Exame neurológico com nistagmo horizontal. Romberg positivo.",
+        "diagnostico": "Vertigem posicional paroxística benigna",
+        "prescricao": "Orientações sobre manobras de reposicionamento. Betaistina 24mg de 12/12h por 7 dias.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+        "createdAt": "2025-11-26T19:45:28.766Z",
+        "updatedAt": "2025-11-26T19:45:28.766Z",
+        "paciente": {
+          "id": "3fc48ef7-8b7a-4648-8e8b-642d242c5da7",
+          "nome": "Marcos Antonio Silva",
+          "cpf": "60340804106",
+          "email": "marcos.antonio.silva@email.com",
+          "telefone": "(11) 96543-4745",
+          "dataNascimento": "1985-07-01",
+          "endereco": {
+            "cep": "05615-000",
+            "bairro": "Vila Madalena",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "210",
+            "logradouro": "Rua dos Três Irmãos",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "33159cb2-2654-4655-8a0f-90782bebc97e",
+          "dataHora": "2026-01-10T12:00:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "AGENDADO",
+          "observacoes": "Consulta 1 - agendamento automático para teste"
+        }
+      },
+      {
+        "id": "800325f6-24f7-4a99-80c1-f2f0c780dc18",
+        "pacienteId": "7d05d351-8273-480d-a512-8585c77bba09",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "a6484fb3-aace-4cdc-a13e-7c7337777376",
+        "dataConsulta": "2026-01-09T14:15:00.000Z",
+        "anamnese": "Dor muscular intensa em membros inferiores após exercício físico intenso realizado ontem. Refere câimbras noturnas.",
+        "exameFisico": "BEG, corado. Exame dos membros inferiores com dor à palpação da musculatura posterior. Força muscular preservada.",
+        "diagnostico": "Mialgia pós-exercício",
+        "prescricao": "Repouso, aplicação de gelo local. Alongamentos leves. Anti-inflamatório se necessário.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+        "createdAt": "2025-11-26T19:45:28.378Z",
+        "updatedAt": "2025-11-26T19:45:28.378Z",
+        "paciente": {
+          "id": "7d05d351-8273-480d-a512-8585c77bba09",
+          "nome": "Ricardo Martins Costa",
+          "cpf": "24787032119",
+          "email": "ricardo.martins.costa@email.com",
+          "telefone": "(11) 96543-4692",
+          "dataNascimento": "1975-02-20",
+          "endereco": {
+            "cep": "04101-000",
+            "bairro": "Vila Mariana",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "1234",
+            "logradouro": "Rua Vergueiro",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "a6484fb3-aace-4cdc-a13e-7c7337777376",
+          "dataHora": "2026-01-09T14:15:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "AGENDADO",
+          "observacoes": "Consulta 2 - agendamento automático para teste"
+        }
+      },
+      {
+        "id": "31148d85-7428-49f9-9c29-0f2e27988f9f",
+        "pacienteId": "0e807214-8ce0-41e9-8144-04443d29ac52",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "3a8b0507-05c3-450e-b20c-6929aadb4f7b",
+        "dataConsulta": "2026-01-06T17:30:00.000Z",
+        "anamnese": "Espirros frequentes, coriza e prurido ocular há 1 semana. Piora em ambientes empoeirados.",
+        "exameFisico": "REG, corado. Conjuntivas hiperemiadas. Rinoscopia com mucosa edemaciada. Ausculta pulmonar com sibilos esparsos.",
+        "diagnostico": "Rinite alérgica",
+        "prescricao": "Loratadina 10mg/dia. Spray nasal com corticoide. Evitar alérgenos. Retorno em 4 semanas.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+        "createdAt": "2025-11-26T19:45:27.957Z",
+        "updatedAt": "2025-11-26T19:45:27.957Z",
+        "paciente": {
+          "id": "0e807214-8ce0-41e9-8144-04443d29ac52",
+          "nome": "Lucia Fernanda Rodrigues",
+          "cpf": "16873078654",
+          "email": "lucia.fernanda.rodrigues@email.com",
+          "telefone": "(11) 98765-7869",
+          "dataNascimento": "1971-09-27",
+          "endereco": {
+            "cep": "01426-000",
+            "bairro": "Jardins",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "654",
+            "logradouro": "Rua Oscar Freire",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "3a8b0507-05c3-450e-b20c-6929aadb4f7b",
+          "dataHora": "2026-01-06T17:30:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "AGENDADO",
+          "observacoes": "Consulta 1 - agendamento automático para teste"
+        }
+      },
+      {
+        "id": "9aadab7a-81d5-4c3a-b646-00f0b9286162",
+        "pacienteId": "9a109b9a-b3c0-4531-8106-28b7f95dc348",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "5d85b988-a636-4c6d-9006-d23a32956080",
+        "dataConsulta": "2026-01-05T13:45:00.000Z",
+        "anamnese": "Dor precordial tipo pontada há 2 dias, principalmente ao respirar fundo. Nega dispneia de repouso, palpitações ou síncope.",
+        "exameFisico": "BEG, corado, hidratado. PA: 115x75, FC: 70. Ausculta cardíaca com bulhas normofonéticas. Dor à palpação do gradil costal.",
+        "diagnostico": "Dor torácica atípica",
+        "prescricao": "Orientação para repouso. Retorno em 48h se persistência dos sintomas. Evitar esforços físicos.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+        "createdAt": "2025-11-26T19:45:27.539Z",
+        "updatedAt": "2025-11-26T19:45:27.539Z",
+        "paciente": {
+          "id": "9a109b9a-b3c0-4531-8106-28b7f95dc348",
+          "nome": "Gabriela Santos Pereira",
+          "cpf": "83160732266",
+          "email": "gabriela.santos.pereira@email.com",
+          "telefone": "(11) 96543-2581",
+          "dataNascimento": "1999-03-16",
+          "endereco": {
+            "cep": "04552-000",
+            "bairro": "Itaim Bibi",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "765",
+            "logradouro": "Av. Faria Lima",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "5d85b988-a636-4c6d-9006-d23a32956080",
+          "dataHora": "2026-01-05T13:45:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "AGENDADO",
+          "observacoes": "Consulta 1 - agendamento automático para teste"
+        }
+      },
+      {
+        "id": "6059ad4e-1f61-4f85-af36-8b2c0e1ae1fb",
+        "pacienteId": "2c13683c-c9f7-4e84-9cd2-df31bb61eefa",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "d83e13fc-9e81-44ab-b4de-545010682413",
+        "dataConsulta": "2026-01-01T14:15:00.000Z",
+        "anamnese": "Dor muscular intensa em membros inferiores após exercício físico intenso realizado ontem. Refere câimbras noturnas.",
+        "exameFisico": "BEG, corado. Exame dos membros inferiores com dor à palpação da musculatura posterior. Força muscular preservada.",
+        "diagnostico": "Mialgia pós-exercício",
+        "prescricao": "Repouso, aplicação de gelo local. Alongamentos leves. Anti-inflamatório se necessário.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+        "createdAt": "2025-11-26T19:45:27.137Z",
+        "updatedAt": "2025-11-26T19:45:27.137Z",
+        "paciente": {
+          "id": "2c13683c-c9f7-4e84-9cd2-df31bb61eefa",
+          "nome": "Pedro Henrique Lima",
+          "cpf": "74708824211",
+          "email": "pedro.henrique.lima@email.com",
+          "telefone": "(11) 97654-3103",
+          "dataNascimento": "1986-03-13",
+          "endereco": {
+            "cep": "01301-000",
+            "bairro": "Consolação",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "321",
+            "logradouro": "Rua da Consolação",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "d83e13fc-9e81-44ab-b4de-545010682413",
+          "dataHora": "2026-01-01T14:15:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "AGENDADO",
+          "observacoes": "Consulta 2 - agendamento automático para teste"
+        }
+      },
+      {
+        "id": "3c0796f0-1f57-4d5b-8eca-9042944041ae",
+        "pacienteId": "3fc48ef7-8b7a-4648-8e8b-642d242c5da7",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "2f735164-1f7b-4efe-90a1-e5e4abe7c931",
+        "dataConsulta": "2025-12-30T11:30:00.000Z",
+        "anamnese": "Diabético tipo 2, refere polidipsia e poliúria nas últimas semanas. Glicemia capilar atual: 190 mg/dL.",
+        "exameFisico": "REG, corado, hidratado, obeso (IMC 31). Glicemia capilar: 190 mg/dL. Exame dos pés sem lesões.",
+        "diagnostico": "Diabetes mellitus tipo 2 descompensado",
+        "prescricao": "Orientações sobre dieta hipoglicídica. Ajuste da metformina para 850mg 12/12h. Retorno em 30 dias.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+        "createdAt": "2025-11-26T19:45:26.705Z",
+        "updatedAt": "2025-11-26T19:45:26.705Z",
+        "paciente": {
+          "id": "3fc48ef7-8b7a-4648-8e8b-642d242c5da7",
+          "nome": "Marcos Antonio Silva",
+          "cpf": "60340804106",
+          "email": "marcos.antonio.silva@email.com",
+          "telefone": "(11) 96543-4745",
+          "dataNascimento": "1985-07-01",
+          "endereco": {
+            "cep": "05615-000",
+            "bairro": "Vila Madalena",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "210",
+            "logradouro": "Rua dos Três Irmãos",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "2f735164-1f7b-4efe-90a1-e5e4abe7c931",
+          "dataHora": "2025-12-30T11:30:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "AGENDADO",
+          "observacoes": "Consulta 2 - agendamento automático para teste"
+        }
+      },
+      {
+        "id": "8b029e00-b35b-4dfa-97f0-d31b9ac6ab99",
+        "pacienteId": "7d05d351-8273-480d-a512-8585c77bba09",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "49ec0a40-f953-4209-89ad-92ce88986132",
+        "dataConsulta": "2025-12-27T15:00:00.000Z",
+        "anamnese": "Apresenta tosse seca persistente há 5 dias, inicialmente noturna, agora durante todo o dia. Refere leve falta de ar aos esforços e nega febre.",
+        "exameFisico": "REG, discretamente dispneico. PA: 125x80, FC: 88, FR: 22. Ausculta pulmonar com roncos difusos bilateralmente.",
+        "diagnostico": "Bronquite aguda",
+        "prescricao": "Salbutamol spray: 2 jatos se falta de ar. Expectorante xarope. Hidratação. Evitar irritantes.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+        "createdAt": "2025-11-26T19:45:26.287Z",
+        "updatedAt": "2025-11-26T19:45:26.287Z",
+        "paciente": {
+          "id": "7d05d351-8273-480d-a512-8585c77bba09",
+          "nome": "Ricardo Martins Costa",
+          "cpf": "24787032119",
+          "email": "ricardo.martins.costa@email.com",
+          "telefone": "(11) 96543-4692",
+          "dataNascimento": "1975-02-20",
+          "endereco": {
+            "cep": "04101-000",
+            "bairro": "Vila Mariana",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "1234",
+            "logradouro": "Rua Vergueiro",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "49ec0a40-f953-4209-89ad-92ce88986132",
+          "dataHora": "2025-12-27T15:00:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "AGENDADO",
+          "observacoes": "Consulta 1 - agendamento automático para teste"
+        }
+      },
+      {
+        "id": "a8ef5c1c-cfb2-4b44-868d-def4acb59b7a",
+        "pacienteId": "7b0c56bf-1e79-4c03-b70f-754be3146c21",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "1634ba53-7ad5-49ad-94c3-ba421a0dba53",
+        "dataConsulta": "2025-12-26T15:15:00.000Z",
+        "anamnese": "Paciente relata dor de cabeça persistente há 3 dias, de intensidade moderada, sem fatores de melhora ou piora específicos. Nega febre, náuseas ou alterações visuais.",
+        "exameFisico": "Paciente em bom estado geral, corado, hidratado, anictérico. PA: 120x80 mmHg, FC: 72 bpm, FR: 16 irpm, Tax: 36.5°C. Ausculta cardiopulmonar normal.",
+        "diagnostico": "Cefaleia tensional",
+        "prescricao": "Paracetamol 750mg, 1 cp de 8/8h por 5 dias se dor. Orientações sobre higiene do sono e controle do estresse.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+        "createdAt": "2025-11-26T19:45:25.860Z",
+        "updatedAt": "2025-11-26T19:45:25.860Z",
+        "paciente": {
+          "id": "7b0c56bf-1e79-4c03-b70f-754be3146c21",
+          "nome": "Carla Beatriz Nunes",
+          "cpf": "08746771573",
+          "email": "carla.beatriz.nunes@email.com",
+          "telefone": "(11) 95432-3466",
+          "dataNascimento": "1988-06-30",
+          "endereco": {
+            "cep": "01308-000",
+            "bairro": "Bela Vista",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "543",
+            "logradouro": "Rua da Bela Vista",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "1634ba53-7ad5-49ad-94c3-ba421a0dba53",
+          "dataHora": "2025-12-26T15:15:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "AGENDADO",
+          "observacoes": "Consulta 2 - agendamento automático para teste"
+        }
+      },
+      {
+        "id": "513d1da0-4f6f-4cce-9feb-d3d93f116b9f",
+        "pacienteId": "9f5a6f3b-fb56-494b-83b0-4d9a9fb69855",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "58c0c80b-54a6-4004-a8a9-91fd3596e5fa",
+        "dataConsulta": "2025-12-25T12:45:00.000Z",
+        "anamnese": "Coriza, espirros e obstrução nasal há 2 dias. Refere contato próximo com familiar resfriado.",
+        "exameFisico": "REG, corado, hidratado. Rinoscopia com mucosa hiperemiada e secreção serosa. Orofaringe normal.",
+        "diagnostico": "Rinofaringite viral",
+        "prescricao": "Sintomáticos. Lavagem nasal com soro fisiológico. Repouso. Isolamento enquanto sintomático.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+        "createdAt": "2025-11-26T19:45:25.457Z",
+        "updatedAt": "2025-11-26T19:45:25.457Z",
+        "paciente": {
+          "id": "9f5a6f3b-fb56-494b-83b0-4d9a9fb69855",
+          "nome": "João Carlos Oliveira",
+          "cpf": "23080720245",
+          "email": "joao.carlos.oliveira@email.com",
+          "telefone": "(11) 97654-2461",
+          "dataNascimento": "1965-03-10",
+          "endereco": {
+            "cep": "01310-100",
+            "bairro": "Bela Vista",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "456",
+            "logradouro": "Av. Paulista",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "58c0c80b-54a6-4004-a8a9-91fd3596e5fa",
+          "dataHora": "2025-12-25T12:45:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "AGENDADO",
+          "observacoes": "Consulta 1 - agendamento automático para teste"
+        }
+      },
+      {
+        "id": "4ed90114-fcc9-45f7-a64f-4a6d6baed4bd",
+        "pacienteId": "510e536f-23d1-4222-b214-a51ffc660daf",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "6de29d3e-d8db-4ed0-86da-16e76041043f",
+        "dataConsulta": "2025-12-22T14:00:00.000Z",
+        "anamnese": "Refere febre baixa (37.5°C) há 2 dias, acompanhada de mal-estar geral, cefaleia e mialgia. Iniciou uso de paracetamol com melhora parcial dos sintomas.",
+        "exameFisico": "REG, corado, hidratado. Sinais vitais: PA 110x70, FC 80, Tax 37.2°C. Orofaringe hiperemiada. Linfonodos cervicais palpáveis.",
+        "diagnostico": "Síndrome gripal",
+        "prescricao": "Paracetamol 750mg se febre. Hidratação oral abundante. Repouso domiciliar. Retorno se piora.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+        "createdAt": "2025-11-26T19:45:25.002Z",
+        "updatedAt": "2025-11-26T19:45:25.002Z",
+        "paciente": {
+          "id": "510e536f-23d1-4222-b214-a51ffc660daf",
+          "nome": "Fernando José Sousa",
+          "cpf": "37450147742",
+          "email": "fernando.jose.sousa@email.com",
+          "telefone": "(11) 95432-1155",
+          "dataNascimento": "1968-07-11",
+          "endereco": {
+            "cep": "05405-000",
+            "bairro": "Pinheiros",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "876",
+            "logradouro": "Rua Teodoro Sampaio",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "6de29d3e-d8db-4ed0-86da-16e76041043f",
+          "dataHora": "2025-12-22T14:00:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "AGENDADO",
+          "observacoes": "Consulta 1 - agendamento automático para teste"
+        }
+      },
+      {
+        "id": "126ec260-c83a-4e4d-9ded-8adb3b936bec",
+        "pacienteId": "9f5a6f3b-fb56-494b-83b0-4d9a9fb69855",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "e7865a63-e8c4-42af-89bb-2e97870a6178",
+        "dataConsulta": "2025-12-17T18:00:00.000Z",
+        "anamnese": "Insônia há 2 semanas, com dificuldade para iniciar o sono. Refere preocupações relacionadas ao trabalho e ansiedade.",
+        "exameFisico": "BEG, ansioso, corado, hidratado. Sinais vitais normais. Exame físico sem alterações. Paciente refere tensão muscular.",
+        "diagnostico": "Insônia primária com ansiedade",
+        "prescricao": "Orientações sobre higiene do sono. Melatonina 3mg ao deitar. Técnicas de relaxamento.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+        "createdAt": "2025-11-26T19:45:24.549Z",
+        "updatedAt": "2025-11-26T19:45:24.549Z",
+        "paciente": {
+          "id": "9f5a6f3b-fb56-494b-83b0-4d9a9fb69855",
+          "nome": "João Carlos Oliveira",
+          "cpf": "23080720245",
+          "email": "joao.carlos.oliveira@email.com",
+          "telefone": "(11) 97654-2461",
+          "dataNascimento": "1965-03-10",
+          "endereco": {
+            "cep": "01310-100",
+            "bairro": "Bela Vista",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "456",
+            "logradouro": "Av. Paulista",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "e7865a63-e8c4-42af-89bb-2e97870a6178",
+          "dataHora": "2025-12-17T18:00:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "AGENDADO",
+          "observacoes": "Consulta 2 - agendamento automático para teste"
+        }
+      },
+      {
+        "id": "f2b270b1-1a68-4f21-b594-46bedc040467",
+        "pacienteId": "6fdaf58d-ecd8-491e-8d64-3bc5ea94001e",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "e47d9245-68a3-441e-be4a-d32f6ef8c9da",
+        "dataConsulta": "2025-12-13T16:15:00.000Z",
+        "anamnese": "Dor precordial tipo pontada há 2 dias, principalmente ao respirar fundo. Nega dispneia de repouso, palpitações ou síncope.",
+        "exameFisico": "BEG, corado, hidratado. PA: 115x75, FC: 70. Ausculta cardíaca com bulhas normofonéticas. Dor à palpação do gradil costal.",
+        "diagnostico": "Dor torácica atípica",
+        "prescricao": "Orientação para repouso. Retorno em 48h se persistência dos sintomas. Evitar esforços físicos.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+        "createdAt": "2025-11-26T19:45:24.091Z",
+        "updatedAt": "2025-11-26T19:45:24.091Z",
+        "paciente": {
+          "id": "6fdaf58d-ecd8-491e-8d64-3bc5ea94001e",
+          "nome": "Roberto Carlos Mendes",
+          "cpf": "18642786337",
+          "email": "roberto.carlos.mendes@email.com",
+          "telefone": "(11) 95432-6302",
+          "dataNascimento": "1968-09-07",
+          "endereco": {
+            "cep": "01414-000",
+            "bairro": "Jardins",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "987",
+            "logradouro": "Rua Haddock Lobo",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "e47d9245-68a3-441e-be4a-d32f6ef8c9da",
+          "dataHora": "2025-12-13T16:15:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "AGENDADO",
+          "observacoes": "Consulta 2 - agendamento automático para teste"
+        }
+      },
+      {
+        "id": "5b867469-a68d-445d-af69-0583be8f17ed",
+        "pacienteId": "f2419e92-1847-453c-98e6-971d501c24ff",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "c544c638-115c-4d99-abf2-4d9cc4842f30",
+        "dataConsulta": "2025-12-12T15:30:00.000Z",
+        "anamnese": "Paciente assintomático, comparece para consulta de rotina e check-up geral. Nega queixas específicas no momento.",
+        "exameFisico": "Excelente estado geral, corado, hidratado. Sinais vitais normais. Exame físico geral sem alterações significativas.",
+        "diagnostico": "Paciente hígido - exame normal",
+        "prescricao": "Manter hábitos saudáveis. Retorno em 6 meses. Exames laboratoriais de rotina solicitados.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+        "createdAt": "2025-11-26T19:45:23.639Z",
+        "updatedAt": "2025-11-26T19:45:23.639Z",
+        "paciente": {
+          "id": "f2419e92-1847-453c-98e6-971d501c24ff",
+          "nome": "Maria Silva Santos",
+          "cpf": "80400788497",
+          "email": "maria.silva.santos@email.com",
+          "telefone": "(11) 96543-4566",
+          "dataNascimento": "1991-01-03",
+          "endereco": {
+            "cep": "01234-567",
+            "bairro": "Centro",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "123",
+            "logradouro": "Rua das Flores",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "c544c638-115c-4d99-abf2-4d9cc4842f30",
+          "dataHora": "2025-12-12T15:30:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "AGENDADO",
+          "observacoes": "Consulta 2 - agendamento automático para teste"
+        }
+      },
+      {
+        "id": "0e09d2c7-c6ba-40ff-b484-a183cac48846",
+        "pacienteId": "bb29333e-1a79-4e0b-b2fb-1635b7f2a82b",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "c7a3d820-b40a-4cc5-83fd-d11ff8fb81a5",
+        "dataConsulta": "2025-12-10T18:30:00.000Z",
+        "anamnese": "Queixa-se de dor epigástrica em queimação, principalmente após refeições, há 1 semana. Nega vômitos, diarreia ou alterações significativas do apetite.",
+        "exameFisico": "BEG, corado, hidratado. PA: 130x85, FC: 68. Abdome doloroso à palpação em epigástrio, sem sinais de irritação peritoneal.",
+        "diagnostico": "Dispepsia funcional",
+        "prescricao": "Omeprazol 20mg, 1 cp em jejum por 14 dias. Orientações dietéticas: evitar frituras e condimentos.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+        "createdAt": "2025-11-26T19:45:23.203Z",
+        "updatedAt": "2025-11-26T19:45:23.203Z",
+        "paciente": {
+          "id": "bb29333e-1a79-4e0b-b2fb-1635b7f2a82b",
+          "nome": "Claudia Regina Alves",
+          "cpf": "40560042850",
+          "email": "claudia.regina.alves@email.com",
+          "telefone": "(11) 99876-7905",
+          "dataNascimento": "1991-06-25",
+          "endereco": {
+            "cep": "05402-000",
+            "bairro": "Pinheiros",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "432",
+            "logradouro": "Av. Rebouças",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "c7a3d820-b40a-4cc5-83fd-d11ff8fb81a5",
+          "dataHora": "2025-12-10T18:30:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "AGENDADO",
+          "observacoes": "Consulta 1 - agendamento automático para teste"
+        }
+      },
+      {
+        "id": "10272b40-320b-4279-9a2e-beb2976746fb",
+        "pacienteId": "bb29333e-1a79-4e0b-b2fb-1635b7f2a82b",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "b9717671-c5b2-47b9-8d7f-2dd4ebb75714",
+        "dataConsulta": "2025-12-05T18:15:00.000Z",
+        "anamnese": "Queixa-se de dor epigástrica em queimação, principalmente após refeições, há 1 semana. Nega vômitos, diarreia ou alterações significativas do apetite.",
+        "exameFisico": "BEG, corado, hidratado. PA: 130x85, FC: 68. Abdome doloroso à palpação em epigástrio, sem sinais de irritação peritoneal.",
+        "diagnostico": "Dispepsia funcional",
+        "prescricao": "Omeprazol 20mg, 1 cp em jejum por 14 dias. Orientações dietéticas: evitar frituras e condimentos.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+        "createdAt": "2025-11-26T19:45:22.762Z",
+        "updatedAt": "2025-11-26T19:45:22.762Z",
+        "paciente": {
+          "id": "bb29333e-1a79-4e0b-b2fb-1635b7f2a82b",
+          "nome": "Claudia Regina Alves",
+          "cpf": "40560042850",
+          "email": "claudia.regina.alves@email.com",
+          "telefone": "(11) 99876-7905",
+          "dataNascimento": "1991-06-25",
+          "endereco": {
+            "cep": "05402-000",
+            "bairro": "Pinheiros",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "432",
+            "logradouro": "Av. Rebouças",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "b9717671-c5b2-47b9-8d7f-2dd4ebb75714",
+          "dataHora": "2025-12-05T18:15:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "AGENDADO",
+          "observacoes": "Consulta 2 - agendamento automático para teste"
+        }
+      },
+      {
+        "id": "ec0b2ab8-e753-44d8-ac97-88040073d1a7",
+        "pacienteId": "2c13683c-c9f7-4e84-9cd2-df31bb61eefa",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "f6955043-6c6c-4f29-93f4-c56028b5c5f8",
+        "dataConsulta": "2025-12-03T18:15:00.000Z",
+        "anamnese": "Coriza, espirros e obstrução nasal há 2 dias. Refere contato próximo com familiar resfriado.",
+        "exameFisico": "REG, corado, hidratado. Rinoscopia com mucosa hiperemiada e secreção serosa. Orofaringe normal.",
+        "diagnostico": "Rinofaringite viral",
+        "prescricao": "Sintomáticos. Lavagem nasal com soro fisiológico. Repouso. Isolamento enquanto sintomático.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+        "createdAt": "2025-11-26T19:45:22.340Z",
+        "updatedAt": "2025-11-26T19:45:22.340Z",
+        "paciente": {
+          "id": "2c13683c-c9f7-4e84-9cd2-df31bb61eefa",
+          "nome": "Pedro Henrique Lima",
+          "cpf": "74708824211",
+          "email": "pedro.henrique.lima@email.com",
+          "telefone": "(11) 97654-3103",
+          "dataNascimento": "1986-03-13",
+          "endereco": {
+            "cep": "01301-000",
+            "bairro": "Consolação",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "321",
+            "logradouro": "Rua da Consolação",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "f6955043-6c6c-4f29-93f4-c56028b5c5f8",
+          "dataHora": "2025-12-03T18:15:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "AGENDADO",
+          "observacoes": "Consulta 1 - agendamento automático para teste"
+        }
+      },
+      {
+        "id": "d81dad30-811f-488f-8f44-fe1b7afb2cba",
+        "pacienteId": "7b0c56bf-1e79-4c03-b70f-754be3146c21",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "13430d4e-01ec-43bf-ab6c-7a2de03032bf",
+        "dataConsulta": "2025-11-27T18:15:00.000Z",
+        "anamnese": "Apresenta tosse seca persistente há 5 dias, inicialmente noturna, agora durante todo o dia. Refere leve falta de ar aos esforços e nega febre.",
+        "exameFisico": "REG, discretamente dispneico. PA: 125x80, FC: 88, FR: 22. Ausculta pulmonar com roncos difusos bilateralmente.",
+        "diagnostico": "Bronquite aguda",
+        "prescricao": "Salbutamol spray: 2 jatos se falta de ar. Expectorante xarope. Hidratação. Evitar irritantes.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Consulta realizada conforme agendamento. Paciente orientado sobre tratamento.",
+        "createdAt": "2025-11-26T19:45:21.898Z",
+        "updatedAt": "2025-11-26T19:45:21.898Z",
+        "paciente": {
+          "id": "7b0c56bf-1e79-4c03-b70f-754be3146c21",
+          "nome": "Carla Beatriz Nunes",
+          "cpf": "08746771573",
+          "email": "carla.beatriz.nunes@email.com",
+          "telefone": "(11) 95432-3466",
+          "dataNascimento": "1988-06-30",
+          "endereco": {
+            "cep": "01308-000",
+            "bairro": "Bela Vista",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "543",
+            "logradouro": "Rua da Bela Vista",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "13430d4e-01ec-43bf-ab6c-7a2de03032bf",
+          "dataHora": "2025-11-27T18:15:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "AGENDADO",
+          "observacoes": "Consulta 1 - agendamento automático para teste"
+        }
+      },
+      {
+        "id": "4bda921e-85cf-46d8-b8f1-fa397bc0b362",
+        "pacienteId": "9f5a6f3b-fb56-494b-83b0-4d9a9fb69855",
+        "medicoId": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "agendamentoId": "6eecd5eb-38cb-42c4-b8f7-3dacb507f473",
+        "dataConsulta": "2025-11-26T18:32:31.039Z",
+        "anamnese": "Teleconsulta: Paciente relata sintomas de forma remota. Conexão estável durante toda a consulta.",
+        "exameFisico": "Exame visual remoto: Paciente orientado, sem sinais visuais de desconforto. Limitações do exame físico por teleconsulta documentadas.",
+        "diagnostico": "Diagnóstico baseado em anamnese e exame visual remoto",
+        "prescricao": "",
+        "prescricaoUsoInterno": "Prescrição digital: Paracetamol 500mg - 1 comprimido se dor",
+        "prescricaoUsoExterno": "Orientações de autocuidado via telemedicina",
+        "observacoes": "Consulta realizada via telemedicina. Qualidade de áudio e vídeo adequada. Paciente orientado sobre limitações e próximos passos.",
+        "createdAt": "2025-11-26T21:32:31.294Z",
+        "updatedAt": "2025-11-26T21:32:31.294Z",
+        "paciente": {
+          "id": "9f5a6f3b-fb56-494b-83b0-4d9a9fb69855",
+          "nome": "João Carlos Oliveira",
+          "cpf": "23080720245",
+          "email": "joao.carlos.oliveira@email.com",
+          "telefone": "(11) 97654-2461",
+          "dataNascimento": "1965-03-10",
+          "endereco": {
+            "cep": "01310-100",
+            "bairro": "Bela Vista",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "456",
+            "logradouro": "Av. Paulista",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+          "nome": "Dr. João Santos",
+          "email": "dr.joao@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "6eecd5eb-38cb-42c4-b8f7-3dacb507f473",
+          "dataHora": "2025-11-27T16:00:00.000Z",
+          "tipo": "TELEMEDICINA",
+          "status": "AGENDADO",
+          "observacoes": "Teleconsulta agendada"
+        }
+      },
+      {
+        "id": "6cbe763d-5182-459e-a3af-3b2de6e5560d",
+        "pacienteId": "3fc48ef7-8b7a-4648-8e8b-642d242c5da7",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "85400032-fa21-453f-a577-bb3428ffc88e",
+        "dataConsulta": "2025-11-26T18:29:08.314Z",
+        "anamnese": "Teleconsulta: Paciente relata sintomas de forma remota. Conexão estável durante toda a consulta.",
+        "exameFisico": "Exame visual remoto: Paciente orientado, sem sinais visuais de desconforto. Limitações do exame físico por teleconsulta documentadas.",
+        "diagnostico": "Diagnóstico baseado em anamnese e exame visual remoto",
+        "prescricao": "",
+        "prescricaoUsoInterno": "Prescrição digital: Paracetamol 500mg - 1 comprimido se dor",
+        "prescricaoUsoExterno": "Orientações de autocuidado via telemedicina",
+        "observacoes": "Consulta realizada via telemedicina. Qualidade de áudio e vídeo adequada. Paciente orientado sobre limitações e próximos passos.",
+        "createdAt": "2025-11-26T21:29:08.587Z",
+        "updatedAt": "2025-11-26T21:29:08.587Z",
+        "paciente": {
+          "id": "3fc48ef7-8b7a-4648-8e8b-642d242c5da7",
+          "nome": "Marcos Antonio Silva",
+          "cpf": "60340804106",
+          "email": "marcos.antonio.silva@email.com",
+          "telefone": "(11) 96543-4745",
+          "dataNascimento": "1985-07-01",
+          "endereco": {
+            "cep": "05615-000",
+            "bairro": "Vila Madalena",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "210",
+            "logradouro": "Rua dos Três Irmãos",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "85400032-fa21-453f-a577-bb3428ffc88e",
+          "dataHora": "2025-10-10T14:15:00.000Z",
+          "tipo": "TELEMEDICINA",
+          "status": "CONFIRMADO",
+          "observacoes": "Consulta via telemedicina - cancelada"
+        }
+      },
+      {
+        "id": "bbd69726-4683-4e39-bb23-435c94688820",
+        "pacienteId": "f2419e92-1847-453c-98e6-971d501c24ff",
+        "medicoId": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "agendamentoId": "f9720958-f960-41f0-9247-d65e5e022d40",
+        "dataConsulta": "2025-10-31T19:45:00.000Z",
+        "anamnese": "Paciente assintomático, procura consulta preventiva de rotina. Nega queixas específicas.",
+        "exameFisico": "BEG, corado, hidratado. PA: 115/75 mmHg, FC: 70 bpm. Exame físico geral normal, sem alterações significativas.",
+        "diagnostico": "Paciente hígido - consulta preventiva",
+        "prescricao": "Manter hábitos saudáveis, atividade física regular. Retorno anual ou se necessário.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Prontuário criado para consulta histórica de 31/10/2025 - Consulta de outubro 2025",
+        "createdAt": "2025-11-26T19:56:59.370Z",
+        "updatedAt": "2025-11-26T19:56:59.370Z",
+        "paciente": {
+          "id": "f2419e92-1847-453c-98e6-971d501c24ff",
+          "nome": "Maria Silva Santos",
+          "cpf": "80400788497",
+          "email": "maria.silva.santos@email.com",
+          "telefone": "(11) 96543-4566",
+          "dataNascimento": "1991-01-03",
+          "endereco": {
+            "cep": "01234-567",
+            "bairro": "Centro",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "123",
+            "logradouro": "Rua das Flores",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+          "nome": "Dr. João Santos",
+          "email": "dr.joao@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "f9720958-f960-41f0-9247-d65e5e022d40",
+          "dataHora": "2025-10-31T19:45:00.000Z",
+          "tipo": "TELEMEDICINA",
+          "status": "CONFIRMADO",
+          "observacoes": "Teleconsulta final outubro"
+        }
+      },
+      {
+        "id": "3e263544-58c9-4e71-8b9b-98819e6fe2ca",
+        "pacienteId": "0e807214-8ce0-41e9-8144-04443d29ac52",
+        "medicoId": "eda927f1-a263-403c-a59f-dad467640216",
+        "agendamentoId": "0a046e40-066c-4d7d-bd2e-c418dffce25a",
+        "dataConsulta": "2025-10-29T17:15:00.000Z",
+        "anamnese": "Dispnéia progressiva aos esforços há 1 mês, evoluindo com edema em membros inferiores. Nega dor torácica.",
+        "exameFisico": "REG, corado, hidratado. PA: 130/85 mmHg, FC: 95 bpm. Estertores crepitantes em bases pulmonares, edema +2/+4 em MMII.",
+        "diagnostico": "Insuficiência cardíaca congestiva NYHA II",
+        "prescricao": "Furosemida 40mg 1x/dia pela manhã, Carvedilol 3,25mg 2x/dia. Restrição de sal para 2g/dia. Retorno em 15 dias.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Prontuário criado para consulta histórica de 29/10/2025 - Consulta de outubro 2025",
+        "createdAt": "2025-11-26T19:56:58.859Z",
+        "updatedAt": "2025-11-26T19:56:58.859Z",
+        "paciente": {
+          "id": "0e807214-8ce0-41e9-8144-04443d29ac52",
+          "nome": "Lucia Fernanda Rodrigues",
+          "cpf": "16873078654",
+          "email": "lucia.fernanda.rodrigues@email.com",
+          "telefone": "(11) 98765-7869",
+          "dataNascimento": "1971-09-27",
+          "endereco": {
+            "cep": "01426-000",
+            "bairro": "Jardins",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "654",
+            "logradouro": "Rua Oscar Freire",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "eda927f1-a263-403c-a59f-dad467640216",
+          "nome": "Dr. Ana Oliveira",
+          "email": "dr.ana@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "0a046e40-066c-4d7d-bd2e-c418dffce25a",
+          "dataHora": "2025-10-29T17:15:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "CONFIRMADO",
+          "observacoes": "Consulta de encerramento"
+        }
+      },
+      {
+        "id": "3928454d-2fb7-4e80-bd6a-0df97d5faeea",
+        "pacienteId": "9f5a6f3b-fb56-494b-83b0-4d9a9fb69855",
+        "medicoId": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "agendamentoId": "ba8d9440-cb4b-42ac-afbb-36100bafafbf",
+        "dataConsulta": "2025-10-28T14:00:00.000Z",
+        "anamnese": "Dor epigástrica há 3 dias, acompanhada de náuseas e vômitos ocasionais. Nega febre. Relata uso frequente de AINEs.",
+        "exameFisico": "BEG, corado, hidratado. PA: 120/80 mmHg, FC: 78 bpm. Abdomen doloroso à palpação em epigástrio, sem sinais de irritação peritoneal.",
+        "diagnostico": "Gastrite aguda medicamentosa",
+        "prescricao": "Omeprazol 40mg 1x/dia em jejum por 30 dias. Dieta leve, evitar AINEs. Retorno se necessário.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Prontuário criado para consulta histórica de 28/10/2025 - Consulta de outubro 2025",
+        "createdAt": "2025-11-26T19:56:58.377Z",
+        "updatedAt": "2025-11-26T19:56:58.377Z",
+        "paciente": {
+          "id": "9f5a6f3b-fb56-494b-83b0-4d9a9fb69855",
+          "nome": "João Carlos Oliveira",
+          "cpf": "23080720245",
+          "email": "joao.carlos.oliveira@email.com",
+          "telefone": "(11) 97654-2461",
+          "dataNascimento": "1965-03-10",
+          "endereco": {
+            "cep": "01310-100",
+            "bairro": "Bela Vista",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "456",
+            "logradouro": "Av. Paulista",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+          "nome": "Dr. João Santos",
+          "email": "dr.joao@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "ba8d9440-cb4b-42ac-afbb-36100bafafbf",
+          "dataHora": "2025-10-28T14:00:00.000Z",
+          "tipo": "RETORNO",
+          "status": "CONFIRMADO",
+          "observacoes": "Avaliação final"
+        }
+      },
+      {
+        "id": "414c3c39-07c0-43da-9491-ba45cb9e10d7",
+        "pacienteId": "510e536f-23d1-4222-b214-a51ffc660daf",
+        "medicoId": "eda927f1-a263-403c-a59f-dad467640216",
+        "agendamentoId": "f78a8743-de04-48ce-b5b4-21e8b815fbae",
+        "dataConsulta": "2025-10-24T12:30:00.000Z",
+        "anamnese": "Quadro de cefaléia occipital há 1 mês, associada a tonturas matinais. Paciente hipertenso irregular com medicações.",
+        "exameFisico": "BEG, corado, hidratado. PA: 160/100 mmHg, FC: 92 bpm. Exame neurológico normal, fundoscopia com cruzamentos arteriovenosos.",
+        "diagnostico": "Hipertensão arterial moderada descompensada",
+        "prescricao": "Enalapril 10mg 12/12h, Amlodipina 5mg 1x/dia pela manhã. Controle pressórico domiciliar. Retorno em 15 dias.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Prontuário criado para consulta histórica de 24/10/2025 - Consulta de outubro 2025",
+        "createdAt": "2025-11-26T19:56:57.875Z",
+        "updatedAt": "2025-11-26T19:56:57.875Z",
+        "paciente": {
+          "id": "510e536f-23d1-4222-b214-a51ffc660daf",
+          "nome": "Fernando José Sousa",
+          "cpf": "37450147742",
+          "email": "fernando.jose.sousa@email.com",
+          "telefone": "(11) 95432-1155",
+          "dataNascimento": "1968-07-11",
+          "endereco": {
+            "cep": "05405-000",
+            "bairro": "Pinheiros",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "876",
+            "logradouro": "Rua Teodoro Sampaio",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "eda927f1-a263-403c-a59f-dad467640216",
+          "nome": "Dr. Ana Oliveira",
+          "email": "dr.ana@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "f78a8743-de04-48ce-b5b4-21e8b815fbae",
+          "dataHora": "2025-10-24T12:30:00.000Z",
+          "tipo": "CONSULTA_ESPECIALISTA",
+          "status": "CONFIRMADO",
+          "observacoes": "Consulta cardiológica"
+        }
+      },
+      {
+        "id": "ade56386-cf26-470e-90fb-14fd2dd8d780",
+        "pacienteId": "bb29333e-1a79-4e0b-b2fb-1635b7f2a82b",
+        "medicoId": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "agendamentoId": "7955ab03-c9eb-4fee-af8e-0364944d2ce2",
+        "dataConsulta": "2025-10-23T16:30:00.000Z",
+        "anamnese": "Paciente relata episódios de dor precordial aos esforços há 2 semanas, acompanhada de dispnéia. Nega síncope. HAS controlada com medicação.",
+        "exameFisico": "BEG, corado, hidratado. PA: 140/90 mmHg, FC: 85 bpm. Ausculta cardíaca com sopro sistólico discreto em foco aórtico. Pulsos periféricos palpáveis.",
+        "diagnostico": "Hipertensão arterial leve, suspeita de estenose aórtica",
+        "prescricao": "Losartana 50mg 1x/dia pela manhã. Solicitar ecocardiograma. Retorno em 30 dias.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Prontuário criado para consulta histórica de 23/10/2025 - Consulta de outubro 2025",
+        "createdAt": "2025-11-26T19:56:57.413Z",
+        "updatedAt": "2025-11-26T19:56:57.413Z",
+        "paciente": {
+          "id": "bb29333e-1a79-4e0b-b2fb-1635b7f2a82b",
+          "nome": "Claudia Regina Alves",
+          "cpf": "40560042850",
+          "email": "claudia.regina.alves@email.com",
+          "telefone": "(11) 99876-7905",
+          "dataNascimento": "1991-06-25",
+          "endereco": {
+            "cep": "05402-000",
+            "bairro": "Pinheiros",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "432",
+            "logradouro": "Av. Rebouças",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+          "nome": "Dr. João Santos",
+          "email": "dr.joao@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "7955ab03-c9eb-4fee-af8e-0364944d2ce2",
+          "dataHora": "2025-10-23T16:30:00.000Z",
+          "tipo": "TELEMEDICINA",
+          "status": "CONFIRMADO",
+          "observacoes": "Teleconsulta"
+        }
+      },
+      {
+        "id": "44c0d009-01ad-4b0d-ac02-9714a0587ba4",
+        "pacienteId": "7b0c56bf-1e79-4c03-b70f-754be3146c21",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "f8952c6b-79d7-44e5-aa82-9b518eb75960",
+        "dataConsulta": "2025-10-22T11:15:00.000Z",
+        "anamnese": "Paciente assintomático, procura consulta preventiva de rotina. Nega queixas específicas.",
+        "exameFisico": "BEG, corado, hidratado. PA: 115/75 mmHg, FC: 70 bpm. Exame físico geral normal, sem alterações significativas.",
+        "diagnostico": "Paciente hígido - consulta preventiva",
+        "prescricao": "Manter hábitos saudáveis, atividade física regular. Retorno anual ou se necessário.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Prontuário criado para consulta histórica de 22/10/2025 - Consulta de outubro 2025",
+        "createdAt": "2025-11-26T19:56:56.954Z",
+        "updatedAt": "2025-11-26T19:56:56.954Z",
+        "paciente": {
+          "id": "7b0c56bf-1e79-4c03-b70f-754be3146c21",
+          "nome": "Carla Beatriz Nunes",
+          "cpf": "08746771573",
+          "email": "carla.beatriz.nunes@email.com",
+          "telefone": "(11) 95432-3466",
+          "dataNascimento": "1988-06-30",
+          "endereco": {
+            "cep": "01308-000",
+            "bairro": "Bela Vista",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "543",
+            "logradouro": "Rua da Bela Vista",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "f8952c6b-79d7-44e5-aa82-9b518eb75960",
+          "dataHora": "2025-10-22T11:15:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "CONFIRMADO",
+          "observacoes": "Consulta clínica"
+        }
+      },
+      {
+        "id": "da61f7e3-d570-4953-a316-beb2914b6c46",
+        "pacienteId": "d47d5240-146b-43a7-a977-348b7ecf89c8",
+        "medicoId": "eda927f1-a263-403c-a59f-dad467640216",
+        "agendamentoId": "109be7ba-4776-4859-8140-83dcbd12d836",
+        "dataConsulta": "2025-10-18T19:30:00.000Z",
+        "anamnese": "Dispnéia progressiva aos esforços há 1 mês, evoluindo com edema em membros inferiores. Nega dor torácica.",
+        "exameFisico": "REG, corado, hidratado. PA: 130/85 mmHg, FC: 95 bpm. Estertores crepitantes em bases pulmonares, edema +2/+4 em MMII.",
+        "diagnostico": "Insuficiência cardíaca congestiva NYHA II",
+        "prescricao": "Furosemida 40mg 1x/dia pela manhã, Carvedilol 3,25mg 2x/dia. Restrição de sal para 2g/dia. Retorno em 15 dias.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Prontuário criado para consulta histórica de 18/10/2025 - Consulta de outubro 2025",
+        "createdAt": "2025-11-26T19:56:56.430Z",
+        "updatedAt": "2025-11-26T19:56:56.430Z",
+        "paciente": {
+          "id": "d47d5240-146b-43a7-a977-348b7ecf89c8",
+          "nome": "Ana Paula Costa",
+          "cpf": "23227016885",
+          "email": "ana.paula.costa@email.com",
+          "telefone": "(11) 97654-7595",
+          "dataNascimento": "1972-07-01",
+          "endereco": {
+            "cep": "01305-000",
+            "bairro": "Consolação",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "789",
+            "logradouro": "Rua Augusta",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "eda927f1-a263-403c-a59f-dad467640216",
+          "nome": "Dr. Ana Oliveira",
+          "email": "dr.ana@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "109be7ba-4776-4859-8140-83dcbd12d836",
+          "dataHora": "2025-10-18T19:30:00.000Z",
+          "tipo": "RETORNO",
+          "status": "CONFIRMADO",
+          "observacoes": "Retorno de acompanhamento"
+        }
+      },
+      {
+        "id": "0a314acc-4800-4a42-9e6b-f192c41674bc",
+        "pacienteId": "f2419e92-1847-453c-98e6-971d501c24ff",
+        "medicoId": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "agendamentoId": "aac6289a-ff8a-483a-a845-ee6f4f5b199f",
+        "dataConsulta": "2025-10-11T17:00:00.000Z",
+        "anamnese": "Dor epigástrica há 3 dias, acompanhada de náuseas e vômitos ocasionais. Nega febre. Relata uso frequente de AINEs.",
+        "exameFisico": "BEG, corado, hidratado. PA: 120/80 mmHg, FC: 78 bpm. Abdomen doloroso à palpação em epigástrio, sem sinais de irritação peritoneal.",
+        "diagnostico": "Gastrite aguda medicamentosa",
+        "prescricao": "Omeprazol 40mg 1x/dia em jejum por 30 dias. Dieta leve, evitar AINEs. Retorno se necessário.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Prontuário criado para consulta histórica de 11/10/2025 - Consulta de outubro 2025",
+        "createdAt": "2025-11-26T19:56:55.936Z",
+        "updatedAt": "2025-11-26T19:56:55.936Z",
+        "paciente": {
+          "id": "f2419e92-1847-453c-98e6-971d501c24ff",
+          "nome": "Maria Silva Santos",
+          "cpf": "80400788497",
+          "email": "maria.silva.santos@email.com",
+          "telefone": "(11) 96543-4566",
+          "dataNascimento": "1991-01-03",
+          "endereco": {
+            "cep": "01234-567",
+            "bairro": "Centro",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "123",
+            "logradouro": "Rua das Flores",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+          "nome": "Dr. João Santos",
+          "email": "dr.joao@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "aac6289a-ff8a-483a-a845-ee6f4f5b199f",
+          "dataHora": "2025-10-11T17:00:00.000Z",
+          "tipo": "RETORNO",
+          "status": "CONFIRMADO",
+          "observacoes": "Retorno programado"
+        }
+      },
+      {
+        "id": "65fdcfaf-371b-43b4-a9cb-0a8e5cef5b67",
+        "pacienteId": "0e807214-8ce0-41e9-8144-04443d29ac52",
+        "medicoId": "eda927f1-a263-403c-a59f-dad467640216",
+        "agendamentoId": "ec653016-f185-416e-bfe1-4a1349e37272",
+        "dataConsulta": "2025-10-09T11:30:00.000Z",
+        "anamnese": "Quadro de cefaléia occipital há 1 mês, associada a tonturas matinais. Paciente hipertenso irregular com medicações.",
+        "exameFisico": "BEG, corado, hidratado. PA: 160/100 mmHg, FC: 92 bpm. Exame neurológico normal, fundoscopia com cruzamentos arteriovenosos.",
+        "diagnostico": "Hipertensão arterial moderada descompensada",
+        "prescricao": "Enalapril 10mg 12/12h, Amlodipina 5mg 1x/dia pela manhã. Controle pressórico domiciliar. Retorno em 15 dias.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Prontuário criado para consulta histórica de 09/10/2025 - Consulta de outubro 2025",
+        "createdAt": "2025-11-26T19:56:55.385Z",
+        "updatedAt": "2025-11-26T19:56:55.385Z",
+        "paciente": {
+          "id": "0e807214-8ce0-41e9-8144-04443d29ac52",
+          "nome": "Lucia Fernanda Rodrigues",
+          "cpf": "16873078654",
+          "email": "lucia.fernanda.rodrigues@email.com",
+          "telefone": "(11) 98765-7869",
+          "dataNascimento": "1971-09-27",
+          "endereco": {
+            "cep": "01426-000",
+            "bairro": "Jardins",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "654",
+            "logradouro": "Rua Oscar Freire",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "eda927f1-a263-403c-a59f-dad467640216",
+          "nome": "Dr. Ana Oliveira",
+          "email": "dr.ana@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "ec653016-f185-416e-bfe1-4a1349e37272",
+          "dataHora": "2025-10-09T11:30:00.000Z",
+          "tipo": "CONSULTA_ESPECIALISTA",
+          "status": "CONFIRMADO",
+          "observacoes": "Avaliação clínica completa"
+        }
+      },
+      {
+        "id": "9fd42f85-461f-4cd4-bdb8-f4fe3ac794c7",
+        "pacienteId": "9f5a6f3b-fb56-494b-83b0-4d9a9fb69855",
+        "medicoId": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "agendamentoId": "86f124c6-9cbe-48d3-aaf3-737917075053",
+        "dataConsulta": "2025-10-08T18:45:00.000Z",
+        "anamnese": "Paciente relata episódios de dor precordial aos esforços há 2 semanas, acompanhada de dispnéia. Nega síncope. HAS controlada com medicação.",
+        "exameFisico": "BEG, corado, hidratado. PA: 140/90 mmHg, FC: 85 bpm. Ausculta cardíaca com sopro sistólico discreto em foco aórtico. Pulsos periféricos palpáveis.",
+        "diagnostico": "Hipertensão arterial leve, suspeita de estenose aórtica",
+        "prescricao": "Losartana 50mg 1x/dia pela manhã. Solicitar ecocardiograma. Retorno em 30 dias.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Prontuário criado para consulta histórica de 08/10/2025 - Consulta de outubro 2025",
+        "createdAt": "2025-11-26T19:56:54.843Z",
+        "updatedAt": "2025-11-26T19:56:54.843Z",
+        "paciente": {
+          "id": "9f5a6f3b-fb56-494b-83b0-4d9a9fb69855",
+          "nome": "João Carlos Oliveira",
+          "cpf": "23080720245",
+          "email": "joao.carlos.oliveira@email.com",
+          "telefone": "(11) 97654-2461",
+          "dataNascimento": "1965-03-10",
+          "endereco": {
+            "cep": "01310-100",
+            "bairro": "Bela Vista",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "456",
+            "logradouro": "Av. Paulista",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+          "nome": "Dr. João Santos",
+          "email": "dr.joao@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "86f124c6-9cbe-48d3-aaf3-737917075053",
+          "dataHora": "2025-10-08T18:45:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "CONFIRMADO",
+          "observacoes": "Consulta de acompanhamento"
+        }
+      },
+      {
+        "id": "018a26d5-b5ac-4129-843d-e21bb9def450",
+        "pacienteId": "9a109b9a-b3c0-4531-8106-28b7f95dc348",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "2fa27ef6-69cc-423a-972e-74daf6d3d8ea",
+        "dataConsulta": "2025-10-04T13:30:00.000Z",
+        "anamnese": "Paciente assintomático, procura consulta preventiva de rotina. Nega queixas específicas.",
+        "exameFisico": "BEG, corado, hidratado. PA: 115/75 mmHg, FC: 70 bpm. Exame físico geral normal, sem alterações significativas.",
+        "diagnostico": "Paciente hígido - consulta preventiva",
+        "prescricao": "Manter hábitos saudáveis, atividade física regular. Retorno anual ou se necessário.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Prontuário criado para consulta histórica de 04/10/2025 - Consulta de outubro 2025",
+        "createdAt": "2025-11-26T19:56:54.303Z",
+        "updatedAt": "2025-11-26T19:56:54.303Z",
+        "paciente": {
+          "id": "9a109b9a-b3c0-4531-8106-28b7f95dc348",
+          "nome": "Gabriela Santos Pereira",
+          "cpf": "83160732266",
+          "email": "gabriela.santos.pereira@email.com",
+          "telefone": "(11) 96543-2581",
+          "dataNascimento": "1999-03-16",
+          "endereco": {
+            "cep": "04552-000",
+            "bairro": "Itaim Bibi",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "765",
+            "logradouro": "Av. Faria Lima",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "2fa27ef6-69cc-423a-972e-74daf6d3d8ea",
+          "dataHora": "2025-10-04T13:30:00.000Z",
+          "tipo": "RETORNO",
+          "status": "CONFIRMADO",
+          "observacoes": "Revisão de medicamentos"
+        }
+      },
+      {
+        "id": "fc1dd6db-854f-4241-996d-ba6551118e78",
+        "pacienteId": "510e536f-23d1-4222-b214-a51ffc660daf",
+        "medicoId": "eda927f1-a263-403c-a59f-dad467640216",
+        "agendamentoId": "aa03ade3-ed9f-4660-a3ee-bbe7409b096c",
+        "dataConsulta": "2025-10-03T19:00:00.000Z",
+        "anamnese": "Dispnéia progressiva aos esforços há 1 mês, evoluindo com edema em membros inferiores. Nega dor torácica.",
+        "exameFisico": "REG, corado, hidratado. PA: 130/85 mmHg, FC: 95 bpm. Estertores crepitantes em bases pulmonares, edema +2/+4 em MMII.",
+        "diagnostico": "Insuficiência cardíaca congestiva NYHA II",
+        "prescricao": "Furosemida 40mg 1x/dia pela manhã, Carvedilol 3,25mg 2x/dia. Restrição de sal para 2g/dia. Retorno em 15 dias.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Prontuário criado para consulta histórica de 03/10/2025 - Consulta de outubro 2025",
+        "createdAt": "2025-11-26T19:56:53.807Z",
+        "updatedAt": "2025-11-26T19:56:53.807Z",
+        "paciente": {
+          "id": "510e536f-23d1-4222-b214-a51ffc660daf",
+          "nome": "Fernando José Sousa",
+          "cpf": "37450147742",
+          "email": "fernando.jose.sousa@email.com",
+          "telefone": "(11) 95432-1155",
+          "dataNascimento": "1968-07-11",
+          "endereco": {
+            "cep": "05405-000",
+            "bairro": "Pinheiros",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "876",
+            "logradouro": "Rua Teodoro Sampaio",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "eda927f1-a263-403c-a59f-dad467640216",
+          "nome": "Dr. Ana Oliveira",
+          "email": "dr.ana@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "aa03ade3-ed9f-4660-a3ee-bbe7409b096c",
+          "dataHora": "2025-10-03T19:00:00.000Z",
+          "tipo": "EXAME",
+          "status": "CONFIRMADO",
+          "observacoes": "Exame cardiológico preventivo"
+        }
+      },
+      {
+        "id": "6bf98b9b-448e-43b1-830d-07c7fd8fde08",
+        "pacienteId": "bb29333e-1a79-4e0b-b2fb-1635b7f2a82b",
+        "medicoId": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "agendamentoId": "da9d7796-4651-495e-91ff-cff50415b0fc",
+        "dataConsulta": "2025-10-03T12:15:00.000Z",
+        "anamnese": "Dor epigástrica há 3 dias, acompanhada de náuseas e vômitos ocasionais. Nega febre. Relata uso frequente de AINEs.",
+        "exameFisico": "BEG, corado, hidratado. PA: 120/80 mmHg, FC: 78 bpm. Abdomen doloroso à palpação em epigástrio, sem sinais de irritação peritoneal.",
+        "diagnostico": "Gastrite aguda medicamentosa",
+        "prescricao": "Omeprazol 40mg 1x/dia em jejum por 30 dias. Dieta leve, evitar AINEs. Retorno se necessário.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Prontuário criado para consulta histórica de 03/10/2025 - Consulta de outubro 2025",
+        "createdAt": "2025-11-26T19:56:53.318Z",
+        "updatedAt": "2025-11-26T19:56:53.318Z",
+        "paciente": {
+          "id": "bb29333e-1a79-4e0b-b2fb-1635b7f2a82b",
+          "nome": "Claudia Regina Alves",
+          "cpf": "40560042850",
+          "email": "claudia.regina.alves@email.com",
+          "telefone": "(11) 99876-7905",
+          "dataNascimento": "1991-06-25",
+          "endereco": {
+            "cep": "05402-000",
+            "bairro": "Pinheiros",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "432",
+            "logradouro": "Av. Rebouças",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+          "nome": "Dr. João Santos",
+          "email": "dr.joao@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "da9d7796-4651-495e-91ff-cff50415b0fc",
+          "dataHora": "2025-10-03T12:15:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "CONFIRMADO",
+          "observacoes": "Consulta clínica geral"
+        }
+      },
+      {
+        "id": "4989f9d3-266b-42bc-96fd-bc4904318d48",
+        "pacienteId": "7b0c56bf-1e79-4c03-b70f-754be3146c21",
+        "medicoId": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "agendamentoId": "018a2508-4e8b-4342-ba10-c1202c5803db",
+        "dataConsulta": "2025-10-02T17:30:00.000Z",
+        "anamnese": "Quadro de cefaléia occipital há 1 mês, associada a tonturas matinais. Paciente hipertenso irregular com medicações.",
+        "exameFisico": "BEG, corado, hidratado. PA: 160/100 mmHg, FC: 92 bpm. Exame neurológico normal, fundoscopia com cruzamentos arteriovenosos.",
+        "diagnostico": "Hipertensão arterial moderada descompensada",
+        "prescricao": "Enalapril 10mg 12/12h, Amlodipina 5mg 1x/dia pela manhã. Controle pressórico domiciliar. Retorno em 15 dias.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Prontuário criado para consulta histórica de 02/10/2025 - Consulta de outubro 2025",
+        "createdAt": "2025-11-26T19:56:52.850Z",
+        "updatedAt": "2025-11-26T19:56:52.850Z",
+        "paciente": {
+          "id": "7b0c56bf-1e79-4c03-b70f-754be3146c21",
+          "nome": "Carla Beatriz Nunes",
+          "cpf": "08746771573",
+          "email": "carla.beatriz.nunes@email.com",
+          "telefone": "(11) 95432-3466",
+          "dataNascimento": "1988-06-30",
+          "endereco": {
+            "cep": "01308-000",
+            "bairro": "Bela Vista",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "543",
+            "logradouro": "Rua da Bela Vista",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+          "nome": "Dr. Carlos Silva",
+          "email": "dr.carlos@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "018a2508-4e8b-4342-ba10-c1202c5803db",
+          "dataHora": "2025-10-02T17:30:00.000Z",
+          "tipo": "CONSULTA_ESPECIALISTA",
+          "status": "CONFIRMADO",
+          "observacoes": "Acompanhamento pós-cirúrgico"
+        }
+      },
+      {
+        "id": "814932db-6977-4043-bf8e-c64547dc2c20",
+        "pacienteId": "d47d5240-146b-43a7-a977-348b7ecf89c8",
+        "medicoId": "eda927f1-a263-403c-a59f-dad467640216",
+        "agendamentoId": "0baa547a-507a-4289-8383-edf4eecc8d01",
+        "dataConsulta": "2025-10-02T11:00:00.000Z",
+        "anamnese": "Paciente relata episódios de dor precordial aos esforços há 2 semanas, acompanhada de dispnéia. Nega síncope. HAS controlada com medicação.",
+        "exameFisico": "BEG, corado, hidratado. PA: 140/90 mmHg, FC: 85 bpm. Ausculta cardíaca com sopro sistólico discreto em foco aórtico. Pulsos periféricos palpáveis.",
+        "diagnostico": "Hipertensão arterial leve, suspeita de estenose aórtica",
+        "prescricao": "Losartana 50mg 1x/dia pela manhã. Solicitar ecocardiograma. Retorno em 30 dias.",
+        "prescricaoUsoInterno": "",
+        "prescricaoUsoExterno": "",
+        "observacoes": "Prontuário criado para consulta histórica de 02/10/2025 - Consulta de outubro 2025",
+        "createdAt": "2025-11-26T19:56:52.385Z",
+        "updatedAt": "2025-11-26T19:56:52.385Z",
+        "paciente": {
+          "id": "d47d5240-146b-43a7-a977-348b7ecf89c8",
+          "nome": "Ana Paula Costa",
+          "cpf": "23227016885",
+          "email": "ana.paula.costa@email.com",
+          "telefone": "(11) 97654-7595",
+          "dataNascimento": "1972-07-01",
+          "endereco": {
+            "cep": "01305-000",
+            "bairro": "Consolação",
+            "cidade": "São Paulo",
+            "estado": "SP",
+            "numero": "789",
+            "logradouro": "Rua Augusta",
+            "complemento": ""
+          },
+          "convenio": null,
+          "numeroConvenio": null
+        },
+        "medico": {
+          "id": "eda927f1-a263-403c-a59f-dad467640216",
+          "nome": "Dr. Ana Oliveira",
+          "email": "dr.ana@sgh.com",
+          "papel": "MEDICO"
+        },
+        "agendamento": {
+          "id": "0baa547a-507a-4289-8383-edf4eecc8d01",
+          "dataHora": "2025-10-02T11:00:00.000Z",
+          "tipo": "CONSULTA_GERAL",
+          "status": "CONFIRMADO",
+          "observacoes": "Consulta de rotina cardiológica"
+        }
+      }
+    ],
+    "usuarios": [
+      {
+        "id": "36f4ee67-e867-4b1d-a613-df19497da66b",
+        "nome": "Administrador do Sistema",
+        "email": "admin@sgh.com",
+        "role": "ADMIN",
+        "createdAt": "2025-11-26T16:40:44.074Z",
+        "telefone": null,
+        "isActive": true
+      },
+      {
+        "id": "eda927f1-a263-403c-a59f-dad467640216",
+        "nome": "Dr. Ana Oliveira",
+        "email": "dr.ana@sgh.com",
+        "role": "MEDICO",
+        "createdAt": "2025-11-26T16:43:47.415Z",
+        "telefone": null,
+        "isActive": true
+      },
+      {
+        "id": "be184b17-1ed5-4ad9-824b-f426baa55057",
+        "nome": "Dr. Carlos Silva",
+        "email": "dr.carlos@sgh.com",
+        "role": "MEDICO",
+        "createdAt": "2025-11-26T16:43:46.892Z",
+        "telefone": null,
+        "isActive": true
+      },
+      {
+        "id": "eeef1281-ed01-43c2-b9a6-365e83414abc",
+        "nome": "Dr. João Santos",
+        "email": "dr.joao@sgh.com",
+        "role": "MEDICO",
+        "createdAt": "2025-11-26T16:43:47.855Z",
+        "telefone": null,
+        "isActive": true
+      },
+      {
+        "id": "43c7359d-12cc-4795-b26b-818e06cb3027",
+        "nome": "Jefferson Santos",
+        "email": "jeffersonalemidasantos2014@gmail.com",
+        "role": "ADMIN",
+        "createdAt": "2025-11-26T16:35:14.417Z",
+        "telefone": null,
+        "isActive": true
+      }
+    ]
+  }
+}

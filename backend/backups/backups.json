@@ -1,0 +1,11 @@
+[
+  {
+    "id": "backup_2025-12-04T15-32-09-044Z_tm8g3w",
+    "data": "2025-12-04T15:32:09.044Z",
+    "tipo": "manual",
+    "tamanho": 131497,
+    "status": "sucesso",
+    "localizacao": "I:\\Projeto_SGH\\backend\\backups\\backup_manual_1764862329046.json",
+    "hash": "9192dd55dee3964fbd717370d56b848c1cfa2182279c16a5a62040757d746ce0"
+  }
+]
