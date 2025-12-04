@@ -19,8 +19,11 @@ import PerfilUsuario from "./pages/PerfilUsuario";
 import CadastroPaciente from "./pages/CadastroPaciente";
 import CadastroProntuario from "./pages/CadastroProntuario";
 import CadastroAgendamento from "./pages/CadastroAgendamento";
-import SalaTelemedicina from "./pages/SalaTelemedicina";
+import SalaTelemedicina from "./pages/SalaTelemedicinaSafe";
 import SalaTelemedicinaTeste from "./pages/SalaTelemedicinaTeste";
+import TelemedicinaDirect from "./pages/TelemedicinaDirect";
+import PacienteVideochamada from "./pages/PacienteVideochamada";
+import TesteSimples from "./pages/TesteSimples";
 
 const queryClient = new QueryClient();
 
@@ -170,6 +173,18 @@ const App = () => (
                   <SalaTelemedicinaTeste />
                 </ProtectedRoute>
               } 
+            />
+            
+            {/* Rota pública para pacientes se conectarem */}
+            <Route 
+              path="/paciente-videochamada" 
+              element={<TesteSimples />} 
+            />
+            
+            {/* Rota completa do paciente (para depois) */}
+            <Route 
+              path="/paciente-videochamada-completo" 
+              element={<PacienteVideochamada />} 
             />
             
             {/* Rota de fallback */}
