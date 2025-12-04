@@ -42,7 +42,7 @@ export class AgendamentoController {
     @Query('limit') limit?: string,
   ): Promise<Agendamento[]> {
     const pageNumber = page ? parseInt(page, 10) : 1;
-    const limitNumber = limit ? parseInt(limit, 10) : 10;
+    const limitNumber = limit ? parseInt(limit, 10) : 50;
     return await this.agendamentoUseCase.findAll(pageNumber, limitNumber);
   }
 

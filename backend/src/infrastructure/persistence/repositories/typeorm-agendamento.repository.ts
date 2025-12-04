@@ -34,11 +34,13 @@ export class TypeOrmAgendamentoRepository implements AgendamentoRepository {
     return entity ? this.toDomain(entity) : null;
   }
 
-  async findAll(): Promise<Agendamento[]> {
+  async findAll(page = 1, limit = 50): Promise<Agendamento[]> {
     const entities = await this.repository.find({ 
       where: { isActive: true },
       relations: ['paciente', 'medico'],
-      order: { dataHora: 'ASC' }
+      order: { createdAt: 'DESC', dataHora: 'DESC' },
+      skip: (page - 1) * limit,
+      take: limit
     });
     return entities.map(entity => this.toDomain(entity));
   }
@@ -107,7 +109,7 @@ export class TypeOrmAgendamentoRepository implements AgendamentoRepository {
   }
 
   private toDomain(entity: AgendamentoEntity): Agendamento {
-    return new Agendamento(
+    const agendamento = new Agendamento(
       entity.id,
       entity.pacienteId,
       entity.medicoId,
@@ -118,5 +120,27 @@ export class TypeOrmAgendamentoRepository implements AgendamentoRepository {
       entity.createdAt,
       entity.updatedAt,
     );
+
+    // Adicionar relações se disponíveis
+    if (entity.paciente) {
+      (agendamento as any).paciente = {
+        id: entity.paciente.id,
+        nome: entity.paciente.nome,
+        cpf: entity.paciente.cpf,
+        telefone: entity.paciente.telefone,
+        email: entity.paciente.email
+      };
+    }
+
+    if (entity.medico) {
+      (agendamento as any).medico = {
+        id: entity.medico.id,
+        nome: entity.medico.nome,
+        email: entity.medico.email,
+        crm: (entity.medico as any).crm || 'N/A'
+      };
+    }
+
+    return agendamento;
   }
 }

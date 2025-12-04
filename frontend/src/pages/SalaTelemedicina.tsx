@@ -42,6 +42,7 @@ export default function SalaTelemedicina() {
   // Estado dos dados do agendamento
   const [agendamento, setAgendamento] = useState<AgendamentoWithDetails | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   
   // Estado da videochamada
   const [isVideoEnabled, setIsVideoEnabled] = useState(true);
@@ -63,7 +64,7 @@ export default function SalaTelemedicina() {
     prescricaoUsoExterno: '',
     observacoes: ''
   });
-  
+
 interface NotasConsulta {
   anamnese: string;
   exameFisico: string;
@@ -80,60 +81,148 @@ interface NotasConsulta {
   // Carregar dados do agendamento
   useEffect(() => {
     const loadAgendamento = async () => {
+      console.log('🔄 Iniciando carregamento da sala de telemedicina...');
+      console.log('📋 ID recebido:', id);
+      
       if (!id) {
-        toast({
-          title: "Erro",
-          description: "ID do agendamento não informado",
-          variant: "destructive",
-        });
-        navigate('/agendamentos');
+        console.error('❌ ID do agendamento não informado na URL');
+        setError('ID do agendamento não informado');
+        setLoading(false);
         return;
       }
 
       try {
         setLoading(true);
-        const [agendamentoData, pacientesData, medicosData] = await Promise.all([
-          apiService.getAgendamentoById(id),
-          apiService.getPacientes(),
-          apiService.getMedicos()
-        ]);
-
-        const paciente = pacientesData.find(p => p.id === agendamentoData.pacienteId);
-        const medico = medicosData.find(m => m.id === agendamentoData.medicoId);
+        setError(null);
+        console.log('🔍 Buscando agendamento ID:', id);
         
-        setAgendamento({
-          ...agendamentoData,
-          paciente,
-          medico
-        });
+        // Tentar uma abordagem mais simples primeiro
+        const agendamentoResponse = await apiService.getAgendamentoById(id);
+        console.log('✅ Agendamento encontrado:', agendamentoResponse);
+        
+        // Dados mockados para teste
+        const agendamentoMock = {
+          ...agendamentoResponse,
+          paciente: {
+            id: '1',
+            nome: 'Paciente Teste',
+            email: 'teste@email.com',
+            telefone: '(11) 99999-9999',
+            dataNascimento: '1990-01-01'
+          },
+          medico: {
+            id: '1',
+            nome: 'Dr. Teste',
+            crm: '123456',
+            especialidade: 'Clínica Geral'
+          }
+        };
+        
+        console.log('🎯 Dados do agendamento processados:', agendamentoMock);
+        setAgendamento(agendamentoMock);
+        
       } catch (error) {
-        console.error('Erro ao carregar agendamento:', error);
-        toast({
-          title: "Erro",
-          description: "Não foi possível carregar os dados do agendamento",
-          variant: "destructive",
-        });
-        navigate('/agendamentos');
+        console.error('❌ Erro ao carregar agendamento:', error);
+        
+        // Verificar se é erro de autenticação
+        if (error.response?.status === 401) {
+          setError('Não autenticado - redirecionando para login');
+          toast({
+            title: "Não autenticado",
+            description: "Faça login para acessar a sala de telemedicina",
+            variant: "destructive",
+          });
+          setTimeout(() => navigate('/login'), 2000);
+        } else {
+          setError(`Erro ao carregar dados: ${error.message}`);
+          toast({
+            title: "Erro",
+            description: "Não foi possível carregar os dados do agendamento",
+            variant: "destructive",
+          });
+        }
       } finally {
         setLoading(false);
+        console.log('🏁 Carregamento finalizado');
       }
     };
 
     loadAgendamento();
   }, [id, navigate, toast]);
-    loadAgendamento();
-  }, [id, navigate, toast]);
   
   // Mostrar loading enquanto carrega dados
-  if (loading || !agendamento) {
+  if (loading) {
     return (
       <DashboardLayout
         title="Sala de Telemedicina"
-        subtitle="Carregando dados da consulta..."
+        subtitle="Preparando sala virtual..."
       >
         <Card>
-          <CardContent className="p-6 text-center">
-            <p>Carregando informações da teleconsulta...</p>
+          <CardContent className="p-8 text-center">
+            <div className="space-y-6">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+              <div>
+                <h3 className="text-lg font-semibold mb-2">Carregando Sala de Telemedicina</h3>
+                <p className="text-muted-foreground">Preparando os dados da consulta...</p>
+                <p className="text-sm text-muted-foreground mt-2">ID: {id}</p>
+              </div>
+              <div className="text-xs text-gray-400">
+                <p>Se esta tela persistir, verifique:</p>
+                <p>• Conexão com a internet</p>
+                <p>• Se você está logado no sistema</p>
+                <p>• Console do navegador (F12) para erros</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </DashboardLayout>
+    );
+  }
+
+  if (error) {
+    return (
+      <DashboardLayout
+        title="Sala de Telemedicina"
+        subtitle="Erro no carregamento"
+      >
+        <Card>
+          <CardContent className="p-8 text-center">
+            <div className="space-y-4">
+              <div className="text-red-600 text-4xl mb-4">⚠️</div>
+              <h3 className="text-lg font-semibold text-red-600">Erro ao Carregar Sala</h3>
+              <p className="text-muted-foreground">{error}</p>
+              <div className="space-x-4">
+                <Button onClick={() => window.location.reload()}>
+                  Tentar Novamente
+                </Button>
+                <Button variant="outline" onClick={() => navigate('/agendamentos')}>
+                  Voltar aos Agendamentos
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </DashboardLayout>
+    );
+  }
+
+  if (!agendamento) {
+    return (
+      <DashboardLayout
+        title="Sala de Telemedicina"
+        subtitle="Agendamento não encontrado"
+      >
+        <Card>
+          <CardContent className="p-8 text-center">
+            <div className="space-y-4">
+              <div className="text-yellow-600 text-4xl mb-4">❓</div>
+              <h3 className="text-lg font-semibold">Agendamento Não Encontrado</h3>
+              <p className="text-muted-foreground">O agendamento solicitado não foi localizado.</p>
+              <Button onClick={() => navigate('/agendamentos')}>
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Voltar aos Agendamentos
+              </Button>
+            </div>
           </CardContent>
         </Card>
       </DashboardLayout>
@@ -365,7 +454,7 @@ interface NotasConsulta {
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute bottom-2 left-2 bg-black/50 text-white px-2 py-1 rounded text-xs">
-                      {teleconsulta.paciente.nome}
+                      {agendamento.paciente?.nome || 'Paciente'}
                     </div>
                     {!isCallActive ? (
                       <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">

@@ -102,7 +102,7 @@ export class AgendamentoUseCase {
     return await this.agendamentoRepository.findByDateRange(startDate, endDate);
   }
 
-  async findAll(page = 1, limit = 10): Promise<Agendamento[]> {
+  async findAll(page = 1, limit = 50): Promise<Agendamento[]> {
     return await this.agendamentoRepository.findAll(page, limit);
   }
 

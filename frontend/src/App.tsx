@@ -20,6 +20,7 @@ import CadastroPaciente from "./pages/CadastroPaciente";
 import CadastroProntuario from "./pages/CadastroProntuario";
 import CadastroAgendamento from "./pages/CadastroAgendamento";
 import SalaTelemedicina from "./pages/SalaTelemedicina";
+import SalaTelemedicinaTeste from "./pages/SalaTelemedicinaTeste";
 
 const queryClient = new QueryClient();
 
@@ -157,6 +158,16 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <SalaTelemedicina />
+                </ProtectedRoute>
+              } 
+            />
+            
+            {/* Rota de Teste da Telemedicina */}
+            <Route 
+              path="/telemedicina-teste/:id" 
+              element={
+                <ProtectedRoute>
+                  <SalaTelemedicinaTeste />
                 </ProtectedRoute>
               } 
             />
