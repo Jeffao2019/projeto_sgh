@@ -8,11 +8,46 @@ export default function PacienteVideochamada() {
   const [connected, setConnected] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [meetLink, setMeetLink] = useState<string | null>(null);
+  const [sessionActive, setSessionActive] = useState<boolean>(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   
   const inviteId = searchParams.get('invite');
   const agendamentoId = searchParams.get('agendamento');
   const meetUrl = searchParams.get('meet');
+
+  // Verificar se há uma sessão de telemedicina ativa
+  useEffect(() => {
+    const checkActiveSession = () => {
+      try {
+        const sessionData = localStorage.getItem('telemedicina_session');
+        if (sessionData) {
+          const data = JSON.parse(sessionData);
+          
+          // Verificar se a sessão é para este agendamento
+          if (data.agendamentoId === agendamentoId && data.isActive) {
+            console.log('📹 Sessão de telemedicina ativa encontrada:', data);
+            setSessionActive(true);
+            setMeetLink(data.meetLink);
+            
+            // Notificar automaticamente sobre sessão ativa
+            if (!connected && !isConnecting) {
+              alert('🎥 VIDEOCHAMADA INICIADA!\n\n👨‍⚕️ Seu médico iniciou a videochamada\n📹 A consulta está pronta para começar\n\n💡 Clique em "Entrar no Google Meet" para participar');
+            }
+          }
+        }
+      } catch (error) {
+        console.error('❌ Erro ao verificar sessão ativa:', error);
+      }
+    };
+
+    // Verificar imediatamente
+    checkActiveSession();
+
+    // Verificar periodicamente se há mudanças na sessão
+    const interval = setInterval(checkActiveSession, 2000);
+
+    return () => clearInterval(interval);
+  }, [agendamentoId, connected, isConnecting]);
 
   useEffect(() => {
     if (meetUrl) {
@@ -132,7 +167,17 @@ export default function PacienteVideochamada() {
   }
 
   return (
-    <div style={{ 
+    <>
+      <style>
+        {`
+          @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+          }
+        `}
+      </style>
+      <div style={{ 
       padding: '20px', 
       fontFamily: 'Arial',
       maxWidth: '600px',
@@ -155,6 +200,31 @@ export default function PacienteVideochamada() {
           Sistema SGH - Videochamada com seu médico
         </p>
       </div>
+
+      {/* Indicador de Sessão Ativa */}
+      {sessionActive && (
+        <div style={{ 
+          backgroundColor: '#d4edda',
+          border: '2px solid #28a745',
+          borderRadius: '8px',
+          padding: '15px',
+          marginBottom: '20px',
+          animation: 'pulse 2s infinite'
+        }}>
+          <h3 style={{ color: '#155724', margin: '0 0 10px 0' }}>
+            🟢 Videochamada Ativa!
+          </h3>
+          <p style={{ color: '#155724', margin: '5px 0' }}>
+            <strong>📹 Seu médico iniciou a videochamada</strong>
+          </p>
+          <p style={{ color: '#155724', margin: '5px 0', fontSize: '14px' }}>
+            ⏰ A consulta está pronta para começar
+          </p>
+          <p style={{ color: '#155724', margin: '5px 0', fontSize: '14px' }}>
+            💡 Clique no botão "Entrar no Google Meet" abaixo
+          </p>
+        </div>
+      )}
 
       {meetLink && (
         <div style={{ 
@@ -342,5 +412,6 @@ export default function PacienteVideochamada() {
         <p style={{ margin: '5px 0' }}>Agendamento: {agendamentoId}</p>
       </div>
     </div>
+    </>
   );
 }

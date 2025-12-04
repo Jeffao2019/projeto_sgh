@@ -28,9 +28,7 @@ interface FormData {
   anamnese: string;
   exameFisico: string;
   diagnostico: string;
-  prescricao?: string; // Opcional - para uso interno do hospital
-  prescricaoUsoInterno: string; // Opcional - para ambiente domiciliar
-  prescricaoUsoExterno: string; // Opcional - para ambiente externo
+  prescricao: string; // Prescrição unificada
   observacoes: string;
 }
 
@@ -121,8 +119,6 @@ export default function CadastroProntuario() {
     exameFisico: "",
     diagnostico: "",
     prescricao: "",
-    prescricaoUsoInterno: "",
-    prescricaoUsoExterno: "",
     observacoes: "",
   });
 
@@ -184,9 +180,7 @@ export default function CadastroProntuario() {
         anamnese: data.anamnese,
         exameFisico: data.exameFisico,
         diagnostico: data.diagnostico,
-        prescricao: data.prescricao,
-        prescricaoUsoInterno: data.prescricaoUsoInterno || "",
-        prescricaoUsoExterno: data.prescricaoUsoExterno || "",
+        prescricao: data.prescricao || "",
         observacoes: data.observacoes || "",
       });
     } catch (error) {
@@ -211,9 +205,7 @@ export default function CadastroProntuario() {
         anamnese: formData.anamnese,
         exameFisico: formData.exameFisico,
         diagnostico: formData.diagnostico,
-        prescricao: formData.prescricao || undefined, // Opcional
-        prescricaoUsoInterno: formData.prescricaoUsoInterno || undefined, // Opcional
-        prescricaoUsoExterno: formData.prescricaoUsoExterno || undefined, // Opcional
+        prescricao: formData.prescricao || undefined,
         observacoes: formData.observacoes || undefined,
       };
 
@@ -223,8 +215,6 @@ export default function CadastroProntuario() {
           exameFisico: submissionData.exameFisico,
           diagnostico: submissionData.diagnostico,
           prescricao: submissionData.prescricao,
-          prescricaoUsoInterno: submissionData.prescricaoUsoInterno,
-          prescricaoUsoExterno: submissionData.prescricaoUsoExterno,
           observacoes: submissionData.observacoes,
         });
         toast.success("Prontuário atualizado com sucesso!");
@@ -397,41 +387,35 @@ export default function CadastroProntuario() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="prescricao">Prescrição Geral (Opcional - Uso Hospitalar)</Label>
+              <Label htmlFor="prescricao">Prescrição Médica</Label>
               <Textarea
                 id="prescricao"
                 name="prescricao"
                 value={formData.prescricao}
                 onChange={handleInputChange}
                 disabled={isViewMode}
-                rows={4}
-                placeholder="Medicamentos para uso interno hospitalar (opcional)..."
-              />
-            </div>
+                rows={8}
+                placeholder="Digite a prescrição médica completa:
 
-            <div className="space-y-2">
-              <Label htmlFor="prescricaoUsoInterno">Prescrição de Uso Interno</Label>
-              <Textarea
-                id="prescricaoUsoInterno"
-                name="prescricaoUsoInterno"
-                value={formData.prescricaoUsoInterno}
-                onChange={handleInputChange}
-                disabled={isViewMode}
-                rows={4}
-                placeholder="Medicamentos para uso em ambiente domiciliar (opcional)..."
-              />
-            </div>
+MEDICAMENTOS PRESCRITOS:
+1. Paracetamol 750mg - Tomar 1 comprimido de 8/8h por 5 dias (se dor ou febre)
+2. Amoxicilina 500mg - Tomar 1 cápsula de 8/8h por 7 dias (antibiótico)
+3. Omeprazol 20mg - Tomar 1 cápsula em jejum pela manhã por 14 dias
 
-            <div className="space-y-2">
-              <Label htmlFor="prescricaoUsoExterno">Prescrição de Uso Externo</Label>
-              <Textarea
-                id="prescricaoUsoExterno"
-                name="prescricaoUsoExterno"
-                value={formData.prescricaoUsoExterno}
-                onChange={handleInputChange}
-                disabled={isViewMode}
-                rows={4}
-                placeholder="Medicamentos para uso em ambiente externo (opcional)..."
+ORIENTAÇÕES GERAIS:
+- Repouso relativo por 3 dias
+- Dieta leve e hidratação abundante
+- Evitar esforços físicos
+- Retorno em 7 dias ou se piorar sintomas
+
+OBSERVAÇÕES:
+- Tomar medicamentos conforme orientação
+- Em caso de reações alérgicas, suspender e procurar atendimento
+- Manter acompanhamento médico regular"
+                style={{
+                  fontFamily: 'monospace',
+                  lineHeight: '1.5'
+                }}
               />
             </div>
 

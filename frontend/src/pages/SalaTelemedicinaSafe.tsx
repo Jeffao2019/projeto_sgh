@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { whatsAppApi } from '../services/whatsapp-api.service';
 
 export default function SalaTelemedicinaSafe() {
   console.log('🚀 SalaTelemedicinaSafe: Iniciando componente seguro');
@@ -18,6 +19,8 @@ export default function SalaTelemedicinaSafe() {
   const [patientInviteLink, setPatientInviteLink] = useState<string | null>(null);
   const [inviteSent, setInviteSent] = useState<boolean>(false);
   const [awaitingPatient, setAwaitingPatient] = useState<boolean>(false);
+  const [whatsappStatus, setWhatsappStatus] = useState<any>(null);
+  const [whatsappProvider, setWhatsappProvider] = useState<string>('web-fallback');
   const doctorVideoRef = useRef<HTMLVideoElement>(null);
   const patientVideoRef = useRef<HTMLVideoElement>(null);
 
@@ -99,8 +102,25 @@ export default function SalaTelemedicinaSafe() {
       }
     };
 
+    // Carregar status do WhatsApp
+    const loadWhatsAppStatus = async () => {
+      try {
+        const status = await whatsAppApi.getStatus();
+        setWhatsappStatus(status);
+        setWhatsappProvider(status.provider);
+        console.log('📱 Status WhatsApp carregado:', status);
+      } catch (error) {
+        console.error('❌ Erro ao carregar status WhatsApp:', error);
+        // Fallback para web se não conseguir carregar
+        setWhatsappProvider('web-fallback');
+      }
+    };
+
     // Executar carregamento com pequeno delay para mostrar loading
-    const timeoutId = setTimeout(loadData, 500);
+    const timeoutId = setTimeout(() => {
+      loadData();
+      loadWhatsAppStatus();
+    }, 500);
 
     // Cleanup function
     return () => {
@@ -238,6 +258,22 @@ export default function SalaTelemedicinaSafe() {
         }, 3000);
         
         alert('✅ Google Meet enviado via WhatsApp!\n\n📱 Link enviado para o paciente\n📹 Câmeras ativadas\n🎯 Aguarde o paciente entrar');
+        
+        // Salvar estado da sessão para comunicação com painel do paciente
+        try {
+          const sessionData = {
+            agendamentoId: agendamento?.id,
+            isActive: true,
+            meetLink: meetLink,
+            timestamp: Date.now(),
+            doctorName: agendamento?.medico?.nome || 'Dr. Carlos',
+            patientName: agendamento?.paciente?.nome
+          };
+          localStorage.setItem('telemedicina_session', JSON.stringify(sessionData));
+          console.log('💾 Sessão de telemedicina salva para comunicação com painel do paciente');
+        } catch (error) {
+          console.error('❌ Erro ao salvar estado da sessão:', error);
+        }
       }
       
     } catch (error) {
@@ -276,17 +312,58 @@ export default function SalaTelemedicinaSafe() {
       const medicoNome = agendamento?.medico?.nome || 'Dr. Carlos';
       const dataConsulta = new Date(agendamento?.dataHora).toLocaleString();
       
-      // Remover caracteres especiais do telefone e adicionar código do Brasil
-      let telefoneFormatado = pacienteTelefone.replace(/\D/g, '');
-      if (telefoneFormatado.length === 11) {
-        telefoneFormatado = '55' + telefoneFormatado; // Adicionar código do Brasil
+      // Criar link direto para o painel do paciente
+      const pacienteLink = `${window.location.origin}/paciente-videochamada?agendamento=${agendamento?.id}&invite=${Date.now()}&meet=${encodeURIComponent(meetLink)}`;
+      
+      console.log('📱 Enviando via WhatsApp API - Provider:', whatsappProvider);
+      
+      // Tentar enviar via API do backend primeiro
+      const result = await whatsAppApi.sendMeetLink({
+        phoneNumber: pacienteTelefone,
+        meetLink: meetLink,
+        patientName: pacienteNome,
+        doctorName: medicoNome,
+        appointmentDate: dataConsulta,
+      });
+      
+      if (result.success) {
+        console.log('✅ Mensagem enviada via API:', result);
+        
+        if (result.messageId) {
+          // Enviado via API real (Twilio, WhatsApp Business, etc.)
+          alert(`✅ WhatsApp enviado via ${whatsappProvider.toUpperCase()}!\n\n📱 ID da mensagem: ${result.messageId}\n🎯 Link enviado para ${pacienteNome}`);
+        } else if (result.webUrl) {
+          // Fallback para WhatsApp Web (atual)
+          alert('📱 WhatsApp Web aberto!\n\n✅ Complete o envio manualmente\n📋 Mensagem já formatada\n🎯 Pronto para enviar');
+        }
+        
+        return true;
+      } else {
+        // Se falhou via API, usar fallback manual
+        console.log('⚠️ Falha na API, usando WhatsApp Web fallback');
+        return await sendViaWebFallback(meetLink);
       }
+      
+    } catch (error) {
+      console.error('❌ Erro ao enviar WhatsApp:', error);
+      
+      // Fallback para o método manual em caso de erro
+      return await sendViaWebFallback(meetLink);
+    }
+  };
+  
+  const sendViaWebFallback = async (meetLink: string) => {
+    try {
+      const pacienteTelefone = agendamento?.paciente?.telefone || '';
+      const pacienteNome = agendamento?.paciente?.nome || 'Paciente';
+      const medicoNome = agendamento?.medico?.nome || 'Dr. Carlos';
+      const dataConsulta = new Date(agendamento?.dataHora).toLocaleString();
       
       // Criar link direto para o painel do paciente
       const pacienteLink = `${window.location.origin}/paciente-videochamada?agendamento=${agendamento?.id}&invite=${Date.now()}&meet=${encodeURIComponent(meetLink)}`;
       
-      // Criar mensagem para WhatsApp
-      const mensagem = encodeURIComponent(
+      // Usar o serviço do WhatsApp Web (método atual)
+      const mensagem = 
         `🏥 *TELECONSULTA SGH*\n\n` +
         `👋 Olá *${pacienteNome}*!\n\n` +
         `🩺 Sua consulta com *${medicoNome}* está marcada para:\n` +
@@ -301,26 +378,15 @@ export default function SalaTelemedicinaSafe() {
         `3️⃣ Depois clique "Entrar no Google Meet"\n` +
         `4️⃣ Aguarde o médico entrar na reunião\n\n` +
         `💡 *ALTERNATIVA:* Clique direto no link do Google Meet\n\n` +
-        `🏥 Sistema SGH - Telemedicina`
-      );
+        `🏥 Sistema SGH - Telemedicina`;
       
-      // Criar URL do WhatsApp
-      const whatsappURL = `https://api.whatsapp.com/send?phone=${telefoneFormatado}&text=${mensagem}`;
+      whatsAppApi.sendViaWeb(pacienteTelefone, mensagem);
       
-      console.log('📱 Enviando via WhatsApp para:', telefoneFormatado);
-      console.log('🔗 Link:', meetLink);
-      
-      // Abrir WhatsApp Web
-      window.open(whatsappURL, '_blank');
-      
-      // Salvar link para referência
-      setPatientInviteLink(meetLink);
-      setInviteSent(true);
-      setAwaitingPatient(true);
-      
+      alert('📱 WhatsApp Web aberto!\n\n✅ Complete o envio manualmente\n📋 Mensagem já formatada\n🎯 Pronto para enviar');
       return true;
+      
     } catch (error) {
-      console.error('❌ Erro ao enviar WhatsApp:', error);
+      console.error('❌ Erro no fallback WhatsApp:', error);
       alert('❌ Erro ao enviar mensagem via WhatsApp');
       return false;
     }
@@ -536,12 +602,61 @@ export default function SalaTelemedicinaSafe() {
         setMediaStream(null);
       }
       
-      // Limpar elementos de vídeo
+      // Limpar elementos de vídeo e streams
       if (doctorVideoRef.current) {
+        // Parar tracks específicos se houver stream ativa
+        const doctorStream = doctorVideoRef.current.srcObject;
+        if (doctorStream instanceof MediaStream) {
+          doctorStream.getTracks().forEach(track => {
+            track.stop();
+            console.log(`🔇 Doctor ${track.kind} track parado`);
+          });
+        }
         doctorVideoRef.current.srcObject = null;
+        doctorVideoRef.current.pause();
+        doctorVideoRef.current.load(); // Reset do elemento de vídeo
       }
+      
       if (patientVideoRef.current) {
+        // Parar canvas stream se existir
+        const patientStream = patientVideoRef.current.srcObject;
+        if (patientStream instanceof MediaStream) {
+          patientStream.getTracks().forEach(track => {
+            track.stop();
+            console.log(`🔇 Patient ${track.kind} track parado`);
+          });
+        }
         patientVideoRef.current.srcObject = null;
+        patientVideoRef.current.pause();
+        patientVideoRef.current.load(); // Reset do elemento de vídeo
+      }
+      
+      // Parar qualquer animação/canvas ativo (simulação do paciente)
+      setPatientConnected(false); // Isso para as animações do canvas
+      
+      console.log('🎥 Todos os elementos de vídeo limpos e streams paradas');
+      
+      // Limpar estado da sessão
+      localStorage.removeItem('telemedicina_session');
+      console.log('🗑️ Estado da sessão removido');
+      
+      // Tentar fechar Google Meet se estiver aberto (opcional)
+      if (patientInviteLink) {
+        console.log('🔚 Sugerindo fechar Google Meet...');
+        setTimeout(() => {
+          const closeConfirm = confirm(
+            '🎥 GOOGLE MEET ATIVO\n\n' +
+            'Detectamos que o Google Meet pode estar aberto.\n\n' +
+            '❓ Deseja que tentemos fechar a aba do Google Meet?\n\n' +
+            '✅ SIM: Tentaremos fechar\n' +
+            '❌ NÃO: Deixar aberto'
+          );
+          
+          if (closeConfirm) {
+            // Isso não funciona por limitações de segurança, mas informa o usuário
+            alert('ℹ️ INFORMAÇÃO\n\nPor segurança, não conseguimos fechar automaticamente o Google Meet.\n\n📋 POR FAVOR:\n✅ Feche manualmente a aba do Google Meet\n✅ Desligue câmera e microfone se necessário');
+          }
+        }, 1000);
       }
       
       setIsCallActive(false);
@@ -557,7 +672,7 @@ export default function SalaTelemedicinaSafe() {
       const durationText = duration > 0 ? 
         `\n⏱️ Duração: ${minutes}m ${seconds}s` : '';
       
-      alert(`✅ Videochamada encerrada!${durationText}\n📋 Consulta finalizada com sucesso\n🔇 Câmera e microfone desativados`);
+      alert(`✅ Videochamada encerrada!${durationText}\n📋 Consulta finalizada com sucesso\n🔇 Câmera e microfone desativados\n🎥 Streams de vídeo interrompidos\n\n💡 Lembre-se de fechar o Google Meet se estiver aberto`);
       
     } catch (error) {
       console.error('❌ Erro ao encerrar chamada:', error);
@@ -665,6 +780,57 @@ export default function SalaTelemedicinaSafe() {
         backgroundColor: '#ffffff'
       }}>
         <h3>🎥 Google Meet - Videochamada</h3>
+        
+        {/* Status do WhatsApp */}
+        {whatsappStatus && (
+          <div style={{
+            backgroundColor: whatsappStatus.configured ? '#d4edda' : '#fff3cd',
+            border: `1px solid ${whatsappStatus.configured ? '#c3e6cb' : '#ffeaa7'}`,
+            borderRadius: '8px',
+            padding: '15px',
+            marginBottom: '15px',
+            fontSize: '14px'
+          }}>
+            <h4 style={{ 
+              color: whatsappStatus.configured ? '#155724' : '#856404', 
+              margin: '0 0 10px 0' 
+            }}>
+              📱 STATUS WHATSAPP - {whatsappProvider.toUpperCase()}
+            </h4>
+            
+            <div style={{ marginBottom: '10px' }}>
+              <strong>Provider Ativo:</strong> {whatsappStatus.availableProviders?.find(p => p.name === whatsappProvider)?.title || whatsappProvider}
+            </div>
+            
+            <div style={{ marginBottom: '10px' }}>
+              <strong>Status:</strong> {whatsappStatus.configured ? '✅ Configurado' : '⚠️ Usando fallback'}
+            </div>
+            
+            {whatsappStatus.availableProviders && (
+              <details style={{ marginTop: '10px' }}>
+                <summary style={{ cursor: 'pointer', fontWeight: 'bold' }}>🔧 Providers Disponíveis</summary>
+                <div style={{ marginTop: '10px' }}>
+                  {whatsappStatus.availableProviders.map(provider => (
+                    <div key={provider.name} style={{
+                      padding: '8px',
+                      margin: '5px 0',
+                      backgroundColor: provider.configured ? '#e8f5e8' : '#f8f9fa',
+                      borderRadius: '4px',
+                      border: provider.name === whatsappProvider ? '2px solid #28a745' : '1px solid #ddd'
+                    }}>
+                      <div><strong>{provider.title}</strong> {provider.configured ? '✅' : '❌'}</div>
+                      <div style={{ fontSize: '12px', color: '#666' }}>{provider.description}</div>
+                      <div style={{ fontSize: '12px' }}>
+                        <span style={{ color: '#007bff' }}>Custo: {provider.cost}</span> | 
+                        <span style={{ color: '#28a745', marginLeft: '5px' }}>Confiabilidade: {provider.reliability}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </details>
+            )}
+          </div>
+        )}
         
         {/* Alerta sobre a funcionalidade integrada com WhatsApp */}
         <div style={{

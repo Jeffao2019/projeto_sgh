@@ -7,6 +7,8 @@ import { PacienteModule } from './infrastructure/modules/paciente.module';
 import { ProntuarioModule } from './infrastructure/modules/prontuario.module';
 import { BackupModule } from './backup/backup.module';
 import { SegurancaModule } from './seguranca/seguranca.module';
+import { WhatsAppController } from './controllers/whatsapp.controller';
+import { WhatsAppService } from './services/whatsapp.service';
 
 @Module({
   imports: [
@@ -22,7 +24,7 @@ import { SegurancaModule } from './seguranca/seguranca.module';
     BackupModule,
     SegurancaModule,
   ],
-  controllers: [],
-  providers: [],
+  controllers: [WhatsAppController],
+  providers: [WhatsAppService],
 })
 export class AppModule {}
