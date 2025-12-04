@@ -112,13 +112,14 @@ export class AgendamentoUseCase {
   ): Promise<Agendamento> {
     const agendamento = await this.findById(id);
 
-    // Se está reagendando (mudança efetiva de data/hora)
+    // Verificar se está realmente reagendando (mudança efetiva de data/hora)
+    let dataRealmenteMudou = false;
     if (updateAgendamentoDto.dataHora) {
       const novaDataHora = new Date(updateAgendamentoDto.dataHora);
       const dataAtual = new Date(agendamento.dataHora);
 
-      // Verificar se a data realmente mudou
-      const dataRealmenteMudou = novaDataHora.getTime() !== dataAtual.getTime();
+      // Verificar se a data realmente mudou (comparar timestamps)
+      dataRealmenteMudou = novaDataHora.getTime() !== dataAtual.getTime();
 
       if (dataRealmenteMudou) {
         // Verificar se a nova data não é no passado
@@ -138,14 +139,17 @@ export class AgendamentoUseCase {
           throw new ConflictException('Médico não está disponível neste horário');
         }
 
-        const reagendamento = agendamento.reagendar(novaDataHora);
-        return await this.agendamentoRepository.update(reagendamento);
+        // Se está reagendando E não há status específico sendo definido, usar REAGENDADO
+        if (!updateAgendamentoDto.status) {
+          const reagendamento = agendamento.reagendar(novaDataHora);
+          return await this.agendamentoRepository.update(reagendamento);
+        }
       }
     }
 
-    // Para outras atualizações (status, tipo, observações)
+    // Para atualizações que não são reagendamento ou quando há status específico
     const agendamentoAtualizado = agendamento.atualizar(
-      updateAgendamentoDto.dataHora ? new Date(updateAgendamentoDto.dataHora) : undefined,
+      dataRealmenteMudou && updateAgendamentoDto.dataHora ? new Date(updateAgendamentoDto.dataHora) : undefined,
       updateAgendamentoDto.tipo,
       updateAgendamentoDto.status,
       updateAgendamentoDto.observacoes,

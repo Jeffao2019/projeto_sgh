@@ -213,7 +213,8 @@ export class AuthUseCase {
       id: user.id,
       nome: user.nome,
       email: user.email,
-      papel: user.role,
+      role: user.role,
+      papel: user.role, // Mantém compatibilidade
       isActive: user.isActive,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt,
