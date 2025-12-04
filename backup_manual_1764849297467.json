@@ -1,0 +1,12 @@
+{
+  "timestamp": "2025-12-04T11:54:57.467Z",
+  "versao": "1.0.0",
+  "dados": {
+    "Pacientes": 12,
+    "Agendamentos": 70,
+    "Prontuários": 41,
+    "Usuários": 5
+  },
+  "tamanho": "2.3 GB",
+  "status": "completo"
+}

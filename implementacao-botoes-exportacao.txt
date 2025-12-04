@@ -1,0 +1,38 @@
+
+// Implementação melhorada para os botões de exportação
+// Cole este código no arquivo DadosBackup.tsx
+
+const handleExportarDados = async (categoria: string) => {
+  console.log(`🔄 Exportando dados de ${categoria}...`);
+  
+  try {
+    // Simular chamada à API
+    const response = await fetch(`/api/export/${categoria.toLowerCase()}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    if (response.ok) {
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = `${categoria.toLowerCase()}_${new Date().toISOString().split('T')[0]}.json`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+      
+      console.log(`✅ ${categoria} exportado com sucesso!`);
+    } else {
+      throw new Error('Falha na exportação');
+    }
+  } catch (error) {
+    console.error(`❌ Erro ao exportar ${categoria}:`, error);
+    alert(`Erro ao exportar ${categoria}. Tente novamente.`);
+  }
+};

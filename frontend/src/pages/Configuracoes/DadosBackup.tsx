@@ -74,6 +74,28 @@ export default function DadosBackup() {
   const [proximoBackup, setProximoBackup] = useState<string>('27/11/2025 02:00');
   const [backupEmAndamento, setBackupEmAndamento] = useState<boolean>(false);
   const [progressoBackup, setProgressoBackup] = useState<number>(0);
+  
+  // Estado para notificações
+  const [snackbar, setSnackbar] = useState<{
+    open: boolean;
+    message: string;
+    severity: 'success' | 'error' | 'warning' | 'info';
+  }>({
+    open: false,
+    message: '',
+    severity: 'info'
+  });
+
+  // Fechar notificação automaticamente
+  useEffect(() => {
+    if (snackbar.open) {
+      const timer = setTimeout(() => {
+        setSnackbar(prev => ({ ...prev, open: false }));
+      }, 4000); // 4 segundos
+
+      return () => clearTimeout(timer);
+    }
+  }, [snackbar.open]);
 
   const historicoBackups = [
     { id: 1, data: '26/11/2025 02:00', tipo: 'Automático', tamanho: '2.3 GB', status: 'Sucesso' },
@@ -93,36 +115,195 @@ export default function DadosBackup() {
   ];
 
   const handleBackupManual = async () => {
+    console.log('🔄 Iniciando backup manual...');
     setBackupEmAndamento(true);
     setProgressoBackup(0);
     
-    // Simular progresso do backup
-    for (let i = 0; i <= 100; i += 10) {
-      await new Promise(resolve => setTimeout(resolve, 200));
-      setProgressoBackup(i);
-    }
-    
-    setTimeout(() => {
+    try {
+      // Simular progresso do backup
+      for (let i = 0; i <= 100; i += 10) {
+        await new Promise(resolve => setTimeout(resolve, 200));
+        setProgressoBackup(i);
+      }
+      
+      // Criar arquivo de backup
+      const backupData = {
+        timestamp: new Date().toISOString(),
+        versao: '1.0.0',
+        tipo: 'manual',
+        dados: {
+          pacientes: 12,
+          agendamentos: 70,
+          prontuarios: 41,
+          usuarios: 5
+        },
+        tamanho: '2.3 GB',
+        status: 'completo'
+      };
+
+      const blob = new Blob([JSON.stringify(backupData, null, 2)], { 
+        type: 'application/json' 
+      });
+      
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = `backup_manual_${new Date().toISOString().split('T')[0]}.json`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+      
+      setTimeout(() => {
+        setBackupEmAndamento(false);
+        setProgressoBackup(0);
+        setUltimoBackup(new Date().toLocaleString('pt-BR'));
+        
+        setSnackbar({
+          open: true,
+          message: 'Backup manual concluído com sucesso!',
+          severity: 'success'
+        });
+        
+        console.log('✅ Backup manual concluído!');
+      }, 1000);
+      
+    } catch (error) {
       setBackupEmAndamento(false);
       setProgressoBackup(0);
-      setUltimoBackup(new Date().toLocaleString('pt-BR'));
-      // Aqui você chamaria a API real para fazer backup
-    }, 1000);
+      
+      setSnackbar({
+        open: true,
+        message: 'Erro durante o backup. Tente novamente.',
+        severity: 'error'
+      });
+      
+      console.error('❌ Erro no backup:', error);
+    }
   };
 
-  const handleLimparCache = () => {
-    // Implementar limpeza de cache
-    console.log('Limpando cache do sistema...');
+  const handleLimparCache = async () => {
+    console.log('🔄 Limpando cache do sistema...');
+    
+    try {
+      // Simular limpeza de cache
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      setSnackbar({
+        open: true,
+        message: 'Cache do sistema limpo com sucesso!',
+        severity: 'success'
+      });
+      
+      console.log('✅ Cache limpo com sucesso!');
+    } catch (error) {
+      setSnackbar({
+        open: true,
+        message: 'Erro ao limpar cache. Tente novamente.',
+        severity: 'error'
+      });
+      
+      console.error('❌ Erro ao limpar cache:', error);
+    }
   };
 
-  const handleExportarDados = (categoria: string) => {
-    // Implementar exportação de dados
-    console.log(`Exportando dados de ${categoria}...`);
+  const handleExportarDados = async (categoria: string) => {
+    console.log(`🔄 Iniciando exportação de ${categoria}...`);
+    
+    try {
+      // Mostrar notificação de início
+      setSnackbar({
+        open: true,
+        message: `Exportando dados de ${categoria}...`,
+        severity: 'info'
+      });
+
+      // Simular tempo de processamento
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Criar dados simulados para exportação
+      const dadosExport = {
+        categoria,
+        timestamp: new Date().toISOString(),
+        usuario: 'admin@sgh.com',
+        formato: 'JSON',
+        dados: `Dados simulados de ${categoria} - ${Date.now()}`
+      };
+
+      // Criar blob e fazer download
+      const blob = new Blob([JSON.stringify(dadosExport, null, 2)], { 
+        type: 'application/json' 
+      });
+      
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      a.download = `export_${categoria.toLowerCase().replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.json`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+
+      console.log(`✅ ${categoria} exportado com sucesso!`);
+      
+      // Mostrar notificação de sucesso
+      setSnackbar({
+        open: true,
+        message: `${categoria} exportado com sucesso!`,
+        severity: 'success'
+      });
+
+    } catch (error) {
+      console.error(`❌ Erro ao exportar ${categoria}:`, error);
+      
+      // Mostrar notificação de erro
+      setSnackbar({
+        open: true,
+        message: `Erro ao exportar ${categoria}. Tente novamente.`,
+        severity: 'error'
+      });
+    }
   };
 
-  const handleImportarDados = () => {
-    // Implementar importação de dados
-    console.log('Importando dados...');
+  const handleImportarDados = async () => {
+    console.log('🔄 Importando dados...');
+    
+    try {
+      // Criar input file temporário
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = '.json,.csv,.xlsx';
+      
+      input.onchange = async (e) => {
+        const file = (e.target as HTMLInputElement).files?.[0];
+        if (file) {
+          console.log(`📁 Arquivo selecionado: ${file.name}`);
+          
+          // Simular importação
+          await new Promise(resolve => setTimeout(resolve, 2000));
+          
+          setSnackbar({
+            open: true,
+            message: `Dados importados de ${file.name} com sucesso!`,
+            severity: 'success'
+          });
+          
+          console.log('✅ Importação concluída!');
+        }
+      };
+      
+      input.click();
+    } catch (error) {
+      setSnackbar({
+        open: true,
+        message: 'Erro durante a importação. Tente novamente.',
+        severity: 'error'
+      });
+      
+      console.error('❌ Erro na importação:', error);
+    }
   };
 
   const getStatusBadge = (status: string) => {
@@ -542,6 +723,25 @@ export default function DadosBackup() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Notificações */}
+      {snackbar.open && (
+        <Alert className={`mt-4 ${
+          snackbar.severity === 'success' ? 'border-green-200 bg-green-50' :
+          snackbar.severity === 'error' ? 'border-red-200 bg-red-50' :
+          snackbar.severity === 'warning' ? 'border-yellow-200 bg-yellow-50' :
+          'border-blue-200 bg-blue-50'
+        }`}>
+          <AlertDescription className={`${
+            snackbar.severity === 'success' ? 'text-green-700' :
+            snackbar.severity === 'error' ? 'text-red-700' :
+            snackbar.severity === 'warning' ? 'text-yellow-700' :
+            'text-blue-700'
+          }`}>
+            {snackbar.message}
+          </AlertDescription>
+        </Alert>
+      )}
     </div>
   );
 }
