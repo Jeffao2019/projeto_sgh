@@ -9,6 +9,7 @@ import { Switch } from '@/components/ui/switch';
 import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Separator } from '@/components/ui/separator';
+import { apiService } from '@/lib/api-service';
 import { 
   Database, 
   Download, 
@@ -219,19 +220,61 @@ export default function DadosBackup() {
         severity: 'info'
       });
 
-      // Simular tempo de processamento
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Fazer chamada real para a API
+      const response: any = await apiService.post('/backup/exportar', { 
+        categoria: categoria.toLowerCase() 
+      });
 
-      // Criar dados simulados para exportação
+      console.log(`✅ Resposta da API:`, response);
+
+      if (response.success) {
+        // Se a API retornou sucesso, criar download com dados reais
+        const downloadData = {
+          categoria,
+          timestamp: new Date().toISOString(),
+          usuario: 'admin@sgh.com',
+          formato: 'JSON',
+          resultado: response.message || 'Exportação realizada com sucesso',
+          dados: response.data || {}
+        };
+
+        // Criar blob e fazer download
+        const blob = new Blob([JSON.stringify(downloadData, null, 2)], { 
+          type: 'application/json' 
+        });
+        
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = `export_${categoria.toLowerCase().replace(/\s+/g, '_')}_${Date.now()}.json`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+
+        setSnackbar({
+          open: true,
+          message: `${categoria} exportado com sucesso!`,
+          severity: 'success'
+        });
+      } else {
+        throw new Error(response.message || 'Erro na exportação');
+      }
+
+    } catch (error: any) {
+      console.error(`❌ Erro ao exportar ${categoria}:`, error);
+      
+      // Fallback: criar exportação simulada em caso de erro
       const dadosExport = {
         categoria,
         timestamp: new Date().toISOString(),
         usuario: 'admin@sgh.com',
         formato: 'JSON',
-        dados: `Dados simulados de ${categoria} - ${Date.now()}`
+        erro: error.message || 'Erro desconhecido',
+        dados: `Dados de ${categoria} não puderam ser exportados - erro de conexão`
       };
 
-      // Criar blob e fazer download
       const blob = new Blob([JSON.stringify(dadosExport, null, 2)], { 
         type: 'application/json' 
       });
@@ -240,28 +283,15 @@ export default function DadosBackup() {
       const a = document.createElement('a');
       a.style.display = 'none';
       a.href = url;
-      a.download = `export_${categoria.toLowerCase().replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.json`;
+      a.download = `export_${categoria.toLowerCase().replace(/\s+/g, '_')}_erro_${Date.now()}.json`;
       document.body.appendChild(a);
       a.click();
       window.URL.revokeObjectURL(url);
       document.body.removeChild(a);
-
-      console.log(`✅ ${categoria} exportado com sucesso!`);
       
-      // Mostrar notificação de sucesso
       setSnackbar({
         open: true,
-        message: `${categoria} exportado com sucesso!`,
-        severity: 'success'
-      });
-
-    } catch (error) {
-      console.error(`❌ Erro ao exportar ${categoria}:`, error);
-      
-      // Mostrar notificação de erro
-      setSnackbar({
-        open: true,
-        message: `Erro ao exportar ${categoria}. Tente novamente.`,
+        message: `Erro ao exportar ${categoria}. Arquivo de erro gerado.`,
         severity: 'error'
       });
     }
