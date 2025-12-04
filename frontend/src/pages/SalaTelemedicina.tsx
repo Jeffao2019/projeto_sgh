@@ -473,10 +473,10 @@ export default function SalaTelemedicina() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="prescricaoUsoExterno">Orientações de Autocuidado</Label>
+                  <Label htmlFor="prescricaoUsoExterno">Prescrição Digital - Uso Externo</Label>
                   <Textarea
                     id="prescricaoUsoExterno"
-                    placeholder="Orientações e cuidados domiciliares..."
+                    placeholder="Medicamentos e orientações para uso externo/domiciliar..."
                     value={notas.prescricaoUsoExterno}
                     onChange={(e) => handleNotasChange('prescricaoUsoExterno', e.target.value)}
                     className="min-h-16"
