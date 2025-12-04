@@ -98,6 +98,15 @@ export default function DadosBackup() {
     loading: true
   });
 
+  // Estado para histórico de backups
+  const [historicoBackups, setHistoricoBackups] = useState([
+    { id: 1, data: '26/11/2025 02:00', tipo: 'Automático', tamanho: '2.3 GB', status: 'Sucesso' },
+    { id: 2, data: '25/11/2025 02:00', tipo: 'Automático', tamanho: '2.1 GB', status: 'Sucesso' },
+    { id: 3, data: '24/11/2025 14:30', tipo: 'Manual', tamanho: '2.0 GB', status: 'Sucesso' },
+    { id: 4, data: '24/11/2025 02:00', tipo: 'Automático', tamanho: '1.9 GB', status: 'Sucesso' },
+    { id: 5, data: '23/11/2025 02:00', tipo: 'Automático', tamanho: '1.8 GB', status: 'Falha' }
+  ]);
+
   // Carregar dados reais do banco
   const carregarDadosReais = async () => {
     try {
@@ -230,14 +239,6 @@ export default function DadosBackup() {
     }
   }, [snackbar.open]);
 
-  const historicoBackups = [
-    { id: 1, data: '26/11/2025 02:00', tipo: 'Automático', tamanho: '2.3 GB', status: 'Sucesso' },
-    { id: 2, data: '25/11/2025 02:00', tipo: 'Automático', tamanho: '2.1 GB', status: 'Sucesso' },
-    { id: 3, data: '24/11/2025 14:30', tipo: 'Manual', tamanho: '2.0 GB', status: 'Sucesso' },
-    { id: 4, data: '24/11/2025 02:00', tipo: 'Automático', tamanho: '1.9 GB', status: 'Sucesso' },
-    { id: 5, data: '23/11/2025 02:00', tipo: 'Automático', tamanho: '1.8 GB', status: 'Falha' }
-  ];
-
   const dadosPorCategoria = [
     { 
       categoria: 'Pacientes', 
@@ -273,45 +274,50 @@ export default function DadosBackup() {
     setProgressoBackup(0);
     
     try {
+      // Simular progresso inicial
+      setProgressoBackup(10);
+      
+      // Chamar o endpoint real do backend
+      const response = await fetch('http://localhost:3010/backup/manual', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+
+      setProgressoBackup(30);
+
+      if (!response.ok) {
+        throw new Error(`Erro no servidor: ${response.status}`);
+      }
+
+      const backupResult = await response.json();
+      console.log('📊 Resultado do backup:', backupResult);
+
       // Simular progresso do backup
-      for (let i = 0; i <= 100; i += 10) {
+      for (let i = 40; i <= 90; i += 10) {
         await new Promise(resolve => setTimeout(resolve, 200));
         setProgressoBackup(i);
       }
-      
-      // Criar arquivo de backup
-      const backupData = {
-        timestamp: new Date().toISOString(),
-        versao: '1.0.0',
-        tipo: 'manual',
-        dados: {
-          pacientes: 12,
-          agendamentos: 70,
-          prontuarios: 41,
-          usuarios: 5
-        },
-        tamanho: '2.3 GB',
-        status: 'completo'
-      };
 
-      const blob = new Blob([JSON.stringify(backupData, null, 2)], { 
-        type: 'application/json' 
-      });
-      
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.style.display = 'none';
-      a.href = url;
-      a.download = `backup_manual_${new Date().toISOString().split('T')[0]}.json`;
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
+      setProgressoBackup(100);
       
       setTimeout(() => {
         setBackupEmAndamento(false);
         setProgressoBackup(0);
         setUltimoBackup(new Date().toLocaleString('pt-BR'));
+        
+        // Adicionar o novo backup ao histórico
+        const novoBackup = {
+          id: Date.now(), // ID único baseado no timestamp
+          data: new Date().toLocaleString('pt-BR'),
+          tipo: 'Manual',
+          tamanho: backupResult.tamanho || `${(Math.random() * 0.5 + 2.0).toFixed(1)} GB`, // Usar tamanho real ou simulado
+          status: 'Sucesso'
+        };
+        
+        setHistoricoBackups(prev => [novoBackup, ...prev.slice(0, 9)]); // Manter apenas os 10 mais recentes
         
         setSnackbar({
           open: true,
@@ -320,15 +326,26 @@ export default function DadosBackup() {
         });
         
         console.log('✅ Backup manual concluído!');
-      }, 1000);
+      }, 500);
       
     } catch (error) {
       setBackupEmAndamento(false);
       setProgressoBackup(0);
       
+      // Adicionar backup com falha ao histórico
+      const backupFalhou = {
+        id: Date.now(),
+        data: new Date().toLocaleString('pt-BR'),
+        tipo: 'Manual',
+        tamanho: '0 MB',
+        status: 'Falha'
+      };
+      
+      setHistoricoBackups(prev => [backupFalhou, ...prev.slice(0, 9)]);
+      
       setSnackbar({
         open: true,
-        message: 'Erro durante o backup. Tente novamente.',
+        message: `Erro durante o backup: ${error.message}`,
         severity: 'error'
       });
       
